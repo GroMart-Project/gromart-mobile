@@ -13,9 +13,44 @@ import SlideData from "../data/SlideData";
 import Slide from "../components/Slide";
 import { COLORS } from "../data/Constants";
 
+//Get window height
 const { width, height } = Dimensions.get("window");
 
 export default function OnboardingScreen() {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  //Function to update page index state
+  const updateCurrentSlideIndex = (e) => {
+    const currentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(currentOffsetX / width);
+    setCurrentSlideIndex(currentIndex);
+  };
+
+  //Footer component tree
+  const Footer = () => {
+    return (
+      <View style={styles.footer}>
+        <View style={styles.indicatorContainer}>
+          {SlideData.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.indicator,
+                currentSlideIndex == index && {
+                  backgroundColor: COLORS.primary,
+                },
+              ]}
+            />
+          ))}
+        </View>
+        <TouchableOpacity style={styles.btn}>
+          <Text style={styles.btnText}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  //Onboarding screen main component tree
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -25,34 +60,12 @@ export default function OnboardingScreen() {
         showsHorizontalScrollIndicator={false}
         horizontal
         pagingEnabled
+        onMomentumScrollEnd={updateCurrentSlideIndex}
       />
       <Footer />
     </SafeAreaView>
   );
 }
-
-const Footer = () => {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-  return (
-    <View style={styles.footer}>
-      <View style={styles.indicatorContainer}>
-        {SlideData.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.indicator,
-              currentSlideIndex == index && { backgroundColor: COLORS.primary },
-            ]}
-          />
-        ))}
-      </View>
-      <TouchableOpacity style={styles.btn}>
-        <Text style={styles.btnText}>Get Started</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {
