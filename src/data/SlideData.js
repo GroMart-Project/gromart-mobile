@@ -3,7 +3,7 @@ export default [
     id: "1",
     image: require("../../assets/images/shopping.png"),
     title: "Shop for Groceries",
-    subtitle: "Buy all your kitchen needs a your convenience",
+    subtitle: "Buy all your kitchen needs at your convenience",
   },
   {
     id: "2",
