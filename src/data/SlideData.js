@@ -10,12 +10,12 @@ export default [
     image: require("../../assets/images/pay.png"),
     title: "Payment",
     subtitle:
-      "Purchase for products and services using our online payment services ",
+      "Purchase your products and services using our online payment services ",
   },
   {
     id: "3",
     image: require("../../assets/images/delivery.png"),
     title: "Deliveries",
-    subtitle: "We provide safe and reliable way to get your orders ",
+    subtitle: "We provide a safe and reliable way to get your orders ",
   },
 ];
