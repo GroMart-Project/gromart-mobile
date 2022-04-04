@@ -1,0 +1,108 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+
+import SlideData from "../data/SlideData";
+import Slide from "../components/Slide";
+import { COLORS } from "../data/Constants";
+
+//Get window height
+const { width, height } = Dimensions.get("window");
+
+export default function OnboardingScreen() {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  //Function to update page index state
+  const updateCurrentSlideIndex = (e) => {
+    const currentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(currentOffsetX / width);
+    setCurrentSlideIndex(currentIndex);
+  };
+
+  //Footer component tree
+  const Footer = () => {
+    return (
+      <View style={styles.footer}>
+        <View style={styles.indicatorContainer}>
+          {SlideData.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.indicator,
+                currentSlideIndex == index && {
+                  backgroundColor: COLORS.primary,
+                },
+              ]}
+            />
+          ))}
+        </View>
+        <TouchableOpacity style={styles.btn}>
+          <Text style={styles.btnText}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  //Onboarding screen main component tree
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={SlideData}
+        renderItem={({ item }) => <Slide item={item} />}
+        contentContainerStyle={styles.listContainer}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        pagingEnabled
+        onMomentumScrollEnd={updateCurrentSlideIndex}
+      />
+      <Footer />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  listContainer: {
+    height: height * 0.75,
+  },
+  footer: {
+    height: height * 0.25,
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  indicatorContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  indicator: {
+    height: 15,
+    width: 15,
+    borderColor: COLORS.primary,
+    borderWidth: 2,
+    borderRadius: 100,
+    marginHorizontal: 10,
+  },
+  btn: {
+    backgroundColor: COLORS.primary,
+    height: 70,
+    marginBottom: 20,
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnText: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: "white",
+  },
+});
