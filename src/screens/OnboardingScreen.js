@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
+import SafeArea from "../components/utilities/SafeArea";
 
 import SlideData from "../data/SlideData";
 import Slide from "../components/Slide";
 import { COLORS } from "../data/Constants";
-import SafeArea from "../utilities/SafeArea";
 
 //Get window height
 const { width, height } = Dimensions.get("window");
