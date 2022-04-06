@@ -16,7 +16,7 @@ export default function HeaderImageFade({ source }) {
 
 const styles = StyleSheet.create({
   headContainer: {
-    height: "40%",
+    height: 250,
   },
   image: {
     height: "100%",
