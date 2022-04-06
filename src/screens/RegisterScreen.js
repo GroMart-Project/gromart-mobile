@@ -2,14 +2,14 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import { LinearGradient } from "expo-linear-gradient";
+
 import React from "react";
 import { COLORS } from "../data/Constants";
+import HeaderImageFade from "../components/utilities/HeaderImageFade";
 
 const { height } = Dimensions.get("window");
 
@@ -17,17 +17,9 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
-        <View style={styles.headContainer}>
-          <Image
-            source={require("../../assets/images/register_fruit.jpg")}
-            style={styles.image}
-            resizeMode="cover"
-          />
-          <LinearGradient
-            colors={["transparent", "rgba(255,255,255,1)"]}
-            style={styles.overlay}
-          />
-        </View>
+        <HeaderImageFade
+          source={require("../../assets/images/register_fruit.jpg")}
+        />
 
         <View style={styles.body}>
           <Text>Register to GroMart</Text>
@@ -84,16 +76,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
-  },
-  headContainer: {
-    height: "40%",
-  },
-  image: {
-    height: "100%",
-    width: "100%",
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
   },
   body: {
     padding: 10,
