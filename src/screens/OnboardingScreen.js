@@ -16,7 +16,7 @@ import SafeArea from "../utilities/SafeArea";
 //Get window height
 const { width, height } = Dimensions.get("window");
 
-export default function OnboardingScreen() {
+export default function OnboardingScreen({ navigation }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   //Function to update page index state
@@ -43,7 +43,10 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.replace("Register")}
+        >
           <Text style={styles.btnText}>Get Started</Text>
         </TouchableOpacity>
       </View>
