@@ -44,6 +44,7 @@ export default function OnboardingScreen({ navigation }) {
           ))}
         </View>
         <TouchableOpacity
+          activeOpacity={0.5}
           style={styles.btn}
           onPress={() => navigation.replace("Register")}
         >
