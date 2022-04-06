@@ -7,7 +7,6 @@ const { width } = Dimensions.get("window");
 export default function Slide({ item }) {
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }} />
       <Image source={item.image} style={styles.image} resizeMode="contain" />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width,
+    justifyContent: "center",
   },
   image: {
     height: "60%",
