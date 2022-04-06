@@ -1,9 +1,13 @@
 import {
-  StyleSheet,
-  Text,
   View,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Keyboard,
   TouchableOpacity,
-  Dimensions,
+  Platform,
+  Text,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -12,76 +16,109 @@ import { COLORS } from "../data/Constants";
 import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
-const { height } = Dimensions.get("window");
-
-export default function RegisterScreen() {
+function RegisterScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <HeaderImageFade
-          source={require("../../assets/images/register_fruit.jpg")}
-        />
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Platform.OS != "web" ? Keyboard.dismiss() : null;
+      }}
+    >
+      <SafeAreaView style={styles.container}>
+        <View style={styles.page}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+            <HeaderImageFade
+              source={require("../../assets/images/register_fruit.jpg")}
+            />
 
-        <View style={styles.body}>
-          <Text>Register to GroMart</Text>
-          <Text>Enter your credentials to create your account</Text>
+            <View style={{ paddingHorizontal: 20 }}>
+              <Text style={styles.title}>Register to GroMart</Text>
+              <Text style={styles.subtitle}>
+                Enter your credentials to create your account
+              </Text>
+            </View>
 
-          <TextInput
-            label="Full Name"
-            mode="outlined"
-            outlineColor={COLORS.box}
-            activeOutlineColor={COLORS.primary}
-          />
+            <View style={{ paddingTop: 10 }}>
+              <TextInput
+                label="Full Name"
+                mode="outlined"
+                outlineColor={COLORS.box}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.input}
+              />
 
-          <TextInput
-            label="Email"
-            mode="outlined"
-            outlineColor={COLORS.box}
-            activeOutlineColor={COLORS.primary}
-          />
+              <TextInput
+                label="Email"
+                mode="outlined"
+                outlineColor={COLORS.box}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.input}
+              />
 
-          <TextInput
-            label="Password"
-            mode="outlined"
-            secureTextEntry
-            outlineColor={COLORS.box}
-            activeOutlineColor={COLORS.primary}
-          />
+              <TextInput
+                label="Password"
+                mode="outlined"
+                secureTextEntry
+                outlineColor={COLORS.box}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.input}
+              />
+            </View>
+          </ScrollView>
+
+          <View style={styles.footer}>
+            <ButtonBig
+              title={"Register"}
+              onPress={() => console.log("Register pressed")}
+            />
+
+            <View style={styles.option}>
+              <Text>Already have an account ? </Text>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => console.log("login pressed")}
+              >
+                <Text style={{ color: COLORS.primary }}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-
-      <View style={styles.footer}>
-        <ButtonBig
-          title={"Register"}
-          onPress={() => console.log("Register pressed")}
-        />
-
-        <View style={styles.option}>
-          <Text>Already have an account ? </Text>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => console.log("login pressed")}
-          >
-            <Text style={{ color: COLORS.primary }}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
+export default RegisterScreen;
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flex: 1,
+    backgroundColor: "white",
   },
-  body: {
-    padding: 10,
+  page: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  title: {
+    color: COLORS.text,
+    fontSize: 27,
+    fontWeight: "bold",
+    marginVertical: 5,
+  },
+  subtitle: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: "100",
+  },
+  input: {
+    marginVertical: 5,
+    marginHorizontal: 20,
   },
   footer: {
     paddingHorizontal: 20,
-    height: height * 0.2,
-    justifyContent: "center",
+    paddingBottom: 20,
   },
   option: {
     paddingBottom: 10,
