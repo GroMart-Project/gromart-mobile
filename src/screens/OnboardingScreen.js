@@ -12,6 +12,7 @@ import SafeArea from "../components/utilities/SafeArea";
 import SlideData from "../data/SlideData";
 import Slide from "../components/Slide";
 import { COLORS } from "../data/Constants";
+import ButtonBig from "../components/utilities/ButtonBig";
 
 //Get window height
 const { width, height } = Dimensions.get("window");
@@ -43,13 +44,10 @@ export default function OnboardingScreen({ navigation }) {
             />
           ))}
         </View>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.btn}
+        <ButtonBig
+          title={"Get Started"}
           onPress={() => navigation.replace("Register")}
-        >
-          <Text style={styles.btnText}>Get Started</Text>
-        </TouchableOpacity>
+        />
       </View>
     );
   };
