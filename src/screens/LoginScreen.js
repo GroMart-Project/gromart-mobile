@@ -77,7 +77,7 @@ function LoginScreen({ navigation }) {
 
             <ButtonBig
               title={"Login"}
-              onPress={() => console.log("Login pressed")}
+              onPress={() => navigation.replace("Main")}
             />
 
             <View style={styles.option}>

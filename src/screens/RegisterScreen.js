@@ -71,7 +71,7 @@ function RegisterScreen({ navigation }) {
           <View style={styles.footer}>
             <ButtonBig
               title={"Register"}
-              onPress={() => console.log("Register pressed")}
+              onPress={() => navigation.replace("Main")}
             />
 
             <View style={styles.option}>
