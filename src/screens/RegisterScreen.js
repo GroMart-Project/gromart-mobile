@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { TextInput } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { COLORS } from "../data/Constants";
 
@@ -22,7 +23,10 @@ export default function RegisterScreen() {
             style={styles.image}
             resizeMode="cover"
           />
-          <View style={styles.overlay} />
+          <LinearGradient
+            colors={["transparent", "rgba(255,255,255,1)"]}
+            style={styles.overlay}
+          />
         </View>
 
         <View style={styles.body}>
@@ -78,6 +82,7 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
   },
   headContainer: {
@@ -89,13 +94,11 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.5)",
   },
   body: {
     padding: 10,
   },
   footer: {
-    backgroundColor: "grey",
     paddingHorizontal: 20,
     height: height * 0.2,
     justifyContent: "center",
