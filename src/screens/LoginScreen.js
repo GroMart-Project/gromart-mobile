@@ -16,7 +16,7 @@ import { COLORS } from "../data/Constants";
 import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
-function RegisterScreen({ navigation }) {
+function LoginScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -27,26 +27,17 @@ function RegisterScreen({ navigation }) {
         <View style={styles.page}>
           <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <HeaderImageFade
-              source={require("../../assets/images/register_fruit.jpg")}
+              source={require("../../assets/images/login_fruit.jpg")}
             />
 
             <View style={{ paddingHorizontal: 20 }}>
-              <Text style={styles.title}>Register to GroMart</Text>
+              <Text style={styles.title}>Login to GroMart</Text>
               <Text style={styles.subtitle}>
-                Enter your credentials to create your account
+                Welcome Back! Sign In to your account to continue shopping
               </Text>
             </View>
 
             <View style={{ paddingTop: 10 }}>
-              <TextInput
-                label="Full Name"
-                mode="outlined"
-                outlineColor={COLORS.box}
-                activeOutlineColor={COLORS.primary}
-                theme={{ roundness: 10 }}
-                style={styles.input}
-              />
-
               <TextInput
                 label="Email"
                 mode="outlined"
@@ -69,18 +60,33 @@ function RegisterScreen({ navigation }) {
           </ScrollView>
 
           <View style={styles.footer}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => console.log("Forgot password pressed")}
+            >
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  textAlign: "center",
+                  paddingVertical: 2.5,
+                }}
+              >
+                Forgot Password ?
+              </Text>
+            </TouchableOpacity>
+
             <ButtonBig
-              title={"Register"}
-              onPress={() => console.log("Register pressed")}
+              title={"Login"}
+              onPress={() => console.log("Login pressed")}
             />
 
             <View style={styles.option}>
-              <Text>Already have an account ? </Text>
+              <Text>Dont't have an account ? </Text>
               <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => navigation.replace("Login")}
+                onPress={() => navigation.replace("Register")}
               >
-                <Text style={{ color: COLORS.primary }}>Login</Text>
+                <Text style={{ color: COLORS.primary }}>Register</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -90,7 +96,7 @@ function RegisterScreen({ navigation }) {
   );
 }
 
-export default RegisterScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
