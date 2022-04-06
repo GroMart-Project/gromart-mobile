@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   Dimensions,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import React, { useState } from "react";
 import SlideData from "../data/SlideData";
 import Slide from "../components/Slide";
 import { COLORS } from "../data/Constants";
+import SafeArea from "../utilities/SafeArea";
 
 //Get window height
 const { width, height } = Dimensions.get("window");
@@ -52,7 +52,7 @@ export default function OnboardingScreen() {
 
   //Onboarding screen main component tree
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeArea>
       <FlatList
         data={SlideData}
         renderItem={({ item }) => <Slide item={item} />}
@@ -63,14 +63,11 @@ export default function OnboardingScreen() {
         onMomentumScrollEnd={updateCurrentSlideIndex}
       />
       <Footer />
-    </SafeAreaView>
+    </SafeArea>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   listContainer: {
     height: height * 0.75,
   },
