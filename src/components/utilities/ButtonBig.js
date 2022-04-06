@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: COLORS.primary,
     height: 70,
-    marginBottom: 20,
+    marginVertical: 20,
     borderRadius: 40,
     justifyContent: "center",
     alignItems: "center",
