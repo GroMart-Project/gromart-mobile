@@ -1,17 +1,5 @@
-import { StyleSheet, View, StatusBar } from "react-native";
-import OnboardingScreen from "./src/screens/OnboardingScreen";
+import Navigation from "./src/navigation";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <OnboardingScreen />
-    </View>
-  );
+  return <Navigation />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight ? StatusBar.currentHeight : 0,
-  },
-});

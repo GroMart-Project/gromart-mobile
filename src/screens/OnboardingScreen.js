@@ -2,21 +2,22 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
+import SafeArea from "../components/utilities/SafeArea";
 
 import SlideData from "../data/SlideData";
 import Slide from "../components/Slide";
 import { COLORS } from "../data/Constants";
+import ButtonBig from "../components/utilities/ButtonBig";
 
 //Get window height
 const { width, height } = Dimensions.get("window");
 
-export default function OnboardingScreen() {
+export default function OnboardingScreen({ navigation }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   //Function to update page index state
@@ -43,16 +44,17 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Get Started</Text>
-        </TouchableOpacity>
+        <ButtonBig
+          title={"Get Started"}
+          onPress={() => navigation.replace("Register")}
+        />
       </View>
     );
   };
 
   //Onboarding screen main component tree
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeArea>
       <FlatList
         data={SlideData}
         renderItem={({ item }) => <Slide item={item} />}
@@ -63,14 +65,11 @@ export default function OnboardingScreen() {
         onMomentumScrollEnd={updateCurrentSlideIndex}
       />
       <Footer />
-    </SafeAreaView>
+    </SafeArea>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   listContainer: {
     height: height * 0.75,
   },
