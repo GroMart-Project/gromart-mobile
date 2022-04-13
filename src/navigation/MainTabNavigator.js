@@ -31,11 +31,13 @@ export default function MainTabNavigator() {
 
           tabBarLabelStyle: {
             fontSize: 12,
-            paddingBottom: 5,
           },
 
           tabBarStyle: {
             height: 60,
+          },
+          tabBarItemStyle: {
+            marginVertical: 8,
           },
         };
       }}
