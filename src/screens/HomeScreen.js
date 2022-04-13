@@ -1,7 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, FlatList } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { COLORS } from "../data/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import HomeSection from "../components/HomeSection";
+import SectionsData from "../data/SectionsData";
 
 export default function HomeScreen({ navigation }) {
   useLayoutEffect(() => {
@@ -20,10 +22,19 @@ export default function HomeScreen({ navigation }) {
   }, [navigation]);
 
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={SectionsData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <HomeSection data={item} />}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+});

@@ -7,6 +7,6 @@ export default [
   {
     id: "s2",
     title: "Clearance Sales",
-    products: [1, 5],
+    products: [1, 5, 3, 2],
   },
 ];
