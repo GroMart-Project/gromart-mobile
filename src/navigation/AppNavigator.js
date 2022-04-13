@@ -17,6 +17,7 @@ export default function AppNavigator() {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName="Main"
       >
         <MainStack.Screen name="Onboarding" component={OnboardingScreen} />
         <MainStack.Screen name="Register" component={RegisterScreen} />
