@@ -113,7 +113,7 @@ export default function DetailsScreen({ navigation, route }) {
         {/* Discount Section */}
 
         {/* Button Section */}
-        <View style={{ marginLeft: "auto" }}>
+        <View style={styles.bottomSection}>
           <ButtonSmall
             title={"Add to Cart"}
             onPress={() => console.log("Add to cart pressed")}
@@ -183,11 +183,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     height: 70,
     paddingHorizontal: 10,
   },
   bottomSection: {
-    marginRight: 10,
+    margin: 10,
   },
   label: {
     color: COLORS.text,
