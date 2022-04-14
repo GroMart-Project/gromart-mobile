@@ -1,8 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { COLORS } from "../data/Constants";
+import HeaderStyles from "../components/utilities/HeaderStyles";
 
-export default function DetailsScreen() {
+export default function DetailsScreen({ navigation }) {
+  // Header Styling//
+  useLayoutEffect(() => {
+    navigation.setOptions(HeaderStyles());
+  }, [navigation]);
+  //Header Styling Ends//
+
   return (
     <View style={styles.container}>
       <Text>DetailsScreen</Text>
