@@ -9,7 +9,7 @@ export default {
   },
   headerTintColor: COLORS.primary,
   headerRight: () => (
-    <TouchableOpacity activeOpacity={0.5} style={{ paddingHorizontal: 10 }}>
+    <TouchableOpacity activeOpacity={0.5} style={{ paddingHorizontal: 5 }}>
       <MaterialIcons name="shopping-cart" size={24} color={COLORS.text} />
     </TouchableOpacity>
   ),
