@@ -10,14 +10,14 @@ import { Card } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function ProductBox({ product }) {
+export default function ProductBox({ product, navigation }) {
   //Destructuring  the data//
   const { title, imageUrl, price, discount } = product;
   //Destructuring ends//
   return (
     <Card
       style={styles.container}
-      onPress={() => console.log("Product Pressed")}
+      onPress={() => navigation.navigate("Details")}
     >
       {/* Image */}
       <View style={styles.imageContainer}>

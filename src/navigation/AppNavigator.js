@@ -8,6 +8,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
 import MainTabNavigator from "./MainTabNavigator";
 import SectionScreen from "../screens/SectionScreen";
+import DetailsScreen from "../screens/DetailsScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function AppNavigator() {
 
         {/* Tabs from bottom tab screens */}
         <MainStack.Screen name="Section" component={SectionScreen} />
+        <MainStack.Screen name="Details" component={DetailsScreen} />
         {/* Tabs from bottom tab screens */}
       </MainStack.Navigator>
       <StatusBar style="auto" />
