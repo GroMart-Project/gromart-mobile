@@ -9,15 +9,20 @@ import React from "react";
 import { Card } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export default function ProductBox({ product, navigation }) {
+export default function ProductBox({ product }) {
+  //Get use navigation hook//
+  const navigation = useNavigation();
+  //Hook ends//
+
   //Destructuring  the data//
   const { title, imageUrl, price, discount } = product;
   //Destructuring ends//
   return (
     <Card
       style={styles.container}
-      onPress={() => navigation.navigate("Details")}
+      onPress={() => navigation.navigate("Details", { product: product })}
     >
       {/* Image */}
       <View style={styles.imageContainer}>
