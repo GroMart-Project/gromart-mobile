@@ -45,7 +45,9 @@ export default function ProductBox({ product }) {
       {/* Bottom part */}
       <View style={styles.bottom}>
         <View style={styles.bottomLeft}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
 
           <View style={styles.priceContainer}>
             <Text style={styles.price}>
@@ -62,13 +64,15 @@ export default function ProductBox({ product }) {
           </View>
         </View>
 
-        <TouchableOpacity activeOpacity={0.5} style={styles.bottomRight}>
-          <MaterialIcons
-            name="favorite-outline"
-            size={24}
-            color={COLORS.primary}
-          />
-        </TouchableOpacity>
+        <View style={styles.bottomRight}>
+          <TouchableOpacity activeOpacity={0.5} style={styles.btn}>
+            <MaterialIcons
+              name="favorite-outline"
+              size={24}
+              color={COLORS.primary}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       {/* Bottom part ends */}
     </Card>
@@ -133,8 +137,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 7.5,
     marginRight: "auto",
+    paddingRight: 30,
   },
   bottomRight: {
     marginHorizontal: 7.5,
+  },
+  btn: {
+    alignSelf: "center",
   },
 });
