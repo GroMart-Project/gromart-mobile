@@ -10,7 +10,7 @@ import { COLORS } from "../data/Constants";
 import ProductBox from "./ProductBox";
 import ProductsData from "../data/ProductsData";
 
-export default function HomeSection({ data }) {
+export default function HomeSection({ data, navigation }) {
   // Destructure props//
   const { title, products } = data;
   //Destructure props end//
@@ -27,7 +27,15 @@ export default function HomeSection({ data }) {
 
       <View style={styles.top}>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() =>
+            navigation.navigate("Section", {
+              title: title,
+              sectionProducts: SectionProducts,
+            })
+          }
+        >
           <Text style={styles.seeText}>See All</Text>
         </TouchableOpacity>
       </View>

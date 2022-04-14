@@ -17,7 +17,9 @@ export default function HomeScreen({ navigation }) {
       <FlatList
         data={SectionsData}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <HomeSection data={item} />}
+        renderItem={({ item }) => (
+          <HomeSection data={item} navigation={navigation} />
+        )}
         showsVerticalScrollIndicator={false}
       />
     </View>

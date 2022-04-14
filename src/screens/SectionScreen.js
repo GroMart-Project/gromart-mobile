@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 export default function SectionScreen({ route }) {
-  const { title } = route.params;
+  const { title, sectionProducts } = route.params;
+  console.log(sectionProducts);
   return (
     <View>
-      <Text>SectionScreen</Text>
+      <Text>{title}</Text>
     </View>
   );
 }
