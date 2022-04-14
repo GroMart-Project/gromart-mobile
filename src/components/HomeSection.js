@@ -26,7 +26,9 @@ export default function HomeSection({ data, navigation }) {
       {/* Top Section */}
 
       <View style={styles.top}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {title}
+        </Text>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() =>
@@ -72,10 +74,11 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   title: {
+    flex: 1,
     color: COLORS.text,
     fontSize: 18,
     fontWeight: "bold",
-    marginRight: "auto",
+    marginRight: 20,
   },
   seeText: {
     color: COLORS.primary,
