@@ -57,23 +57,28 @@ export default function DetailsScreen({ navigation, route }) {
         {/* Price Section Ends */}
 
         {/* Discount Section*/}
-        <View>
-          <View style={styles.discountContainer}>
-            <Text
-              style={[styles.discount, { textDecorationLine: "line-through" }]}
-            >
-              {"$"}
-              {price.toFixed(2)}
-            </Text>
+        {discount ? (
+          <View>
+            <View style={styles.discountContainer}>
+              <Text
+                style={[
+                  styles.discount,
+                  { textDecorationLine: "line-through" },
+                ]}
+              >
+                {"$"}
+                {price.toFixed(2)}
+              </Text>
+            </View>
+            <View style={styles.discountContainer}>
+              <Text style={styles.discount}>
+                {"-"}
+                {discount * 100}
+                {"%"}
+              </Text>
+            </View>
           </View>
-          <View style={styles.discountContainer}>
-            <Text style={styles.discount}>
-              {"-"}
-              {discount * 100}
-              {"%"}
-            </Text>
-          </View>
-        </View>
+        ) : null}
         {/* Discount Section */}
       </View>
     </View>
