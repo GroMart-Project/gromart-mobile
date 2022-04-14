@@ -5,7 +5,7 @@ import HeaderStyles from "../components/utilities/HeaderStyles";
 export default function CategoriesScreen({ navigation }) {
   // Header Styling//
   useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles);
+    navigation.setOptions(HeaderStyles());
   }, [navigation]);
   //Header Styling Ends//
 
