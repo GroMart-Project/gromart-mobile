@@ -27,6 +27,7 @@ export default function HomeScreen({ navigation }) {
         data={SectionsData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <HomeSection data={item} />}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
