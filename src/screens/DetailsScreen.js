@@ -4,12 +4,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { Card } from "react-native-paper";
+import ButtonSmall from "../components/utilities/ButtonSmall";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
@@ -26,6 +29,7 @@ export default function DetailsScreen({ navigation, route }) {
     <View style={styles.container}>
       {/* Upper ScrollView */}
 
+      {/* Scroll Section Begins */}
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
@@ -44,10 +48,27 @@ export default function DetailsScreen({ navigation, route }) {
           {/* Image Ends */}
         </Card>
         {/* Image Card ends */}
+
+        {/* Title Card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{title}</Text>
+            <TouchableOpacity activeOpacity={0.5}>
+              <MaterialIcons
+                name="favorite-outline"
+                size={30}
+                color={COLORS.primary}
+              />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Title Card end */}
       </ScrollView>
+      {/* Scroll Section end */}
+
       <View style={styles.footer}>
         {/* Price Section */}
-        <View style={{ marginRight: 10 }}>
+        <View style={styles.bottomSection}>
           <Text style={styles.label}>Price</Text>
           <Text style={styles.price}>
             {"$"}
@@ -58,7 +79,7 @@ export default function DetailsScreen({ navigation, route }) {
 
         {/* Discount Section*/}
         {discount ? (
-          <View>
+          <View style={styles.bottomSection}>
             <View style={styles.discountContainer}>
               <Text
                 style={[
@@ -80,6 +101,15 @@ export default function DetailsScreen({ navigation, route }) {
           </View>
         ) : null}
         {/* Discount Section */}
+
+        {/* Button Section */}
+        <View style={{ marginLeft: "auto" }}>
+          <ButtonSmall
+            title={"Add to Cart"}
+            onPress={() => console.log("Add to cart pressed")}
+          />
+        </View>
+        {/* Button Section ends */}
       </View>
     </View>
   );
@@ -112,13 +142,28 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: width * 0.9,
   },
-
+  titleContainer: {
+    flexDirection: "row",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    alignItems: "center",
+  },
+  title: {
+    color: COLORS.text,
+    fontSize: 24,
+    fontWeight: "bold",
+    marginRight: "auto",
+    paddingRight: 35,
+  },
   footer: {
     backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     height: 70,
     paddingHorizontal: 10,
+  },
+  bottomSection: {
+    marginRight: 10,
   },
   label: {
     color: COLORS.text,

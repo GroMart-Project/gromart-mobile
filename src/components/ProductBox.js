@@ -70,7 +70,7 @@ export default function ProductBox({ product }) {
         </View>
 
         <View style={styles.bottomRight}>
-          <TouchableOpacity activeOpacity={0.5} style={styles.btn}>
+          <TouchableOpacity activeOpacity={0.5}>
             <MaterialIcons
               name="favorite-outline"
               size={24}
@@ -146,8 +146,5 @@ const styles = StyleSheet.create({
   },
   bottomRight: {
     marginHorizontal: 7.5,
-  },
-  btn: {
-    alignSelf: "center",
   },
 });
