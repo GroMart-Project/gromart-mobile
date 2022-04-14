@@ -16,7 +16,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
-  const { title, imageUrl, price, discount } = route?.params?.product;
+  const { title, description, imageUrl, price, discount } =
+    route?.params?.product;
   //Destructuring ends//
 
   // Header Styling//
@@ -63,6 +64,15 @@ export default function DetailsScreen({ navigation, route }) {
           </View>
         </Card>
         {/* Title Card end */}
+
+        {/* Description Card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.descriptionHead}>Description</Text>
+            <Text style={styles.descriptionBody}>{description}</Text>
+          </View>
+        </Card>
+        {/* Description Card end */}
       </ScrollView>
       {/* Scroll Section end */}
 
@@ -154,6 +164,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: "auto",
     paddingRight: 35,
+  },
+  descriptionContainer: {
+    padding: 10,
+  },
+  descriptionHead: {
+    color: COLORS.text,
+    fontSize: 18,
+    marginVertical: 2,
+  },
+  descriptionBody: {
+    color: COLORS.text,
+    fontSize: 15,
+    padding: 10,
+    lineHeight: 24,
   },
   footer: {
     backgroundColor: "white",
