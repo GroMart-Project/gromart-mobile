@@ -1,18 +1,25 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import SearchScreen from "../screens/SearchScreen";
-import CategoriesScreen from "../screens/CategoriesScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../data/Constants";
+import HomeNavigator from "./HomeNavigator";
+import SearchNavigator from "./SearchNavigator";
+import CategoriesNavigator from "./CategoriesNavigator";
+import ProfileNavigator from "./ProfileNavigator";
 
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-  Home: "home",
-  Search: "search",
-  Categories: "list-alt",
-  Profile: "person",
+  HomeStack: "home",
+  SearchStack: "search",
+  CategoriesStack: "list-alt",
+  ProfileStack: "person",
+};
+
+const TAB_NAME = {
+  HomeStack: "Home",
+  SearchStack: "Search",
+  CategoriesStack: "Categories",
+  ProfileStack: "Profile",
 };
 
 export default function MainTabNavigator() {
@@ -20,6 +27,7 @@ export default function MainTabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => {
         const iconName = TAB_ICON[route.name];
+        const label = TAB_NAME[route.name];
 
         return {
           tabBarIcon: ({ size, color }) => (
@@ -39,17 +47,18 @@ export default function MainTabNavigator() {
           tabBarItemStyle: {
             marginVertical: 8,
           },
+          tabBarLabel: label,
+
+          //Header Visibility//
+          headerShown: false,
+          //Header Visibility Ends//
         };
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Categories" component={CategoriesScreen} />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
+      <Tab.Screen name="HomeStack" component={HomeNavigator} />
+      <Tab.Screen name="SearchStack" component={SearchNavigator} />
+      <Tab.Screen name="CategoriesStack" component={CategoriesNavigator} />
+      <Tab.Screen name="ProfileStack" component={ProfileNavigator} />
     </Tab.Navigator>
   );
 }
