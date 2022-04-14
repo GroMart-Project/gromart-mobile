@@ -1,25 +1,16 @@
-import { StyleSheet, View, TouchableOpacity, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { COLORS } from "../data/Constants";
-import { MaterialIcons } from "@expo/vector-icons";
 import HomeSection from "../components/HomeSection";
 import SectionsData from "../data/SectionsData";
+import HeaderStyles from "../components/utilities/HeaderStyles";
 
 export default function HomeScreen({ navigation }) {
+  // Header Styling//
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitleStyle: {
-        color: COLORS.text,
-        fontSize: 22,
-      },
-      headerTintColor: COLORS.primary,
-      headerRight: () => (
-        <TouchableOpacity activeOpacity={0.5} style={{ paddingHorizontal: 10 }}>
-          <MaterialIcons name="shopping-cart" size={24} color={COLORS.text} />
-        </TouchableOpacity>
-      ),
-    });
+    navigation.setOptions(HeaderStyles);
   }, [navigation]);
+  //Header Styling Ends//
 
   return (
     <View style={styles.container}>
