@@ -6,15 +6,12 @@ export default function SectionScreen({ navigation, route }) {
   const { title, sectionProducts } = route.params;
 
   // Header Styling//
-  const canGoBack = navigation.canGoBack();
-  const goBack = () => navigation.goBack();
-  console.log(canGoBack);
   useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles(title, canGoBack, goBack));
+    navigation.setOptions(HeaderStyles(title));
   }, [navigation]);
   //Header Styling Ends//
 
-  console.log(sectionProducts);
+  // console.log(title);
   return (
     <View>
       <Text>{title}</Text>
