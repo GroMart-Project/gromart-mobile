@@ -2,11 +2,11 @@ export default [
   {
     id: "s1",
     title: "Top Products",
-    products: [3, 2],
+    products: [1, 2],
   },
   {
     id: "s2",
     title: "Clearance Sales",
-    products: [1, 3, 2],
+    products: [4, 3, 2],
   },
 ];
