@@ -44,7 +44,7 @@ export default function HomeSection({ data }) {
             justifyContent: "space-between",
             marginBottom: 10,
           }}
-          renderItem={({ item }) => <ProductBox title={item.title} />}
+          renderItem={({ item }) => <ProductBox product={item} />}
         />
       </View>
       {/* Bottom Section End */}
