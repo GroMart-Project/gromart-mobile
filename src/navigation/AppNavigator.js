@@ -15,7 +15,7 @@ const MainStack = createNativeStackNavigator();
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator>
+      <MainStack.Navigator initialRouteName="Main">
         {/* Initial Screens */}
         <MainStack.Group
           screenOptions={{
