@@ -2,11 +2,15 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import SafeArea from "../components/utilities/SafeArea";
 import { COLORS } from "../data/Constants";
+import ProfileHeader from "../components/utilities/ProfileHeader";
 
 export default function ProfileScreen() {
   return (
     <SafeArea>
       <View style={styles.container}>
+        <ProfileHeader>
+          <Text>Eric Ayizanga</Text>
+        </ProfileHeader>
         <Text>ProfileScreen</Text>
       </View>
     </SafeArea>
