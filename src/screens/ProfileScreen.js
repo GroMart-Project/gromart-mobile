@@ -5,6 +5,7 @@ import { COLORS } from "../data/Constants";
 import ProfileHeader from "../components/utilities/ProfileHeader";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
+import OptionsData from "../data/OptionsData";
 
 export default function ProfileScreen() {
   return (
@@ -17,29 +18,34 @@ export default function ProfileScreen() {
           </ProfileHeader>
           {/* Profile Header ends */}
 
+          {/* Option List */}
           <View style={styles.optionsList}>
-            <Card style={styles.card} elevation={4}>
-              <View style={styles.titleContainer}>
-                <View>
-                  <MaterialIcons name="person" size={30} color={COLORS.text} />
-                </View>
-                <Text style={styles.title}>Edit Profile</Text>
-              </View>
-            </Card>
-
-            <Card style={styles.card} elevation={4}>
-              <View style={styles.titleContainer}>
-                <View>
-                  <MaterialIcons name="person" size={30} color={COLORS.text} />
-                </View>
-                <Text style={styles.title}>Edit Profile</Text>
-              </View>
-            </Card>
+            {OptionsData.map((option) => (
+              <OptionCard key={option.id} data={option} />
+            ))}
           </View>
+          {/* Option list end */}
         </ScrollView>
       </View>
     </SafeArea>
   );
+
+  function OptionCard({ data }) {
+    //Destructure Data//
+    const { title, icon, route } = data;
+    //Destructure ends//
+
+    return (
+      <Card style={styles.card} elevation={4}>
+        <View style={styles.titleContainer}>
+          <View>
+            <MaterialIcons name={icon} size={30} color={COLORS.text} />
+          </View>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      </Card>
+    );
+  }
 }
 
 const { width } = Dimensions.get("window");
