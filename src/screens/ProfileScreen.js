@@ -26,6 +26,10 @@ export default function ProfileScreen() {
               </View>
             </Card>
             {/* Profile Pic end */}
+
+            {/* Name */}
+            <Text style={styles.name}>Eric Ayizanga</Text>
+            {/* Name ends */}
           </ProfileHeader>
           {/* Profile Header ends */}
 
@@ -85,6 +89,13 @@ const styles = StyleSheet.create({
     borderRadius: bRadius,
   },
   //image style ends//
+
+  name: {
+    color: "white",
+    fontSize: 26,
+    fontWeight: "bold",
+    margin: 10,
+  },
 
   optionsList: {
     alignItems: "center",
