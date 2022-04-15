@@ -9,6 +9,11 @@ import LoginScreen from "../screens/LoginScreen";
 import MainTabNavigator from "./MainTabNavigator";
 import SectionScreen from "../screens/SectionScreen";
 import DetailsScreen from "../screens/DetailsScreen";
+import EditProfileScreen from "../screens/profile/EditProfileScreen";
+import OrdersScreen from "../screens/profile/OrdersScreen";
+import WishlistScreen from "../screens/profile/WishlistScreen";
+import AddressListScreen from "../screens/profile/AddressListScreen";
+import ChangePasswordScreen from "../screens/profile/ChangePasswordScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -29,10 +34,21 @@ export default function AppNavigator() {
         </MainStack.Group>
         {/* Initial Screens */}
 
-        {/* Tabs from bottom tab screens */}
+        {/* Screens from bottom tab screens */}
         <MainStack.Screen name="Section" component={SectionScreen} />
         <MainStack.Screen name="Details" component={DetailsScreen} />
-        {/* Tabs from bottom tab screens */}
+        {/* Screen from bottom tab screens */}
+
+        {/* Screens from profile screen */}
+        <MainStack.Screen name="Edit Profile" component={EditProfileScreen} />
+        <MainStack.Screen name="Orders" component={OrdersScreen} />
+        <MainStack.Screen name="Wishlist" component={WishlistScreen} />
+        <MainStack.Screen name="Address List" component={AddressListScreen} />
+        <MainStack.Screen
+          name="Change Password"
+          component={ChangePasswordScreen}
+        />
+        {/* Screen from profile screen */}
       </MainStack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

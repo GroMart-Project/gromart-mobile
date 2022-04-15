@@ -3,7 +3,7 @@ export default [
     id: "1",
     title: "Edit Profile",
     icon: "person",
-    route: "EditProfile",
+    route: "Edit Profile",
   },
   {
     id: "2",
@@ -21,12 +21,12 @@ export default [
     id: "4",
     title: "Address List",
     icon: "house",
-    route: "AddressList",
+    route: "Address List",
   },
   {
     id: "5",
     title: "Change Password",
     icon: "lock",
-    route: "ChangePassword",
+    route: "Change Password",
   },
 ];

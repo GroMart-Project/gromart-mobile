@@ -1,13 +1,13 @@
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import SafeArea from "../components/utilities/SafeArea";
-import { COLORS } from "../data/Constants";
-import ProfileHeader from "../components/utilities/ProfileHeader";
+import SafeArea from "../../components/utilities/SafeArea";
+import { COLORS } from "../../data/Constants";
+import ProfileHeader from "../../components/utilities/ProfileHeader";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
-import OptionsData from "../data/OptionsData";
+import OptionsData from "../../data/OptionsData";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   return (
     <SafeArea>
       <View style={styles.container}>
@@ -18,7 +18,7 @@ export default function ProfileScreen() {
             <Card style={styles.imageCard} elevation={4}>
               <View style={styles.imageContainer}>
                 <Card.Cover
-                  source={require("../../assets/images/register_fruit.jpg")}
+                  source={require("../../../assets/images/register_fruit.jpg")}
                   borderRadius={bRadius}
                   style={styles.image}
                   resizeMode="cover"
@@ -36,7 +36,11 @@ export default function ProfileScreen() {
           {/* Option List */}
           <View style={styles.optionsList}>
             {OptionsData.map((option) => (
-              <OptionCard key={option.id} data={option} />
+              <OptionCard
+                key={option.id}
+                data={option}
+                navigation={navigation}
+              />
             ))}
           </View>
           {/* Option list end */}
@@ -51,7 +55,11 @@ export default function ProfileScreen() {
     //Destructure ends//
 
     return (
-      <Card style={styles.card} elevation={4}>
+      <Card
+        style={styles.card}
+        elevation={4}
+        onPress={() => navigation.navigate(route)}
+      >
         <View style={styles.titleContainer}>
           <View>
             <MaterialIcons name={icon} size={30} color={COLORS.text} />
