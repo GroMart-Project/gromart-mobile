@@ -18,9 +18,7 @@ export default function ProfileHeader({ children }) {
         locations={[0.0, 0.3, 1.0]}
         style={styles.overlay}
       />
-      <View style={styles.overlayCentre}>
-        <Text>{children}</Text>
-      </View>
+      <View style={styles.overlayCentre}>{children}</View>
     </View>
   );
 }
@@ -38,7 +36,8 @@ const styles = StyleSheet.create({
   },
   overlayCentre: {
     position: "absolute",
-    top: "50%",
-    alignSelf: "center",
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

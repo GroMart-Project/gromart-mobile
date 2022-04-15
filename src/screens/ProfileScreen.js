@@ -14,7 +14,18 @@ export default function ProfileScreen() {
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           {/* Profile Header */}
           <ProfileHeader>
-            <Text>Eric Ayizanga</Text>
+            {/* Profile Pic */}
+            <Card style={styles.imageCard} elevation={4}>
+              <View style={styles.imageContainer}>
+                <Card.Cover
+                  source={require("../../assets/images/register_fruit.jpg")}
+                  borderRadius={bRadius}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
+              </View>
+            </Card>
+            {/* Profile Pic end */}
           </ProfileHeader>
           {/* Profile Header ends */}
 
@@ -49,12 +60,32 @@ export default function ProfileScreen() {
 }
 
 const { width } = Dimensions.get("window");
+const bRadius = 20;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
   },
+
+  // image styles
+  imageCard: {
+    width: 100,
+    borderRadius: bRadius,
+    marginVertical: 5,
+  },
+  imageContainer: {
+    backgroundColor: "white",
+    padding: 2.5,
+    borderRadius: bRadius,
+  },
+  image: {
+    backgroundColor: "white",
+    height: 100,
+    borderRadius: bRadius,
+  },
+  //image style ends//
+
   optionsList: {
     alignItems: "center",
     marginTop: -30,
