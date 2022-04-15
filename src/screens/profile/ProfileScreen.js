@@ -6,6 +6,7 @@ import ProfileHeader from "../../components/utilities/ProfileHeader";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import OptionsData from "../../data/OptionsData";
+import ButtonBig from "../../components/utilities/ButtonBig";
 
 export default function ProfileScreen({ navigation }) {
   return (
@@ -45,6 +46,15 @@ export default function ProfileScreen({ navigation }) {
           </View>
           {/* Option list end */}
         </ScrollView>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <ButtonBig
+            title={"Logout"}
+            onPress={() => navigation.replace("Login")}
+          />
+        </View>
+        {/* Footer ends */}
       </View>
     </SafeArea>
   );
@@ -125,5 +135,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginLeft: 15,
+  },
+  footer: {
+    paddingHorizontal: 20,
   },
 });
