@@ -1,12 +1,34 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { COLORS } from "../data/Constants";
+import HomeSection from "../components/HomeSection";
+import SectionsData from "../data/SectionsData";
+import HeaderStyles from "../components/utilities/HeaderStyles";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
+  // Header Styling//
+  useLayoutEffect(() => {
+    navigation.setOptions(HeaderStyles());
+  }, [navigation]);
+  //Header Styling Ends//
+
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={SectionsData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <HomeSection data={item} navigation={navigation} />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+});

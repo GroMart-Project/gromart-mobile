@@ -1,12 +1,25 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
+import HeaderStyles from "../components/utilities/HeaderStyles";
+import { COLORS } from "../data/Constants";
 
-export default function CategoriesScreen() {
+export default function CategoriesScreen({ navigation }) {
+  // Header Styling//
+  useLayoutEffect(() => {
+    navigation.setOptions(HeaderStyles());
+  }, [navigation]);
+  //Header Styling Ends//
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text>CategoriesScreen</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+});
