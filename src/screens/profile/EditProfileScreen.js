@@ -52,6 +52,24 @@ export default function EditProfileScreen({ navigation }) {
           </View>
         </Card>
         {/* Profile Pic end */}
+
+        {/* Name card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.nameContainer}>
+            <View>
+              <Text style={styles.label}>Name</Text>
+              <Text style={styles.name}>Eric Ayizanga </Text>
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => console.log("show modal")}
+              style={{ marginLeft: "auto" }}
+            >
+              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Name Card end */}
       </ScrollView>
     </View>
   );
@@ -105,4 +123,28 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   //Button Styles ends//
+
+  //Name styles//
+  card: {
+    width: width - 30,
+    borderRadius: 10,
+    marginTop: 30,
+  },
+  nameContainer: {
+    flexDirection: "row",
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    alignItems: "flex-end",
+  },
+  name: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginHorizontal: 10,
+  },
+  label: {
+    color: COLORS.text,
+    fontSize: 14,
+  },
+  //Name styles end
 });
