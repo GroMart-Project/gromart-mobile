@@ -1,7 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
+import HeaderStyles from "../../components/utilities/HeaderStyles";
 
-export default function OrdersScreen() {
+export default function OrdersScreen({ navigation }) {
+  // Header Styling//
+  useLayoutEffect(() => {
+    navigation.setOptions(HeaderStyles());
+  }, [navigation]);
+  //Header Styling Ends//
+
   return (
     <View>
       <Text>OrdersScreen</Text>
