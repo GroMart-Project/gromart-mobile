@@ -9,15 +9,20 @@ import React from "react";
 import { Card } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProductBox({ product }) {
+  //Get use navigation hook//
+  const navigation = useNavigation();
+  //Hook ends//
+
   //Destructuring  the data//
   const { title, imageUrl, price, discount } = product;
   //Destructuring ends//
   return (
     <Card
       style={styles.container}
-      onPress={() => console.log("Product Pressed")}
+      onPress={() => navigation.navigate("Details", { product: product })}
     >
       {/* Image */}
       <View style={styles.imageContainer}>
@@ -65,7 +70,7 @@ export default function ProductBox({ product }) {
         </View>
 
         <View style={styles.bottomRight}>
-          <TouchableOpacity activeOpacity={0.5} style={styles.btn}>
+          <TouchableOpacity activeOpacity={0.5}>
             <MaterialIcons
               name="favorite-outline"
               size={24}
@@ -141,8 +146,5 @@ const styles = StyleSheet.create({
   },
   bottomRight: {
     marginHorizontal: 7.5,
-  },
-  btn: {
-    alignSelf: "center",
   },
 });
