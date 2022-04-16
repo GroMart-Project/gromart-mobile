@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useLayoutEffect } from "react";
 import HeaderStyles from "../../components/utilities/HeaderStyles";
 
-export default function ChangePasswordScreen({ navigation }) {
+export default function ResetPasswordScreen({ navigation }) {
   // Header Styling//
   useLayoutEffect(() => {
     navigation.setOptions(HeaderStyles());
@@ -11,7 +11,7 @@ export default function ChangePasswordScreen({ navigation }) {
 
   return (
     <View>
-      <Text>ChangePasswordScreen</Text>
+      <Text>ResetPasswordScreen</Text>
     </View>
   );
 }

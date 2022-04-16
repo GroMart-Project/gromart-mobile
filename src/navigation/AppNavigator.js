@@ -13,7 +13,7 @@ import EditProfileScreen from "../screens/profile/EditProfileScreen";
 import OrdersScreen from "../screens/profile/OrdersScreen";
 import WishlistScreen from "../screens/profile/WishlistScreen";
 import AddressListScreen from "../screens/profile/AddressListScreen";
-import ChangePasswordScreen from "../screens/profile/ChangePasswordScreen";
+import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -45,8 +45,8 @@ export default function AppNavigator() {
         <MainStack.Screen name="Wishlist" component={WishlistScreen} />
         <MainStack.Screen name="Address List" component={AddressListScreen} />
         <MainStack.Screen
-          name="Change Password"
-          component={ChangePasswordScreen}
+          name="Reset Password"
+          component={ResetPasswordScreen}
         />
         {/* Screen from profile screen */}
       </MainStack.Navigator>
