@@ -27,13 +27,13 @@ function LoginScreen({ navigation }) {
 
   //State end
 
-  //Register function//
+  //Login function//
   const Login = () => {
     signInWithEmailAndPassword(auth, email.trim(), password)
       .then((authUser) => console.log(authUser))
       .catch((error) => alert(error.message + " " + email + ";"));
   };
-  //Register ends//
+  //Login ends//
 
   //Function to validate text boxes//
   const onLoginPress = () => {

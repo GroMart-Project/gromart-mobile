@@ -1,4 +1,11 @@
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+} from "react-native";
 import React from "react";
 import SafeArea from "../../components/utilities/SafeArea";
 import { COLORS } from "../../data/Constants";
@@ -8,7 +15,31 @@ import { MaterialIcons } from "@expo/vector-icons";
 import OptionsData from "../../data/OptionsData";
 import ButtonBig from "../../components/utilities/ButtonBig";
 
+//Firebase imports
+import { auth } from "../../../firebase";
+import { signOut } from "firebase/auth";
+
 export default function ProfileScreen({ navigation }) {
+  //Sign out function//
+  const Logout = () => {
+    Alert.alert("Logout", "Are you sure you want to log out?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        style: "destructive",
+        onPress: () => {
+          signOut(auth)
+            .then(() => console.log("signed out"))
+            .catch((error) => alert(error.message));
+        },
+      },
+    ]);
+  };
+  //Sign out ends//
+
   return (
     <SafeArea>
       <View style={styles.container}>
@@ -49,10 +80,7 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <ButtonBig
-            title={"Logout"}
-            onPress={() => navigation.replace("Login")}
-          />
+          <ButtonBig title={"Logout"} onPress={() => Logout()} />
         </View>
         {/* Footer ends */}
       </View>
