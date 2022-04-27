@@ -11,12 +11,44 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
+//Firebase imports
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 function LoginScreen({ navigation }) {
+  //States for inputs
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //State end
+
+  //Register function//
+  const Login = () => {
+    signInWithEmailAndPassword(auth, email.trim(), password)
+      .then((authUser) => console.log(authUser))
+      .catch((error) => alert(error.message + " " + email + ";"));
+  };
+  //Register ends//
+
+  //Function to validate text boxes//
+  const onLoginPress = () => {
+    if (!email) {
+      alert("Please enter your e-mail");
+    }
+    if (email && !password) {
+      alert("Please enter your password");
+    }
+    if (email && password) {
+      Login();
+    }
+  };
+  //function ends//
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -45,6 +77,8 @@ function LoginScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
               />
 
               <TextInput
@@ -55,6 +89,8 @@ function LoginScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
               />
             </View>
           </ScrollView>
@@ -75,10 +111,7 @@ function LoginScreen({ navigation }) {
               </Text>
             </TouchableOpacity>
 
-            <ButtonBig
-              title={"Login"}
-              onPress={() => navigation.replace("Main")}
-            />
+            <ButtonBig title={"Login"} onPress={() => onLoginPress()} />
 
             <View style={styles.option}>
               <Text>Dont't have an account ? </Text>
