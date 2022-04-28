@@ -13,7 +13,7 @@ import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
 
 const MainStack = createNativeStackNavigator();
 
-export default function SIgnedInStack() {
+export default function SignedInStack() {
   return (
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="Main">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import SignedOutStack from "./SignedOutStack";
-import SIgnedInStack from "./SIgnedInStack";
+import SignedInStack from "./SignedInStack";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -25,7 +25,7 @@ export default function Navigation() {
 
   return (
     <>
-      {currentUser ? <SIgnedInStack /> : <SignedOutStack />}
+      {currentUser ? <SignedInStack /> : <SignedOutStack />}
       <StatusBar style="auto" />
     </>
   );
