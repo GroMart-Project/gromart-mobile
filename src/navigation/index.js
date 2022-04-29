@@ -23,6 +23,8 @@ export default function Navigation() {
 
   //Check ends//
 
+  console.log(currentUser?.email);
+
   return (
     <>
       {currentUser ? <SignedInStack /> : <SignedOutStack />}
