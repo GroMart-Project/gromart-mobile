@@ -19,6 +19,7 @@ import ButtonBig from "../components/utilities/ButtonBig";
 //Firebase imports
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
 
 function LoginScreen({ navigation }) {
   //States for inputs
@@ -27,11 +28,18 @@ function LoginScreen({ navigation }) {
 
   //State end
 
+  //State for authentication process//
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  //State ends//
+
   //Login function//
   const Login = () => {
     signInWithEmailAndPassword(auth, email.trim(), password)
       .then((authUser) => console.log(authUser.email))
-      .catch((error) => alert(error.message + " " + email + ";"));
+      .catch((error) => {
+        alert(error.message);
+        setIsAuthenticating(false);
+      });
   };
   //Login ends//
 
@@ -45,6 +53,7 @@ function LoginScreen({ navigation }) {
     }
     if (email && password) {
       Login();
+      setIsAuthenticating(true);
     }
   };
   //function ends//
@@ -56,6 +65,10 @@ function LoginScreen({ navigation }) {
       }}
     >
       <SafeAreaView style={styles.container}>
+        {/* Authenticating Activity Indicator */}
+        <ActivityIndicatorModal isVisible={isAuthenticating} />
+        {/* Authenticating Activity Indicator */}
+
         <View style={styles.page}>
           <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <HeaderImageFade

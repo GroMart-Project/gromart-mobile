@@ -19,21 +19,29 @@ import ButtonBig from "../components/utilities/ButtonBig";
 //Firebase imports
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
 
 function RegisterScreen({ navigation }) {
-  //States for inputs
+  //States for inputs//
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  //State end
+  //State end//
+
+  //State for authentication process//
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  //State ends//
 
   //Register function//
   const Register = () => {
     createUserWithEmailAndPassword(auth, email.trim(), password)
       .then((authUser) => console.log(authUser.email))
-      .catch((error) => alert(error.message + " " + email + ";"));
+      .catch((error) => {
+        alert(error.message);
+        setIsAuthenticating(false);
+      });
   };
   //Register ends//
 
@@ -68,6 +76,7 @@ function RegisterScreen({ navigation }) {
       password === confirmPassword
     ) {
       Register();
+      setIsAuthenticating(true);
     }
   };
   //function ends//
@@ -79,6 +88,10 @@ function RegisterScreen({ navigation }) {
       }}
     >
       <SafeAreaView style={styles.container}>
+        {/* Authenticating Activity Indicator */}
+        <ActivityIndicatorModal isVisible={isAuthenticating} />
+        {/* Authenticating Activity Indicator */}
+
         <View style={styles.page}>
           <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <HeaderImageFade
