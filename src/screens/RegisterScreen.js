@@ -32,7 +32,7 @@ function RegisterScreen({ navigation }) {
   //Register function//
   const Register = () => {
     createUserWithEmailAndPassword(auth, email.trim(), password)
-      .then((authUser) => console.log(authUser))
+      .then((authUser) => console.log(authUser.email))
       .catch((error) => alert(error.message + " " + email + ";"));
   };
   //Register ends//

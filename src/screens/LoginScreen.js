@@ -30,7 +30,7 @@ function LoginScreen({ navigation }) {
   //Login function//
   const Login = () => {
     signInWithEmailAndPassword(auth, email.trim(), password)
-      .then((authUser) => console.log(authUser))
+      .then((authUser) => console.log(authUser.email))
       .catch((error) => alert(error.message + " " + email + ";"));
   };
   //Login ends//
