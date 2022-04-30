@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { COLORS } from "../data/Constants";
 import { Searchbar } from "react-native-paper";
 
 //firebase imports
-import { db } from "../../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { fetchProductsData } from "../utilities/firestoreQueries";
+import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -28,17 +27,20 @@ export default function SearchScreen({ navigation }) {
   const [searchKeyword, setSearchKeyword] = useState("");
   //State ends//
 
-  //
+  //Search listener//
+  const [searchedProducts, setSearchedProducts] = useState();
+
   useEffect(() => {
     const filteredProducts = productsData.filter(
       (product) =>
-        product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchKeyword.toLowerCase())
+        searchKeyword &&
+        (product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+          product.category.toLowerCase().includes(searchKeyword.toLowerCase()))
     );
-    console.log(filteredProducts.length);
+    setSearchedProducts(filteredProducts);
   }, [searchKeyword]);
 
-  //
+  //listener ends//
 
   return (
     <View style={styles.container}>
@@ -50,7 +52,14 @@ export default function SearchScreen({ navigation }) {
           onChangeText={(text) => setSearchKeyword(text)}
           value={searchKeyword}
         />
-        <View></View>
+        <View>
+          <FlatList
+            data={searchedProducts}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <Text>{item.title}</Text>}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
       <Text>SearchScreen</Text>
     </View>
