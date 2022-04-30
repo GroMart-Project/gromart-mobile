@@ -16,3 +16,11 @@ export const fetchSectionsData = async (setSectionsData) => {
 
   setSectionsData(sectionsSnapshot.docs.map((doc) => doc.data()));
 };
+
+//Function for fetching categories
+export const fetchCategoriesData = async (setCategoriesData) => {
+  const categoriesCollection = collection(db, "categories");
+  const categoriesSnapshot = await getDocs(categoriesCollection);
+
+  setCategoriesData(categoriesSnapshot.docs.map((doc) => doc.data()));
+};
