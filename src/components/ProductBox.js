@@ -17,7 +17,7 @@ export default function ProductBox({ product }) {
   //Hook ends//
 
   //Destructuring  the data//
-  const { title, imageUrl, price, discount } = product;
+  const { title, imageUri, price, discount } = product;
   //Destructuring ends//
   return (
     <Card
@@ -27,7 +27,7 @@ export default function ProductBox({ product }) {
       {/* Image */}
       <View style={styles.imageContainer}>
         <Card.Cover
-          source={{ uri: imageUrl }}
+          source={{ uri: imageUri }}
           borderRadius={bRadius}
           style={styles.image}
           resizeMode="cover"

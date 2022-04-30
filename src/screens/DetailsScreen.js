@@ -16,7 +16,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
-  const { title, description, imageUrl, price, discount } =
+  const { title, description, imageUri, price, discount } =
     route?.params?.product;
   //Destructuring ends//
 
@@ -40,7 +40,7 @@ export default function DetailsScreen({ navigation, route }) {
           {/* Image */}
           <View style={styles.imageContainer}>
             <Card.Cover
-              source={{ uri: imageUrl }}
+              source={{ uri: imageUri }}
               borderRadius={bRadius}
               style={styles.image}
               resizeMode="cover"
