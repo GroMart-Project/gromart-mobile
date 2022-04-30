@@ -1,6 +1,5 @@
 import {
   Dimensions,
-  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,7 +12,7 @@ import { Searchbar } from "react-native-paper";
 
 //firebase imports
 import { fetchProductsData } from "../utilities/firestoreQueries";
-import { TextInput } from "react-native-web";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -34,6 +33,15 @@ export default function SearchScreen({ navigation }) {
   const [searchKeyword, setSearchKeyword] = useState("");
   //State ends//
 
+  //focus listener to reset state//
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    const unsubscribe = isFocused ? setSearchKeyword("") : null;
+
+    return unsubscribe;
+  }, [isFocused]);
+  //listener ends//
+
   //Search listener//
   const [searchedProducts, setSearchedProducts] = useState();
 
@@ -44,10 +52,17 @@ export default function SearchScreen({ navigation }) {
         (product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
           product.category.toLowerCase().includes(searchKeyword.toLowerCase()))
     );
-    setSearchedProducts(filteredProducts);
+    return setSearchedProducts(filteredProducts);
   }, [searchKeyword]);
 
   //listener ends//
+
+  //Function for search//
+  const onSearch = () => {
+    searchKeyword &&
+      navigation.navigate("SearchResult", { title: searchKeyword });
+  };
+  //function ends//
 
   return (
     <View style={styles.container}>
@@ -58,6 +73,7 @@ export default function SearchScreen({ navigation }) {
           theme={{ roundness: 10 }}
           onChangeText={(text) => setSearchKeyword(text)}
           value={searchKeyword}
+          onSubmitEditing={onSearch}
         />
       </View>
 
