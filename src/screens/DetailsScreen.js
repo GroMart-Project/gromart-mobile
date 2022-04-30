@@ -104,7 +104,7 @@ export default function DetailsScreen({ navigation, route }) {
             <View style={styles.discountContainer}>
               <Text style={styles.discount}>
                 {"-"}
-                {discount * 100}
+                {(discount * 100).toFixed(0)}
                 {"%"}
               </Text>
             </View>

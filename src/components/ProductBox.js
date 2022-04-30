@@ -38,7 +38,7 @@ export default function ProductBox({ product }) {
           <View style={styles.discountContainer}>
             <Text style={styles.discount}>
               {"-"}
-              {discount * 100}
+              {(discount * 100).toFixed(0)}
               {"%"}
             </Text>
           </View>
