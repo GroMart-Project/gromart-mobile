@@ -14,7 +14,7 @@ export default function ActivityIndicatorModal({ isVisible }) {
       >
         <View style={styles.container}>
           <ActivityIndicator
-            size="large"
+            size={75}
             animating={true}
             color={COLORS.primary}
           />

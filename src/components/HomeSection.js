@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import ProductBox from "./ProductBox";
+import ListEmptyIndicator from "./utilities/ListEmptyIndicator";
 
 //Firebase imports//
 import { fetchProductsData } from "../utilities/firestoreQueries";
@@ -66,6 +67,7 @@ export default function HomeSection({ data, navigation }) {
             marginBottom: 10,
           }}
           renderItem={({ item }) => <ProductBox product={item} />}
+          ListEmptyComponent={<ListEmptyIndicator padding={50} size={25} />}
         />
       </View>
       {/* Bottom Section End */}

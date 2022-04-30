@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import HomeSection from "../components/HomeSection";
 import HeaderStyles from "../components/utilities/HeaderStyles";
+import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
 //Firebase imports//
 import { fetchSectionsData } from "../utilities/firestoreQueries";
@@ -31,6 +32,7 @@ export default function HomeScreen({ navigation }) {
         renderItem={({ item }) => (
           <HomeSection data={item} navigation={navigation} />
         )}
+        ListEmptyComponent={<ListEmptyIndicator padding="tab" size={50} />}
         showsVerticalScrollIndicator={false}
       />
     </View>

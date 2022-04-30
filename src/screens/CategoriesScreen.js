@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { COLORS } from "../data/Constants";
+import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
 //Firebase imports//
 import {
@@ -36,9 +37,7 @@ export default function CategoriesScreen({ navigation }) {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    fetchProductsData(setProductsData)
-      .then(console.log(productsData))
-      .catch((error) => console.log(error));
+    fetchProductsData(setProductsData).catch((error) => console.log(error));
   }, []);
 
   //fetch ends//
@@ -66,8 +65,11 @@ export default function CategoriesScreen({ navigation }) {
               activeCategory={activeCategory}
               setActiveCategory={setActiveCategory}
               index={index}
-            ></CategoriesButton>
+            />
           )}
+          ListEmptyComponent={
+            <ListEmptyIndicator padding="horizontal" size={25} />
+          }
           showsHorizontalScrollIndicator={false}
           horizontal
           style={styles.categoriesList}
@@ -86,6 +88,8 @@ export default function CategoriesScreen({ navigation }) {
             marginBottom: 10,
           }}
           renderItem={({ item }) => <ProductBox product={item} />}
+          ListEmptyComponent={<ListEmptyIndicator padding="tab" size={50} />}
+          showsVerticalScrollIndicator={false}
         />
       </View>
       {/* Bottom Section End */}
