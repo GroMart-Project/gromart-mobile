@@ -1,4 +1,11 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { COLORS } from "../data/Constants";
@@ -6,7 +13,6 @@ import { Searchbar } from "react-native-paper";
 
 //firebase imports
 import { fetchProductsData } from "../utilities/firestoreQueries";
-import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -52,23 +58,57 @@ export default function SearchScreen({ navigation }) {
           onChangeText={(text) => setSearchKeyword(text)}
           value={searchKeyword}
         />
-        <View>
-          <FlatList
-            data={searchedProducts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Text>{item.title}</Text>}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
       </View>
-      <Text>SearchScreen</Text>
+      <View style={styles.suggestions}>
+        <FlatList
+          data={searchedProducts.slice(0, 5)}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <SuggestionItem product={item}></SuggestionItem>
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <Text style={{ zIndex: 0 }}>SearchScreen</Text>
     </View>
   );
 }
+
+const SuggestionItem = ({ product }) => {
+  const { title } = product;
+  return (
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={styles.suggestionItem}
+      onPress={() => alert(title)}
+    >
+      <Text style={styles.suggestionText}>{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
+  },
+  suggestions: {
+    backgroundColor: "white",
+    position: "absolute",
+    elevation: 5,
+    alignSelf: "center",
+    zIndex: 100,
+    top: 60,
+  },
+  suggestionItem: {
+    width: width - 20,
+  },
+  suggestionText: {
+    fontSize: 15,
+    color: COLORS.text,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
 });
