@@ -1,6 +1,6 @@
 export default [
   {
-    id: 1,
+    id: "p1",
     title: "Banana",
     price: 10.0,
     description:
@@ -11,7 +11,7 @@ export default [
     discount: 0.0,
   },
   {
-    id: 2,
+    id: "p2",
     title: "Apple",
     price: 10.0,
     description:
@@ -22,7 +22,7 @@ export default [
     discount: 0.0,
   },
   {
-    id: 3,
+    id: "p3",
     title: "Avocado Pear",
     price: 10.0,
     description:
@@ -33,7 +33,7 @@ export default [
     discount: 0.3,
   },
   {
-    id: 4,
+    id: "p4",
     title: "Carrot",
     price: 10.0,
     description:

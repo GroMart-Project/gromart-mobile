@@ -5,19 +5,30 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import ProductBox from "./ProductBox";
-import ProductsData from "../data/ProductsData";
+
+//Firebase imports//
+import { fetchProductsData } from "../utilities/firestoreQueries";
 
 export default function HomeSection({ data, navigation }) {
   // Destructure props//
-  const { title, products } = data;
+  const { title, sectionProducts } = data;
   //Destructure props end//
 
+  //fetch data for products//
+  const [productsData, setProductsData] = useState([]);
+
+  useEffect(() => {
+    fetchProductsData(setProductsData).catch((error) => console.log(error));
+  }, []);
+
+  //fetch ends//
+
   // Filter Products//
-  const SectionProducts = ProductsData.filter((product) =>
-    products.includes(product.id)
+  const filteredProducts = productsData.filter((product) =>
+    sectionProducts?.includes(product?.id)
   );
   //Filter Products End//
 
@@ -34,7 +45,7 @@ export default function HomeSection({ data, navigation }) {
           onPress={() =>
             navigation.navigate("Section", {
               title: title,
-              sectionProducts: SectionProducts,
+              filteredProducts: filteredProducts,
             })
           }
         >
@@ -47,7 +58,7 @@ export default function HomeSection({ data, navigation }) {
       {/* Bottom Section */}
       <View style={{ margin: 10 }}>
         <FlatList
-          data={SectionProducts.slice(0, 2)}
+          data={filteredProducts.slice(0, 2)}
           keyExtractor={(item) => item.id}
           numColumns={2}
           columnWrapperStyle={{

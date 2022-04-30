@@ -5,7 +5,7 @@ import ProductBox from "../components/ProductBox";
 import { COLORS } from "../data/Constants";
 
 export default function SectionScreen({ navigation, route }) {
-  const { title, sectionProducts } = route.params;
+  const { title, filteredProducts } = route.params;
 
   // Header Styling//
   useLayoutEffect(() => {
@@ -18,7 +18,7 @@ export default function SectionScreen({ navigation, route }) {
     <View style={styles.container}>
       <View style={{ margin: 10 }}>
         <FlatList
-          data={sectionProducts}
+          data={filteredProducts}
           keyExtractor={(item) => item.id}
           numColumns={2}
           columnWrapperStyle={{
