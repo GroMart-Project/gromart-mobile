@@ -11,12 +11,53 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
+//Firebase imports
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
+
 function LoginScreen({ navigation }) {
+  //States for inputs
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //State end
+
+  //State for authentication process//
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  //State ends//
+
+  //Login function//
+  const Login = () => {
+    signInWithEmailAndPassword(auth, email.trim(), password)
+      .then((authUser) => console.log(authUser.email))
+      .catch((error) => {
+        alert(error.message);
+        setIsAuthenticating(false);
+      });
+  };
+  //Login ends//
+
+  //Function to validate text boxes//
+  const onLoginPress = () => {
+    if (!email) {
+      alert("Please enter your e-mail");
+    }
+    if (email && !password) {
+      alert("Please enter your password");
+    }
+    if (email && password) {
+      Login();
+      setIsAuthenticating(true);
+    }
+  };
+  //function ends//
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -24,6 +65,10 @@ function LoginScreen({ navigation }) {
       }}
     >
       <SafeAreaView style={styles.container}>
+        {/* Authenticating Activity Indicator */}
+        <ActivityIndicatorModal isVisible={isAuthenticating} />
+        {/* Authenticating Activity Indicator */}
+
         <View style={styles.page}>
           <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <HeaderImageFade
@@ -45,6 +90,8 @@ function LoginScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
               />
 
               <TextInput
@@ -55,6 +102,9 @@ function LoginScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                onSubmitEditing={() => onLoginPress()}
               />
             </View>
           </ScrollView>
@@ -75,10 +125,7 @@ function LoginScreen({ navigation }) {
               </Text>
             </TouchableOpacity>
 
-            <ButtonBig
-              title={"Login"}
-              onPress={() => navigation.replace("Main")}
-            />
+            <ButtonBig title={"Login"} onPress={() => onLoginPress()} />
 
             <View style={styles.option}>
               <Text>Dont't have an account ? </Text>

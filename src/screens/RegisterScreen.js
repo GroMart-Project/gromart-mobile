@@ -11,12 +11,90 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
+//Firebase imports
+import { auth, db } from "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
+import { doc, setDoc } from "firebase/firestore";
+
 function RegisterScreen({ navigation }) {
+  //States for inputs//
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  //State end//
+
+  //State for authentication process//
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  //State ends//
+
+  //Register function//
+  const Register = () => {
+    createUserWithEmailAndPassword(auth, email.trim(), password)
+      .then((authUser) => {
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+        });
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        setDoc(userRef, {
+          userId: authUser.user.uid,
+          name,
+          email,
+          imageUri: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+        });
+        console.log(authUser.email);
+      })
+      .catch((error) => {
+        alert(error.message);
+        setIsAuthenticating(false);
+      });
+  };
+  //Register ends//
+
+  //Function to validate text boxes//
+  const onRegisterPress = () => {
+    if (!name) {
+      alert("Please enter your name");
+    }
+    if (name && !email) {
+      alert("Please enter your e-mail");
+    }
+    if (name && email && !password) {
+      alert("Please enter your password");
+    }
+    if (name && email && password && !confirmPassword) {
+      alert("Please confirm your password");
+    }
+    if (
+      name &&
+      email &&
+      password &&
+      confirmPassword &&
+      password != confirmPassword
+    ) {
+      alert("The passwords do not match");
+    }
+    if (
+      name &&
+      email &&
+      password &&
+      confirmPassword &&
+      password === confirmPassword
+    ) {
+      Register();
+      setIsAuthenticating(true);
+    }
+  };
+  //function ends//
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -24,6 +102,10 @@ function RegisterScreen({ navigation }) {
       }}
     >
       <SafeAreaView style={styles.container}>
+        {/* Authenticating Activity Indicator */}
+        <ActivityIndicatorModal isVisible={isAuthenticating} />
+        {/* Authenticating Activity Indicator */}
+
         <View style={styles.page}>
           <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <HeaderImageFade
@@ -45,6 +127,8 @@ function RegisterScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setName(text)}
+                value={name}
               />
 
               <TextInput
@@ -54,6 +138,8 @@ function RegisterScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
               />
 
               <TextInput
@@ -64,15 +150,27 @@ function RegisterScreen({ navigation }) {
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
                 style={styles.input}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+              />
+
+              <TextInput
+                label="Confirm Password"
+                mode="outlined"
+                secureTextEntry
+                outlineColor={COLORS.box}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.input}
+                onChangeText={(text) => setConfirmPassword(text)}
+                value={confirmPassword}
+                onSubmitEditing={() => onRegisterPress()}
               />
             </View>
           </ScrollView>
 
           <View style={styles.footer}>
-            <ButtonBig
-              title={"Register"}
-              onPress={() => navigation.replace("Main")}
-            />
+            <ButtonBig title={"Register"} onPress={() => onRegisterPress()} />
 
             <View style={styles.option}>
               <Text>Already have an account ? </Text>
