@@ -13,6 +13,7 @@ import { Searchbar } from "react-native-paper";
 
 //firebase imports
 import { fetchProductsData } from "../utilities/firestoreQueries";
+import { TextInput } from "react-native-web";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -59,28 +60,32 @@ export default function SearchScreen({ navigation }) {
           value={searchKeyword}
         />
       </View>
+
+      {/* Suggestion box */}
       <View style={styles.suggestions}>
-        <FlatList
-          data={searchedProducts.slice(0, 5)}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <SuggestionItem product={item}></SuggestionItem>
-          )}
-          showsVerticalScrollIndicator={false}
-        />
+        {searchedProducts?.slice(0, 5).map((product) => (
+          <SuggestionItem
+            product={product}
+            setSearchKeyword={setSearchKeyword}
+          />
+        ))}
       </View>
-      <Text style={{ zIndex: 0 }}>SearchScreen</Text>
+      {/* Suggestion box ends */}
+
+      <View>
+        <Text style={{ zIndex: 0 }}>SearchScreen</Text>
+      </View>
     </View>
   );
 }
 
-const SuggestionItem = ({ product }) => {
+const SuggestionItem = ({ product, setSearchKeyword }) => {
   const { title } = product;
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       style={styles.suggestionItem}
-      onPress={() => alert(title)}
+      onPress={() => setSearchKeyword(title)}
     >
       <Text style={styles.suggestionText}>{title}</Text>
     </TouchableOpacity>
