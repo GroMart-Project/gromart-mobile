@@ -104,6 +104,7 @@ function LoginScreen({ navigation }) {
                 style={styles.input}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
+                onSubmitEditing={() => onLoginPress()}
               />
             </View>
           </ScrollView>

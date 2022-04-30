@@ -17,9 +17,10 @@ import HeaderImageFade from "../components/utilities/HeaderImageFade";
 import ButtonBig from "../components/utilities/ButtonBig";
 
 //Firebase imports
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
+import { doc, setDoc } from "firebase/firestore";
 
 function RegisterScreen({ navigation }) {
   //States for inputs//
@@ -37,7 +38,20 @@ function RegisterScreen({ navigation }) {
   //Register function//
   const Register = () => {
     createUserWithEmailAndPassword(auth, email.trim(), password)
-      .then((authUser) => console.log(authUser.email))
+      .then((authUser) => {
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+        });
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        setDoc(userRef, {
+          userId: authUser.user.uid,
+          name,
+          email,
+          imageUri: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+        });
+        console.log(authUser.email);
+      })
       .catch((error) => {
         alert(error.message);
         setIsAuthenticating(false);
@@ -150,6 +164,7 @@ function RegisterScreen({ navigation }) {
                 style={styles.input}
                 onChangeText={(text) => setConfirmPassword(text)}
                 value={confirmPassword}
+                onSubmitEditing={() => onRegisterPress()}
               />
             </View>
           </ScrollView>
