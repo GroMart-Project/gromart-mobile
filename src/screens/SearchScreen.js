@@ -81,6 +81,7 @@ export default function SearchScreen({ navigation }) {
       <View style={styles.suggestions}>
         {searchedProducts?.slice(0, 5).map((product) => (
           <SuggestionItem
+            key={product.id}
             product={product}
             setSearchKeyword={setSearchKeyword}
           />
