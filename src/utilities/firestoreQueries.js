@@ -1,5 +1,12 @@
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../../firebase";
+import {
+  arrayRemove,
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 
 //Function for fetching products
 export const fetchProductsData = async (setProductsData) => {
@@ -23,4 +30,17 @@ export const fetchCategoriesData = async (setCategoriesData) => {
   const categoriesSnapshot = await getDocs(categoriesCollection);
 
   setCategoriesData(categoriesSnapshot.docs.map((doc) => doc.data()));
+};
+
+//Function for fetching categories
+export const fetchHistoryData = (setHistoryData) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  return onSnapshot(userDoc, (doc) =>
+    setHistoryData(doc.data().searchHistory.map((historyItem) => historyItem))
+  );
+};
+
+export const deleteHistoryItem = async (key) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  await updateDoc(userDoc, { searchHistory: arrayRemove(key) });
 };

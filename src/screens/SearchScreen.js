@@ -8,10 +8,14 @@ import {
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { COLORS } from "../data/Constants";
-import { Searchbar } from "react-native-paper";
+import { Chip, Searchbar } from "react-native-paper";
 
 //firebase imports
-import { fetchProductsData } from "../utilities/firestoreQueries";
+import {
+  deleteHistoryItem,
+  fetchHistoryData,
+  fetchProductsData,
+} from "../utilities/firestoreQueries";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function SearchScreen({ navigation }) {
@@ -64,6 +68,16 @@ export default function SearchScreen({ navigation }) {
   };
   //function ends//
 
+  //fetch history realtime//
+  const [historyData, setHistoryData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchHistoryData(setHistoryData);
+    return unsubscribe;
+  }, []);
+
+  //fetch ends///
+
   return (
     <View style={styles.container}>
       <View style={{ backgroundColor: "white" }}>
@@ -89,6 +103,20 @@ export default function SearchScreen({ navigation }) {
       </View>
       {/* Suggestion box ends */}
 
+      {/* History section */}
+      {historyData && (
+        <View style={{ backgroundColor: "white", padding: 5 }}>
+          <Text style={styles.historyTitle}>History</Text>
+          <View style={styles.historyItemList}>
+            {historyData?.map((historyItem, index) => (
+              <HistoryChip key={index} historyItem={historyItem} />
+            ))}
+          </View>
+        </View>
+      )}
+
+      {/* History section */}
+
       <View>
         <Text style={{ zIndex: 0 }}>SearchScreen</Text>
       </View>
@@ -106,6 +134,24 @@ const SuggestionItem = ({ product, setSearchKeyword }) => {
     >
       <Text style={styles.suggestionText}>{title}</Text>
     </TouchableOpacity>
+  );
+};
+
+const HistoryChip = ({ historyItem }) => {
+  return (
+    <Chip
+      mode="outlined"
+      style={styles.historyChip}
+      textStyle={{
+        color: COLORS.primary,
+      }}
+      onPress={() => console.log("Pressed")}
+      onClose={() => {
+        deleteHistoryItem(historyItem);
+      }}
+    >
+      {historyItem}
+    </Chip>
   );
 };
 
@@ -132,5 +178,20 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     paddingHorizontal: 20,
     paddingVertical: 5,
+  },
+  historyTitle: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: "bold",
+    paddingHorizontal: 10,
+  },
+  historyItemList: {
+    marginVertical: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
+  historyChip: {
+    margin: 5,
   },
 });
