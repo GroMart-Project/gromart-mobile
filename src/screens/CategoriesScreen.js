@@ -88,7 +88,9 @@ export default function CategoriesScreen({ navigation }) {
             marginBottom: 10,
           }}
           renderItem={({ item }) => <ProductBox product={item} />}
-          ListEmptyComponent={<ListEmptyIndicator padding="tab" size={50} />}
+          ListEmptyComponent={
+            <ListEmptyIndicator padding="tab" size={50} subtract={70} />
+          }
           showsVerticalScrollIndicator={false}
         />
       </View>
