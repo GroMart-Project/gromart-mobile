@@ -36,7 +36,7 @@ export const fetchCategoriesData = async (setCategoriesData) => {
 export const fetchHistoryData = (setHistoryData) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   return onSnapshot(userDoc, (doc) =>
-    setHistoryData(doc.data().searchHistory.map((historyItem) => historyItem))
+    setHistoryData(doc.data()?.searchHistory?.map((historyItem) => historyItem))
   );
 };
 
