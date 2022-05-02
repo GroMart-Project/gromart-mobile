@@ -6,7 +6,7 @@ export default function HorizontalProductList({ data }) {
   return (
     <View
       style={{
-        margin: 10,
+        marginHorizontal: 10,
       }}
     >
       <FlatList
@@ -15,7 +15,8 @@ export default function HorizontalProductList({ data }) {
         renderItem={({ item }) => (
           <View
             style={{
-              margin: 5,
+              marginVertical: 5,
+              marginHorizontal: 10,
             }}
           >
             <ProductBox product={item} />
