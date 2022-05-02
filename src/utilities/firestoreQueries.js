@@ -143,3 +143,17 @@ export const updatePhone = async (newPhone) => {
     phoneNumber: newPhone,
   });
 };
+
+//function to update user picture
+export const updateUserImage = (newImageUri) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  updateProfile(auth.currentUser, {
+    photoURL: newImageUri,
+  })
+    .then(
+      updateDoc(userDoc, {
+        imageUri: newImageUri,
+      })
+    )
+    .catch((error) => console.log(error));
+};

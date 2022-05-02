@@ -10,6 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Button } from "react-native-paper";
+import { updateUserImage } from "../utilities/firestoreQueries";
+import { auth } from "../../firebase";
 
 export default function EditProfilePicModal({ image, setImage }) {
   //function to close modal
@@ -52,9 +54,7 @@ export default function EditProfilePicModal({ image, setImage }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => {
-                  console.log("confirm");
-                }}
+                onPress={() => updateUserImage(image)}
               >
                 Confirm
               </Button>
