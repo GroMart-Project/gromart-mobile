@@ -18,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 //Firebase imports
 import { fetchUserData } from "../../utilities/firestoreQueries";
 import EditProfilePicModal from "../../components/EditProfilePicModal";
+import EditAddressModal from "../../components/EditAddressModal";
 
 export default function EditProfileScreen({ navigation }) {
   // Header Styling//
@@ -39,11 +40,13 @@ export default function EditProfileScreen({ navigation }) {
   const name = userData?.name;
   const imageUri = userData?.imageUri;
   const phoneNumber = userData?.phoneNumber;
+  const deliveryAddress = userData?.deliveryAddress;
   //get ends//
 
   //edit name modal visibility state//
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
   //state ends//
 
   //state and function to pick image
@@ -82,6 +85,13 @@ export default function EditProfileScreen({ navigation }) {
       {/* Edit phone modal */}
       <EditProfilePicModal image={image} setImage={setImage} />
       {/* Edit phone modal  end */}
+
+      {/* Edit address modal */}
+      <EditAddressModal
+        isVisible={isEditingAddress}
+        setIsVisible={setIsEditingAddress}
+      />
+      {/* Edit address modal end*/}
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -152,6 +162,26 @@ export default function EditProfileScreen({ navigation }) {
           </View>
         </Card>
         {/* Phone Card end */}
+
+        {/* Address card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.nameContainer}>
+            <View>
+              <Text style={styles.label}>Address</Text>
+              <Text style={styles.name}>
+                {deliveryAddress ? deliveryAddress : "No Address Added"}
+              </Text>
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => setIsEditingAddress(true)}
+              style={{ marginLeft: "auto" }}
+            >
+              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Address Card end */}
       </ScrollView>
     </View>
   );
