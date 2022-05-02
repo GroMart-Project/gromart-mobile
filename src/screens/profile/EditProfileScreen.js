@@ -168,9 +168,19 @@ export default function EditProfileScreen({ navigation }) {
           <View style={styles.nameContainer}>
             <View>
               <Text style={styles.label}>Address</Text>
-              <Text style={styles.name}>
-                {deliveryAddress ? deliveryAddress : "No Address Added"}
-              </Text>
+
+              {deliveryAddress ? (
+                <View>
+                  <Text style={styles.name}>{deliveryAddress.addressLine}</Text>
+                  <Text style={[styles.name, { fontSize: 12 }]}>
+                    {deliveryAddress.city}
+                    {" - "}
+                    {deliveryAddress.region}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={styles.name}>No Address Added</Text>
+              )}
             </View>
             <TouchableOpacity
               activeOpacity={0.5}

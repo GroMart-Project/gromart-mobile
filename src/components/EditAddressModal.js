@@ -12,11 +12,13 @@ import { COLORS } from "../data/Constants";
 import { Button } from "react-native-paper";
 
 export default function EditAddressModal({ isVisible, setIsVisible }) {
-  const [newAddress, setNewAddress] = useState("");
+  const [newAddressLine, setNewAddressLine] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newRegion, setNewRegion] = useState("");
 
   //function to close modal
   const onClose = () => {
-    setIsVisible(false), setNewAddress("");
+    setIsVisible(false), setNewAddressLine("");
   };
   //function ends//
 
@@ -32,16 +34,46 @@ export default function EditAddressModal({ isVisible, setIsVisible }) {
         <Pressable style={styles.overlay} onPress={onClose}>
           <Pressable style={styles.container}>
             <Text style={styles.modalText}>Edit Delivery Address...</Text>
+
+            {/* address line */}
             <TextInput
-              label="New Address"
+              label="Address Line"
               mode="outlined"
               outlineColor={"black"}
               activeOutlineColor={COLORS.primary}
               theme={{ roundness: 10 }}
               style={styles.input}
-              onChangeText={(text) => setNewAddress(text)}
-              value={newAddress}
+              onChangeText={(text) => setNewAddressLine(text)}
+              value={newAddressLine}
             />
+            {/* address line end */}
+
+            {/* city and region */}
+            <View style={styles.inputRow}>
+              <TextInput
+                label="City"
+                mode="outlined"
+                outlineColor={"black"}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.inputSmall}
+                onChangeText={(text) => setNewCity(text)}
+                value={newCity}
+              />
+
+              <TextInput
+                label="Region"
+                mode="outlined"
+                outlineColor={"black"}
+                activeOutlineColor={COLORS.primary}
+                theme={{ roundness: 10 }}
+                style={styles.inputSmall}
+                onChangeText={(text) => setNewRegion(text)}
+                value={newRegion}
+              />
+            </View>
+            {/* city and region end */}
+
             <View style={styles.footer}>
               <Button
                 mode="outlined"
@@ -91,6 +123,16 @@ const styles = StyleSheet.create({
   input: {
     marginVertical: 5,
     marginHorizontal: 20,
+  },
+  inputRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 10,
+  },
+  inputSmall: {
+    flex: 1,
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
   footer: {
     flexDirection: "row",
