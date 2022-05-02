@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   onSnapshot,
+  runTransaction,
   updateDoc,
 } from "firebase/firestore";
 
@@ -32,7 +33,7 @@ export const fetchCategoriesData = async (setCategoriesData) => {
   setCategoriesData(categoriesSnapshot.docs.map((doc) => doc.data()));
 };
 
-//Function for fetching categories
+//Function for fetching search  history
 export const fetchHistoryData = (setHistoryData) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   return onSnapshot(userDoc, (doc) =>
@@ -40,7 +41,34 @@ export const fetchHistoryData = (setHistoryData) => {
   );
 };
 
+//Function for deleting history item
 export const deleteHistoryItem = async (key) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   await updateDoc(userDoc, { searchHistory: arrayRemove(key) });
+};
+
+//Transaction  Function for updating search history
+export const addHistoryItem = async (key) => {
+  const userDocRef = doc(db, "users", auth.currentUser.uid);
+  await runTransaction(db, async (transaction) => {
+    const userDoc = await transaction.get(userDocRef);
+    if (!userDoc.exists()) {
+      throw "Document does not exist!";
+    } else if (!userDoc.data()?.searchHistory) {
+      transaction.update(userDocRef, { searchHistory: [key] });
+    } else if (userDoc.data()?.searchHistory?.length < 5) {
+      const newSearchHistory = userDoc.data()?.searchHistory;
+      if (!newSearchHistory?.includes(key)) {
+        newSearchHistory?.push(key);
+        transaction.update(userDocRef, { searchHistory: newSearchHistory });
+      }
+    } else {
+      const newSearchHistory = userDoc.data()?.searchHistory;
+      if (!newSearchHistory?.includes(key)) {
+        newSearchHistory?.shift();
+        newSearchHistory?.push(key);
+        transaction.update(userDocRef, { searchHistory: newSearchHistory });
+      }
+    }
+  });
 };

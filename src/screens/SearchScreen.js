@@ -12,6 +12,7 @@ import { Chip, Searchbar } from "react-native-paper";
 
 //firebase imports
 import {
+  addHistoryItem,
   deleteHistoryItem,
   fetchHistoryData,
   fetchProductsData,
@@ -63,8 +64,10 @@ export default function SearchScreen({ navigation }) {
 
   //Function for search//
   const onSearch = () => {
-    searchKeyword &&
+    if (searchKeyword) {
+      addHistoryItem(searchKeyword);
       navigation.navigate("SearchResult", { title: searchKeyword });
+    }
   };
   //function ends//
 
@@ -104,7 +107,7 @@ export default function SearchScreen({ navigation }) {
       {/* Suggestion box ends */}
 
       {/* History section */}
-      {historyData && (
+      {historyData?.length != 0 && (
         <View style={{ backgroundColor: "white", padding: 5 }}>
           <Text style={styles.historyTitle}>History</Text>
           <View style={styles.historyItemList}>
@@ -118,7 +121,7 @@ export default function SearchScreen({ navigation }) {
       {/* History section */}
 
       <View>
-        <Text style={{ zIndex: 0 }}>SearchScreen</Text>
+        <Text>SearchScreen</Text>
       </View>
     </View>
   );
@@ -147,6 +150,7 @@ const HistoryChip = ({ historyItem }) => {
       }}
       onPress={() => console.log("Pressed")}
       onClose={() => {
+        //remove History Item
         deleteHistoryItem(historyItem);
       }}
     >
