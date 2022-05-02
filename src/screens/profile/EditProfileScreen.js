@@ -15,8 +15,6 @@ import EditNameModal from "../../components/EditNameModal";
 import EditPhoneModal from "../../components/EditPhoneModal";
 
 //Firebase imports
-import { auth } from "../../../firebase";
-import { signOut } from "firebase/auth";
 import { fetchUserData } from "../../utilities/firestoreQueries";
 
 export default function EditProfileScreen({ navigation }) {
@@ -156,6 +154,7 @@ const styles = StyleSheet.create({
     width: imgDimensions,
     borderRadius: bRadius,
     margin: 15,
+    marginBottom: 40,
   },
   imageContainer: {
     backgroundColor: "white",
@@ -185,11 +184,11 @@ const styles = StyleSheet.create({
   },
   //Button Styles ends//
 
-  //Name styles//
+  //Card styles//
   card: {
     width: width - 30,
     borderRadius: 10,
-    marginTop: 30,
+    marginVertical: 5,
   },
   nameContainer: {
     flexDirection: "row",
