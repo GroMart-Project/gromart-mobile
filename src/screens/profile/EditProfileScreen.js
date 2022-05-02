@@ -6,11 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../../components/utilities/HeaderStyles";
 import { COLORS } from "../../data/Constants";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
+import EditNameModal from "../../components/EditNameModal";
+import EditPhoneModal from "../../components/EditPhoneModal";
+import * as ImagePicker from "expo-image-picker";
+
+//Firebase imports
+import { fetchUserData } from "../../utilities/firestoreQueries";
+import EditProfilePicModal from "../../components/EditProfilePicModal";
+import EditAddressModal from "../../components/EditAddressModal";
 
 export default function EditProfileScreen({ navigation }) {
   // Header Styling//
@@ -19,8 +27,72 @@ export default function EditProfileScreen({ navigation }) {
   }, [navigation]);
   //Header Styling Ends//
 
+  //fetch user data realtime//
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchUserData(setUserData);
+    return unsubscribe;
+  }, []);
+  //fetch ends///
+
+  //Destructure user data//
+  const name = userData?.name;
+  const imageUri = userData?.imageUri;
+  const phoneNumber = userData?.phoneNumber;
+  const deliveryAddress = userData?.deliveryAddress;
+  //get ends//
+
+  //edit name modal visibility state//
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
+  //state ends//
+
+  //state and function to pick image
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result?.uri);
+    }
+  };
+  //function ends//
+
   return (
     <View style={styles.container}>
+      {/* Edit name modal */}
+      <EditNameModal
+        isVisible={isEditingName}
+        setIsVisible={setIsEditingName}
+      />
+      {/* Edit name modal end*/}
+
+      {/* Edit phone modal */}
+      <EditPhoneModal
+        isVisible={isEditingPhone}
+        setIsVisible={setIsEditingPhone}
+      />
+      {/* Edit phone modal  end */}
+
+      {/* Edit phone modal */}
+      <EditProfilePicModal image={image} setImage={setImage} />
+      {/* Edit phone modal  end */}
+
+      {/* Edit address modal */}
+      <EditAddressModal
+        isVisible={isEditingAddress}
+        setIsVisible={setIsEditingAddress}
+      />
+      {/* Edit address modal end*/}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
@@ -29,7 +101,7 @@ export default function EditProfileScreen({ navigation }) {
         <Card style={styles.imageCard} elevation={4}>
           <View style={styles.imageContainer}>
             <Card.Cover
-              source={require("../../../assets/images/register_fruit.jpg")}
+              source={{ uri: imageUri }}
               borderRadius={bRadius}
               style={styles.image}
               resizeMode="cover"
@@ -39,7 +111,7 @@ export default function EditProfileScreen({ navigation }) {
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.btn}
-              onPress={() => console.log("camera pressed")}
+              onPress={pickImage}
             >
               <MaterialIcons
                 name="camera-alt"
@@ -58,11 +130,11 @@ export default function EditProfileScreen({ navigation }) {
           <View style={styles.nameContainer}>
             <View>
               <Text style={styles.label}>Name</Text>
-              <Text style={styles.name}>Eric Ayizanga </Text>
+              <Text style={styles.name}>{name} </Text>
             </View>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => console.log("show modal")}
+              onPress={() => setIsEditingName(true)}
               style={{ marginLeft: "auto" }}
             >
               <MaterialIcons name="edit" size={30} color={COLORS.primary} />
@@ -70,6 +142,56 @@ export default function EditProfileScreen({ navigation }) {
           </View>
         </Card>
         {/* Name Card end */}
+
+        {/* Phone card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.nameContainer}>
+            <View>
+              <Text style={styles.label}>Phone</Text>
+              <Text style={styles.name}>
+                {phoneNumber ? phoneNumber : "No Number Added"}
+              </Text>
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => setIsEditingPhone(true)}
+              style={{ marginLeft: "auto" }}
+            >
+              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Phone Card end */}
+
+        {/* Address card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.nameContainer}>
+            <View>
+              <Text style={styles.label}>Address</Text>
+
+              {deliveryAddress ? (
+                <View>
+                  <Text style={styles.name}>{deliveryAddress.addressLine}</Text>
+                  <Text style={[styles.name, { fontSize: 12 }]}>
+                    {deliveryAddress.city}
+                    {" - "}
+                    {deliveryAddress.region}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={styles.name}>No Address Added</Text>
+              )}
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => setIsEditingAddress(true)}
+              style={{ marginLeft: "auto" }}
+            >
+              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Address Card end */}
       </ScrollView>
     </View>
   );
@@ -95,6 +217,7 @@ const styles = StyleSheet.create({
     width: imgDimensions,
     borderRadius: bRadius,
     margin: 15,
+    marginBottom: 40,
   },
   imageContainer: {
     backgroundColor: "white",
@@ -124,11 +247,11 @@ const styles = StyleSheet.create({
   },
   //Button Styles ends//
 
-  //Name styles//
+  //Card styles//
   card: {
     width: width - 30,
     borderRadius: 10,
-    marginTop: 30,
+    marginVertical: 5,
   },
   nameContainer: {
     flexDirection: "row",

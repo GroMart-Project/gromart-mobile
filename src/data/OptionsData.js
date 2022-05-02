@@ -19,12 +19,6 @@ export default [
   },
   {
     id: "4",
-    title: "Address List",
-    icon: "house",
-    route: "Address List",
-  },
-  {
-    id: "5",
     title: "Reset Password",
     icon: "lock",
     route: "Reset Password",

@@ -6,7 +6,7 @@ import {
   View,
   Alert,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SafeArea from "../../components/utilities/SafeArea";
 import { COLORS } from "../../data/Constants";
 import ProfileHeader from "../../components/utilities/ProfileHeader";
@@ -18,6 +18,7 @@ import ButtonBig from "../../components/utilities/ButtonBig";
 //Firebase imports
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
+import { fetchUserData } from "../../utilities/firestoreQueries";
 
 export default function ProfileScreen({ navigation }) {
   //Sign out function//
@@ -40,6 +41,20 @@ export default function ProfileScreen({ navigation }) {
   };
   //Sign out ends//
 
+  //fetch user data realtime//
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchUserData(setUserData);
+    return unsubscribe;
+  }, []);
+  //fetch ends///
+
+  //destructure user data
+  const name = userData?.name;
+  const imageUri = userData?.imageUri;
+  //get ends//
+
   return (
     <SafeArea>
       <View style={styles.container}>
@@ -50,7 +65,7 @@ export default function ProfileScreen({ navigation }) {
             <Card style={styles.imageCard} elevation={4}>
               <View style={styles.imageContainer}>
                 <Card.Cover
-                  source={require("../../../assets/images/register_fruit.jpg")}
+                  source={{ uri: imageUri }}
                   borderRadius={bRadius}
                   style={styles.image}
                   resizeMode="cover"
@@ -60,7 +75,7 @@ export default function ProfileScreen({ navigation }) {
             {/* Profile Pic end */}
 
             {/* Name */}
-            <Text style={styles.name}>Eric Ayizanga</Text>
+            <Text style={styles.name}>{name}</Text>
             {/* Name ends */}
           </ProfileHeader>
           {/* Profile Header ends */}

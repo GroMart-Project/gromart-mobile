@@ -8,6 +8,7 @@ import {
   runTransaction,
   updateDoc,
 } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
 
 //Function for fetching products
 export const fetchProductsData = async (setProductsData) => {
@@ -112,5 +113,59 @@ export const addRecentlyViewedProduct = async (key) => {
         });
       }
     }
+  });
+};
+
+//Function for fetching search  history
+export const fetchUserData = (setUserData) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  return onSnapshot(userDoc, (doc) => setUserData(doc?.data()));
+};
+
+//function to update user picture
+export const updateUserImage = (newImageUri) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  updateProfile(auth.currentUser, {
+    photoURL: newImageUri,
+  })
+    .then(
+      updateDoc(userDoc, {
+        imageUri: newImageUri,
+      })
+    )
+    .catch((error) => console.log(error));
+};
+
+//function to update user name
+export const updateName = (newName) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  updateProfile(auth.currentUser, {
+    displayName: newName.trim(),
+  })
+    .then(
+      updateDoc(userDoc, {
+        name: newName.trim(),
+      })
+    )
+    .catch((error) => console.log(error));
+};
+
+//function to update phone number
+export const updatePhone = async (newPhone) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  await updateDoc(userDoc, {
+    phoneNumber: newPhone,
+  });
+};
+
+//function to update address
+export const updateAddress = async (newAddressLine, newCity, newRegion) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  await updateDoc(userDoc, {
+    deliveryAddress: {
+      addressLine: newAddressLine,
+      city: newCity,
+      region: newRegion,
+    },
   });
 };

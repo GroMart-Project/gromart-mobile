@@ -48,9 +48,11 @@ export default function CategoriesScreen({ navigation }) {
   //state ends//
 
   // Filter Products//
-  const filteredProducts = productsData.filter(
-    (product) => product.category == categoriesData[activeCategory]?.name
-  );
+  const filteredProducts =
+    categoriesData &&
+    productsData.filter(
+      (product) => product.category == categoriesData[activeCategory]?.name
+    );
   //Filter Products End//
 
   return (
