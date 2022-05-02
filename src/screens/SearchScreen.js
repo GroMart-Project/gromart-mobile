@@ -9,6 +9,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { COLORS } from "../data/Constants";
 import { Chip, Searchbar } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 
 //firebase imports
 import {
@@ -17,7 +18,6 @@ import {
   fetchHistoryData,
   fetchProductsData,
 } from "../utilities/firestoreQueries";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -68,7 +68,7 @@ export default function SearchScreen({ navigation }) {
       addHistoryItem(searchKeyword)
         .then(() => console.log("transaction successful"))
         .catch((error) => console.log(error));
-      navigation.navigate("SearchResult", { title: key });
+      navigation.navigate("SearchResult", { searchKey: key });
     }
   };
   //function ends//
