@@ -156,7 +156,7 @@ export default function SearchScreen({ navigation }) {
 
       {/* Recently Viewed section */}
       {recentlyViewedProductsData?.length == 0 ? (
-        <View style={{ paddingTop: historyData.length != 0 ? 5 : 0 }}>
+        <View style={{ paddingTop: historyData?.length != 0 ? 5 : 0 }}>
           <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
           </View>
@@ -167,24 +167,25 @@ export default function SearchScreen({ navigation }) {
           </View>
         </View>
       ) : (
-        <View style={{ padding: historyData.length != 0 ? 5 : 0 }}>
+        <View
+          style={{ flex: 1, paddingVertical: historyData?.length != 0 ? 5 : 0 }}
+        >
           <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
           </View>
 
           {/* Bottom Section */}
-          <View style={{ margin: 10, paddingBottom: 10 }}>
+          <View style={{ flex: 1, margin: 10 }}>
             <FlatList
               data={recentlyViewedProductsList}
               keyExtractor={(item) => item.id}
-              numColumns={2}
-              columnWrapperStyle={{
-                justifyContent: "space-between",
-                marginBottom: 10,
-              }}
-              renderItem={({ item }) => <ProductBox product={item} />}
-              // renderItem={({ item }) => <Text>{item}</Text>}
-              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <View style={{ margin: 5 }}>
+                  <ProductBox product={item} />
+                </View>
+              )}
+              showsHorizontalScrollIndicator={false}
+              horizontal
             />
           </View>
           {/* Bottom Section End */}

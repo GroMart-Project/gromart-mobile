@@ -84,3 +84,33 @@ export const fetchRecentlyViewedProductsData = (
     )
   );
 };
+
+//Transaction  Function for updating recently viewed products
+export const addRecentlyViewedProduct = async (key) => {
+  const userDocRef = doc(db, "users", auth.currentUser.uid);
+  await runTransaction(db, async (transaction) => {
+    const userDoc = await transaction.get(userDocRef);
+    if (!userDoc.exists()) {
+      throw "Document does not exist!";
+    } else if (!userDoc.data()?.recentlyViewedProducts) {
+      transaction.update(userDocRef, { recentlyViewedProducts: [key] });
+    } else if (userDoc.data()?.recentlyViewedProducts?.length < 5) {
+      const newRecentlyViewedProducts = userDoc.data()?.recentlyViewedProducts;
+      if (!newRecentlyViewedProducts?.includes(key)) {
+        newRecentlyViewedProducts?.push(key);
+        transaction.update(userDocRef, {
+          recentlyViewedProducts: newRecentlyViewedProducts,
+        });
+      }
+    } else {
+      const newRecentlyViewedProducts = userDoc.data()?.recentlyViewedProducts;
+      if (!newRecentlyViewedProducts?.includes(key)) {
+        newRecentlyViewedProducts?.shift();
+        newRecentlyViewedProducts?.push(key);
+        transaction.update(userDocRef, {
+          recentlyViewedProducts: newRecentlyViewedProducts,
+        });
+      }
+    }
+  });
+};
