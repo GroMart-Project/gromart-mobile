@@ -7,16 +7,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { Card } from "react-native-paper";
 import ButtonSmall from "../components/utilities/ButtonSmall";
 import { MaterialIcons } from "@expo/vector-icons";
 
+//firebase imports
+import { addRecentlyViewedProduct } from "../utilities/firestoreQueries";
+
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
-  const { title, description, imageUri, price, discount } =
+  const { id, title, description, imageUri, price, discount } =
     route?.params?.product;
   //Destructuring ends//
 
@@ -25,6 +28,16 @@ export default function DetailsScreen({ navigation, route }) {
     navigation.setOptions(HeaderStyles());
   }, [navigation]);
   //Header Styling Ends//
+
+  //mark item as recently viewed//
+  useEffect(() => {
+    const unsubscribe = addRecentlyViewedProduct(id)
+      .then(() => console.log("RV transaction successful"))
+      .catch((error) => console.log(error));
+    return unsubscribe;
+  }, [navigation]);
+
+  //marker ends//
 
   return (
     <View style={styles.container}>

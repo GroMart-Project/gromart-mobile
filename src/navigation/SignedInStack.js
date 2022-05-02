@@ -10,6 +10,7 @@ import OrdersScreen from "../screens/profile/OrdersScreen";
 import WishlistScreen from "../screens/profile/WishlistScreen";
 import AddressListScreen from "../screens/profile/AddressListScreen";
 import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
+import SearchResultScreen from "../screens/SearchResultScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function SignedInStack() {
         {/* Screens from bottom tab screens */}
         <MainStack.Screen name="Section" component={SectionScreen} />
         <MainStack.Screen name="Details" component={DetailsScreen} />
+        <MainStack.Screen name="SearchResult" component={SearchResultScreen} />
         {/* Screen from bottom tab screens */}
 
         {/* Screens from profile screen */}
