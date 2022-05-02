@@ -68,6 +68,7 @@ export default function HomeSection({ data, navigation }) {
           }}
           renderItem={({ item }) => <ProductBox product={item} />}
           ListEmptyComponent={<ListEmptyIndicator padding={50} size={25} />}
+          showsVerticalScrollIndicator={false}
         />
       </View>
       {/* Bottom Section End */}

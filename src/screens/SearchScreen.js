@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,7 +18,10 @@ import {
   deleteHistoryItem,
   fetchHistoryData,
   fetchProductsData,
+  fetchRecentlyViewedProductsData,
 } from "../utilities/firestoreQueries";
+import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
+import ProductBox from "../components/ProductBox";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -59,7 +63,6 @@ export default function SearchScreen({ navigation }) {
     );
     return setSearchedProducts(filteredProducts);
   }, [searchKeyword]);
-
   //listener ends//
 
   //Function for search//
@@ -80,8 +83,31 @@ export default function SearchScreen({ navigation }) {
     const unsubscribe = fetchHistoryData(setHistoryData);
     return unsubscribe;
   }, []);
-
   //fetch ends///
+
+  //fetch recently viewed products realtime//
+  const [recentlyViewedProductsData, setRecentlyViewedProductsData] =
+    useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchRecentlyViewedProductsData(
+      setRecentlyViewedProductsData
+    );
+    return unsubscribe;
+  }, []);
+  //fetch ends///
+
+  //Filter products using recently viewed data//
+  const [recentlyViewedProductsList, setRecentlyViewedProductsList] =
+    useState();
+
+  useEffect(() => {
+    const filteredProducts = productsData.filter((product) =>
+      recentlyViewedProductsData?.includes(product.id)
+    );
+    setRecentlyViewedProductsList(filteredProducts);
+  }, [productsData, recentlyViewedProductsData]);
+  //filter ends//
 
   return (
     <View style={styles.container}>
@@ -111,9 +137,9 @@ export default function SearchScreen({ navigation }) {
       {/* Suggestion box ends */}
 
       {/* History section */}
-      {historyData?.length != 0 && (
+      {historyData && historyData?.length != 0 && (
         <View style={{ backgroundColor: "white", padding: 5 }}>
-          <Text style={styles.historyTitle}>History</Text>
+          <Text style={styles.sectionTitle}>History</Text>
           <View style={styles.historyItemList}>
             {historyData?.map((historyItem, index) => (
               <HistoryChip
@@ -126,11 +152,46 @@ export default function SearchScreen({ navigation }) {
         </View>
       )}
 
-      {/* History section */}
+      {/* History section ends*/}
 
-      <View>
-        <Text>SearchScreen</Text>
-      </View>
+      {/* Recently Viewed section */}
+      {recentlyViewedProductsData?.length == 0 ? (
+        <View style={{ padding: 5 }}>
+          <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
+            <Text style={styles.sectionTitle}>Recently Viewed</Text>
+          </View>
+          <View style={styles.noRecentViewContainer}>
+            <Text style={styles.noRecentViewText}>
+              No Recently Viewed Products Found
+            </Text>
+          </View>
+        </View>
+      ) : (
+        <View style={{ padding: 5 }}>
+          <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
+            <Text style={styles.sectionTitle}>Recently Viewed</Text>
+          </View>
+
+          {/* Bottom Section */}
+          <View style={{ margin: 10, paddingBottom: 10 }}>
+            <FlatList
+              data={recentlyViewedProductsList}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              columnWrapperStyle={{
+                justifyContent: "space-between",
+                marginBottom: 10,
+              }}
+              renderItem={({ item }) => <ProductBox product={item} />}
+              // renderItem={({ item }) => <Text>{item}</Text>}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+          {/* Bottom Section End */}
+        </View>
+      )}
+
+      {/* Recently Viewed section ends */}
     </View>
   );
 }
@@ -193,7 +254,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
   },
-  historyTitle: {
+  sectionTitle: {
     color: COLORS.text,
     fontSize: 18,
     fontWeight: "bold",
@@ -207,5 +268,15 @@ const styles = StyleSheet.create({
   },
   historyChip: {
     margin: 5,
+  },
+  noRecentViewContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 50,
+  },
+  noRecentViewText: {
+    color: COLORS.text,
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });

@@ -72,3 +72,15 @@ export const addHistoryItem = async (key) => {
     }
   });
 };
+
+//Function for fetching recently viewed products//
+export const fetchRecentlyViewedProductsData = (
+  setRecentlyViewedProductsData
+) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  return onSnapshot(userDoc, (doc) =>
+    setRecentlyViewedProductsData(
+      doc.data()?.recentlyViewedProducts?.map((productId) => productId)
+    )
+  );
+};
