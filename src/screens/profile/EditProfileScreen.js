@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import HeaderStyles from "../../components/utilities/HeaderStyles";
 import { COLORS } from "../../data/Constants";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
+import EditNameModal from "../../components/EditNameModal";
 
 export default function EditProfileScreen({ navigation, route }) {
   //Destructure user data
@@ -24,8 +25,19 @@ export default function EditProfileScreen({ navigation, route }) {
   }, [navigation]);
   //Header Styling Ends//
 
+  //edit name modal visibility state//
+  const [isEditingName, setIsEditingName] = useState(false);
+  //state ends//
+
   return (
     <View style={styles.container}>
+      {/* Edit name modal */}
+      <EditNameModal
+        isVisible={isEditingName}
+        setIsVisible={setIsEditingName}
+      />
+      {/* Edit name modal */}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
@@ -67,7 +79,7 @@ export default function EditProfileScreen({ navigation, route }) {
             </View>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => console.log("show modal")}
+              onPress={() => setIsEditingName(true)}
               style={{ marginLeft: "auto" }}
             >
               <MaterialIcons name="edit" size={30} color={COLORS.primary} />
