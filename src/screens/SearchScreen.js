@@ -22,6 +22,7 @@ import {
 } from "../utilities/firestoreQueries";
 import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 import ProductBox from "../components/ProductBox";
+import HorizontalProductList from "../components/HorizontalProductList";
 
 export default function SearchScreen({ navigation }) {
   // Header Styling//
@@ -155,7 +156,8 @@ export default function SearchScreen({ navigation }) {
       {/* History section ends*/}
 
       {/* Recently Viewed section */}
-      {recentlyViewedProductsData?.length == 0 ? (
+      {!recentlyViewedProductsData ||
+      recentlyViewedProductsData?.length == 0 ? (
         <View style={{ paddingTop: historyData?.length != 0 ? 5 : 0 }}>
           <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
@@ -175,19 +177,7 @@ export default function SearchScreen({ navigation }) {
           </View>
 
           {/* Bottom Section */}
-          <View style={{ flex: 1, margin: 10 }}>
-            <FlatList
-              data={recentlyViewedProductsList}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View style={{ margin: 5 }}>
-                  <ProductBox product={item} />
-                </View>
-              )}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-            />
-          </View>
+          <HorizontalProductList data={recentlyViewedProductsList} />
           {/* Bottom Section End */}
         </View>
       )}
