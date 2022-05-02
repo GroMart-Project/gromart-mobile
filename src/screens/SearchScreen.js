@@ -69,7 +69,7 @@ export default function SearchScreen({ navigation }) {
   //Function for search//
   const onSearch = (key) => {
     if (key) {
-      addHistoryItem(searchKeyword)
+      addHistoryItem(key)
         .then(() => console.log("transaction successful"))
         .catch((error) => console.log(error));
       navigation.navigate("SearchResult", { searchKey: key });
