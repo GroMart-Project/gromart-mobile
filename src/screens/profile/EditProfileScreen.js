@@ -13,6 +13,7 @@ import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import EditNameModal from "../../components/EditNameModal";
 import EditPhoneModal from "../../components/EditPhoneModal";
+import * as ImagePicker from "expo-image-picker";
 
 //Firebase imports
 import { fetchUserData } from "../../utilities/firestoreQueries";
@@ -43,6 +44,23 @@ export default function EditProfileScreen({ navigation }) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
   //state ends//
+
+  //state and function to pick image
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result?.uri);
+    }
+  };
+  //function ends//
 
   return (
     <View style={styles.container}>
@@ -78,7 +96,7 @@ export default function EditProfileScreen({ navigation }) {
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.btn}
-              onPress={() => console.log("camera pressed")}
+              onPress={pickImage}
             >
               <MaterialIcons
                 name="camera-alt"
