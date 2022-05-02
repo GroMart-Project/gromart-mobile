@@ -26,6 +26,7 @@ export default function SectionScreen({ navigation, route }) {
             marginBottom: 10,
           }}
           renderItem={({ item }) => <ProductBox product={item} />}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </View>
