@@ -58,7 +58,7 @@ export default function HomeSection({ data, navigation }) {
       {/* Top Section End */}
 
       {/* Bottom Section */}
-      <HorizontalProductList data={filteredProducts.slice(0, 2)} />
+      <HorizontalProductList data={filteredProducts.slice(0, 4)} />
       {/* Bottom Section End */}
     </View>
   );

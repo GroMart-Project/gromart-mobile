@@ -3,6 +3,7 @@ import React, { useLayoutEffect } from "react";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import ProductBox from "../components/ProductBox";
 import { COLORS } from "../data/Constants";
+import VerticalProductList from "../components/VerticalProductList";
 
 export default function SectionScreen({ navigation, route }) {
   const { title, filteredProducts } = route.params;
@@ -16,19 +17,7 @@ export default function SectionScreen({ navigation, route }) {
   // console.log(title);
   return (
     <View style={styles.container}>
-      <View style={{ margin: 10 }}>
-        <FlatList
-          data={filteredProducts}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-          renderItem={({ item }) => <ProductBox product={item} />}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <VerticalProductList data={filteredProducts} />
     </View>
   );
 }

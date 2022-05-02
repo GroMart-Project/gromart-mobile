@@ -111,7 +111,7 @@ export default function DetailsScreen({ navigation, route }) {
                 ]}
               >
                 {"$"}
-                {price.toFixed(2)}
+                {price?.toFixed(2)}
               </Text>
             </View>
             <View style={styles.discountContainer}>

@@ -38,7 +38,7 @@ export default function ProductBox({ product }) {
           <View style={styles.discountContainer}>
             <Text style={styles.discount}>
               {"-"}
-              {(discount * 100).toFixed(0)}
+              {(discount * 100)?.toFixed(0)}
               {"%"}
             </Text>
           </View>
@@ -57,13 +57,13 @@ export default function ProductBox({ product }) {
           <View style={styles.priceContainer}>
             <Text style={styles.price}>
               {"$"}
-              {(price - price * discount).toFixed(2)}
+              {(price - price * discount)?.toFixed(2)}
             </Text>
 
             {discount ? (
               <Text style={styles.priceStrike}>
                 {"$"}
-                {price.toFixed(2)}
+                {price?.toFixed(2)}
               </Text>
             ) : null}
           </View>

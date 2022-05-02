@@ -16,6 +16,7 @@ import {
   fetchProductsData,
 } from "../utilities/firestoreQueries";
 import ProductBox from "../components/ProductBox";
+import VerticalProductList from "../components/VerticalProductList";
 
 export default function CategoriesScreen({ navigation }) {
   // Header Styling//
@@ -48,7 +49,7 @@ export default function CategoriesScreen({ navigation }) {
 
   // Filter Products//
   const filteredProducts = productsData.filter(
-    (product) => product.category == categoriesData[activeCategory].name
+    (product) => product.category == categoriesData[activeCategory]?.name
   );
   //Filter Products End//
 
@@ -78,22 +79,13 @@ export default function CategoriesScreen({ navigation }) {
       {/* Categories List ends*/}
 
       {/* Bottom Section */}
-      <View style={{ margin: 10 }}>
-        <FlatList
-          data={filteredProducts}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-          renderItem={({ item }) => <ProductBox product={item} />}
-          ListEmptyComponent={
-            <ListEmptyIndicator padding="tab" size={50} subtract={70} />
-          }
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <VerticalProductList
+        data={filteredProducts}
+        emptyComponent={true}
+        padding={"tab"}
+        size={50}
+        subtract={70}
+      />
       {/* Bottom Section End */}
     </View>
   );
