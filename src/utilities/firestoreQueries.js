@@ -8,6 +8,7 @@ import {
   runTransaction,
   updateDoc,
 } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
 
 //Function for fetching products
 export const fetchProductsData = async (setProductsData) => {
@@ -119,4 +120,18 @@ export const addRecentlyViewedProduct = async (key) => {
 export const fetchUserData = (setUserData) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   return onSnapshot(userDoc, (doc) => setUserData(doc?.data()));
+};
+
+//function to update use name
+export const updateName = (newName) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  updateProfile(auth.currentUser, {
+    displayName: newName.trim(),
+  })
+    .then(
+      updateDoc(userDoc, {
+        name: newName.trim(),
+      })
+    )
+    .catch((error) => console.log(error));
 };

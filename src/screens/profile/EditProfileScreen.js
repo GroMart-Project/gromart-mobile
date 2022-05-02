@@ -6,24 +6,38 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../../components/utilities/HeaderStyles";
 import { COLORS } from "../../data/Constants";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import EditNameModal from "../../components/EditNameModal";
 
-export default function EditProfileScreen({ navigation, route }) {
-  //Destructure user data
-  const name = route.params?.userData?.name;
-  const imageUri = route.params?.userData?.imageUri;
-  //get ends//
+//Firebase imports
+import { auth } from "../../../firebase";
+import { signOut } from "firebase/auth";
+import { fetchUserData } from "../../utilities/firestoreQueries";
 
+export default function EditProfileScreen({ navigation, route }) {
   // Header Styling//
   useLayoutEffect(() => {
     navigation.setOptions(HeaderStyles());
   }, [navigation]);
   //Header Styling Ends//
+
+  //fetch user data realtime//
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchUserData(setUserData);
+    return unsubscribe;
+  }, []);
+  //fetch ends///
+
+  //Destructure user data//
+  const name = userData?.name;
+  const imageUri = userData?.imageUri;
+  //get ends//
 
   //edit name modal visibility state//
   const [isEditingName, setIsEditingName] = useState(false);

@@ -10,15 +10,21 @@ import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { Button } from "react-native-paper";
+import { updateName } from "../utilities/firestoreQueries";
+import { auth } from "../../firebase";
+
+//firebase imports
 
 export default function EditNameModal({ isVisible, setIsVisible }) {
-  const [name, setName] = useState("");
+  const [newName, setNewName] = useState("");
 
   //function to close modal
   const onClose = () => {
-    setIsVisible(false), setName("");
+    setIsVisible(false), setNewName("");
   };
   //function ends//
+
+  console.log(auth.currentUser.displayName);
 
   return (
     <Modal
@@ -39,8 +45,8 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
               activeOutlineColor={COLORS.primary}
               theme={{ roundness: 10 }}
               style={styles.input}
-              onChangeText={(text) => setName(text)}
-              value={name}
+              onChangeText={(text) => setNewName(text)}
+              value={newName}
             />
             <View style={styles.footer}>
               <Button
@@ -56,7 +62,10 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => console.log("Pressed")}
+                onPress={() => {
+                  updateName(newName);
+                  onClose();
+                }}
               >
                 Confirm
               </Button>

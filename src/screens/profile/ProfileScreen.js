@@ -41,7 +41,7 @@ export default function ProfileScreen({ navigation }) {
   };
   //Sign out ends//
 
-  //fetch recently viewed products realtime//
+  //fetch user data realtime//
   const [userData, setUserData] = useState();
 
   useEffect(() => {
@@ -54,8 +54,6 @@ export default function ProfileScreen({ navigation }) {
   const name = userData?.name;
   const imageUri = userData?.imageUri;
   //get ends//
-
-  console.log(userData);
 
   return (
     <SafeArea>
@@ -113,7 +111,7 @@ export default function ProfileScreen({ navigation }) {
       <Card
         style={styles.card}
         elevation={4}
-        onPress={() => navigation.navigate(route, { userData: userData })}
+        onPress={() => navigation.navigate(route)}
       >
         <View style={styles.titleContainer}>
           <View>
