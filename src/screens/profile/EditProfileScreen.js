@@ -12,7 +12,12 @@ import { COLORS } from "../../data/Constants";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function EditProfileScreen({ navigation }) {
+export default function EditProfileScreen({ navigation, route }) {
+  //Destructure user data
+  const name = route.params?.userData?.name;
+  const imageUri = route.params?.userData?.imageUri;
+  //get ends//
+
   // Header Styling//
   useLayoutEffect(() => {
     navigation.setOptions(HeaderStyles());
@@ -29,7 +34,7 @@ export default function EditProfileScreen({ navigation }) {
         <Card style={styles.imageCard} elevation={4}>
           <View style={styles.imageContainer}>
             <Card.Cover
-              source={require("../../../assets/images/register_fruit.jpg")}
+              source={{ uri: imageUri }}
               borderRadius={bRadius}
               style={styles.image}
               resizeMode="cover"
@@ -58,7 +63,7 @@ export default function EditProfileScreen({ navigation }) {
           <View style={styles.nameContainer}>
             <View>
               <Text style={styles.label}>Name</Text>
-              <Text style={styles.name}>Eric Ayizanga </Text>
+              <Text style={styles.name}>{name} </Text>
             </View>
             <TouchableOpacity
               activeOpacity={0.5}

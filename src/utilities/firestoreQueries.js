@@ -114,3 +114,9 @@ export const addRecentlyViewedProduct = async (key) => {
     }
   });
 };
+
+//Function for fetching search  history
+export const fetchUserData = (setUserData) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  return onSnapshot(userDoc, (doc) => setUserData(doc?.data()));
+};
