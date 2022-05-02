@@ -156,7 +156,7 @@ export default function SearchScreen({ navigation }) {
 
       {/* Recently Viewed section */}
       {recentlyViewedProductsData?.length == 0 ? (
-        <View style={{ padding: 5 }}>
+        <View style={{ paddingTop: historyData.length != 0 ? 5 : 0 }}>
           <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
           </View>
@@ -167,7 +167,7 @@ export default function SearchScreen({ navigation }) {
           </View>
         </View>
       ) : (
-        <View style={{ padding: 5 }}>
+        <View style={{ padding: historyData.length != 0 ? 5 : 0 }}>
           <View style={{ backgroundColor: "white", paddingVertical: 10 }}>
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
           </View>
