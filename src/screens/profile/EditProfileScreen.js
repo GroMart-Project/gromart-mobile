@@ -12,13 +12,14 @@ import { COLORS } from "../../data/Constants";
 import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import EditNameModal from "../../components/EditNameModal";
+import EditPhoneModal from "../../components/EditPhoneModal";
 
 //Firebase imports
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
 import { fetchUserData } from "../../utilities/firestoreQueries";
 
-export default function EditProfileScreen({ navigation, route }) {
+export default function EditProfileScreen({ navigation }) {
   // Header Styling//
   useLayoutEffect(() => {
     navigation.setOptions(HeaderStyles());
@@ -37,10 +38,12 @@ export default function EditProfileScreen({ navigation, route }) {
   //Destructure user data//
   const name = userData?.name;
   const imageUri = userData?.imageUri;
+  const phoneNumber = userData?.phoneNumber;
   //get ends//
 
   //edit name modal visibility state//
   const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
   //state ends//
 
   return (
@@ -50,7 +53,14 @@ export default function EditProfileScreen({ navigation, route }) {
         isVisible={isEditingName}
         setIsVisible={setIsEditingName}
       />
-      {/* Edit name modal */}
+      {/* Edit name modal end*/}
+
+      {/* Edit phone modal */}
+      <EditPhoneModal
+        isVisible={isEditingPhone}
+        setIsVisible={setIsEditingPhone}
+      />
+      {/* Edit phone modal  end */}
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -101,6 +111,26 @@ export default function EditProfileScreen({ navigation, route }) {
           </View>
         </Card>
         {/* Name Card end */}
+
+        {/* Phone card */}
+        <Card style={styles.card} elevation={4}>
+          <View style={styles.nameContainer}>
+            <View>
+              <Text style={styles.label}>Phone</Text>
+              <Text style={styles.name}>
+                {phoneNumber ? phoneNumber : "No Number Added"}
+              </Text>
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => setIsEditingPhone(true)}
+              style={{ marginLeft: "auto" }}
+            >
+              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+        {/* Phone Card end */}
       </ScrollView>
     </View>
   );

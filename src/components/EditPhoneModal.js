@@ -7,21 +7,27 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { TextInput } from "react-native-paper";
+import { TextInput, Button } from "react-native-paper";
 import { COLORS } from "../data/Constants";
-import { Button } from "react-native-paper";
-import { updateName } from "../utilities/firestoreQueries";
+import { updatePhone } from "../utilities/firestoreQueries";
 
-//firebase imports
-
-export default function EditNameModal({ isVisible, setIsVisible }) {
-  const [newName, setNewName] = useState("");
+export default function EditPhoneModal({ isVisible, setIsVisible }) {
+  const [newPhone, setNewPhone] = useState("");
 
   //function to close modal
   const onClose = () => {
-    setIsVisible(false), setNewName("");
+    setIsVisible(false), setNewPhone("");
   };
   //function ends//
+
+  const onConfirm = () => {
+    if (newPhone?.length < 10) {
+      alert("Phone number should be 10 digits");
+    } else {
+      updatePhone(newPhone);
+      onClose();
+    }
+  };
 
   return (
     <Modal
@@ -34,16 +40,17 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
         <Pressable style={styles.overlay} onPress={onClose}>
           <Pressable style={styles.container}>
-            <Text style={styles.modalText}>Edit Name...</Text>
+            <Text style={styles.modalText}>Edit Phone...</Text>
             <TextInput
-              label="New Name"
+              label="New Phone Number"
               mode="outlined"
               outlineColor={"black"}
               activeOutlineColor={COLORS.primary}
               theme={{ roundness: 10 }}
               style={styles.input}
-              onChangeText={(text) => setNewName(text)}
-              value={newName}
+              onChangeText={(text) => setNewPhone(text)}
+              value={newPhone}
+              keyboardType="numeric"
             />
             <View style={styles.footer}>
               <Button
@@ -59,10 +66,7 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => {
-                  updateName(newName);
-                  onClose();
-                }}
+                onPress={onConfirm}
               >
                 Confirm
               </Button>

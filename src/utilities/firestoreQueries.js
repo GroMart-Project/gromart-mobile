@@ -135,3 +135,11 @@ export const updateName = (newName) => {
     )
     .catch((error) => console.log(error));
 };
+
+//function to update use name
+export const updatePhone = async (newPhone) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  await updateDoc(userDoc, {
+    phoneNumber: newPhone,
+  });
+};
