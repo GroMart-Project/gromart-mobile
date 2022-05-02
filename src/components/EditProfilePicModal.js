@@ -12,6 +12,8 @@ import { COLORS } from "../data/Constants";
 import { Button } from "react-native-paper";
 import { updateUserImage } from "../utilities/firestoreQueries";
 import { auth } from "../../firebase";
+import { storage } from "../../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function EditProfilePicModal({ image, setImage }) {
   //function to close modal
@@ -19,6 +21,40 @@ export default function EditProfilePicModal({ image, setImage }) {
     setImage(null);
   };
   //function ends//
+
+  //function to upload image to fb storage
+  const uploadImage = async () => {
+    const uri = image;
+    const childPath = `users/${auth?.currentUser?.uid}`;
+
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const storageRef = ref(storage, childPath);
+
+    const task = uploadBytesResumable(storageRef, blob);
+
+    const taskProgress = (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+    };
+
+    const taskError = (error) => {
+      console.log(error);
+    };
+
+    const taskCompleted = () => {
+      getDownloadURL(task.snapshot.ref)
+        .then((downloadUrl) => updateUserImage(downloadUrl))
+        .then(() => setImage(null))
+        .catch((error) => console.log(error));
+    };
+
+    task.on("state_changed", taskProgress, taskError, taskCompleted);
+
+    // console.log(blob);
+  };
+  //function ends
 
   return (
     <Modal
@@ -54,7 +90,7 @@ export default function EditProfilePicModal({ image, setImage }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => updateUserImage(image)}
+                onPress={uploadImage}
               >
                 Confirm
               </Button>
