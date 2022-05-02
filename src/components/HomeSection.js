@@ -12,6 +12,7 @@ import ListEmptyIndicator from "./utilities/ListEmptyIndicator";
 
 //Firebase imports//
 import { fetchProductsData } from "../utilities/firestoreQueries";
+import HorizontalProductList from "./HorizontalProductList";
 
 export default function HomeSection({ data, navigation }) {
   // Destructure props//
@@ -57,20 +58,7 @@ export default function HomeSection({ data, navigation }) {
       {/* Top Section End */}
 
       {/* Bottom Section */}
-      <View style={{ margin: 10 }}>
-        <FlatList
-          data={filteredProducts.slice(0, 2)}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-          renderItem={({ item }) => <ProductBox product={item} />}
-          ListEmptyComponent={<ListEmptyIndicator padding={50} size={25} />}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <HorizontalProductList data={filteredProducts.slice(0, 2)} />
       {/* Bottom Section End */}
     </View>
   );
