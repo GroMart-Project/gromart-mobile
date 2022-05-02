@@ -56,12 +56,26 @@ export default function SearchScreen({ navigation }) {
   const [searchedProducts, setSearchedProducts] = useState();
 
   useEffect(() => {
-    const filteredProducts = productsData.filter(
-      (product) =>
-        searchKeyword &&
-        (product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchKeyword.toLowerCase()))
+    const searchTerms = searchKeyword.trim().split(" ");
+    const mappedSearchTerms = searchTerms.map((term) =>
+      productsData.filter((product) => {
+        if (term) {
+          return (
+            product.title.toLowerCase().includes(term.toLowerCase()) ||
+            product.category.toLowerCase().includes(term.toLowerCase())
+          );
+        }
+      })
     );
+    const filteredProducts = [...new Set(mappedSearchTerms.flat(10))];
+
+    // const filteredProducts = productsData.filter(
+    //   (product) =>
+    // searchKeyword &&
+    // (product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+    //   product.category.toLowerCase().includes(searchKeyword.toLowerCase()))
+    // );
+
     return setSearchedProducts(filteredProducts);
   }, [searchKeyword]);
   //listener ends//
