@@ -122,7 +122,21 @@ export const fetchUserData = (setUserData) => {
   return onSnapshot(userDoc, (doc) => setUserData(doc?.data()));
 };
 
-//function to update use name
+//function to update user picture
+export const updateUserImage = (newImageUri) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  updateProfile(auth.currentUser, {
+    photoURL: newImageUri,
+  })
+    .then(
+      updateDoc(userDoc, {
+        imageUri: newImageUri,
+      })
+    )
+    .catch((error) => console.log(error));
+};
+
+//function to update user name
 export const updateName = (newName) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   updateProfile(auth.currentUser, {
@@ -136,7 +150,7 @@ export const updateName = (newName) => {
     .catch((error) => console.log(error));
 };
 
-//function to update use name
+//function to update phone number
 export const updatePhone = async (newPhone) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   await updateDoc(userDoc, {
@@ -144,16 +158,14 @@ export const updatePhone = async (newPhone) => {
   });
 };
 
-//function to update user picture
-export const updateUserImage = (newImageUri) => {
+//function to update address
+export const updateAddress = async (newAddressLine, newCity, newRegion) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
-  updateProfile(auth.currentUser, {
-    photoURL: newImageUri,
-  })
-    .then(
-      updateDoc(userDoc, {
-        imageUri: newImageUri,
-      })
-    )
-    .catch((error) => console.log(error));
+  await updateDoc(userDoc, {
+    deliveryAddress: {
+      addressLine: newAddressLine,
+      city: newCity,
+      region: newRegion,
+    },
+  });
 };

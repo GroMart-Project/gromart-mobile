@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { Button } from "react-native-paper";
+import { updateAddress } from "../utilities/firestoreQueries";
 
 export default function EditAddressModal({ isVisible, setIsVisible }) {
   const [newAddressLine, setNewAddressLine] = useState("");
@@ -18,7 +19,28 @@ export default function EditAddressModal({ isVisible, setIsVisible }) {
 
   //function to close modal
   const onClose = () => {
-    setIsVisible(false), setNewAddressLine("");
+    setIsVisible(false);
+    setNewAddressLine("");
+    setNewCity("");
+    setNewRegion("");
+  };
+  //function ends//
+
+  //function to confirm input
+  const onConfirm = () => {
+    if (!newAddressLine) {
+      alert("Please type in your address line");
+    }
+    if (newAddressLine && !newCity) {
+      alert("Please type in your city");
+    }
+    if (newAddressLine && newCity && !newRegion) {
+      alert("Please type in your region");
+    }
+    if (newAddressLine && newCity && newRegion) {
+      updateAddress(newAddressLine, newCity, newRegion);
+      onClose();
+    }
   };
   //function ends//
 
@@ -88,9 +110,7 @@ export default function EditAddressModal({ isVisible, setIsVisible }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => {
-                  console.log("confirm");
-                }}
+                onPress={onConfirm}
               >
                 Confirm
               </Button>
