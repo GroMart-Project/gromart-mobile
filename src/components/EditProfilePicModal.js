@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import { Button } from "react-native-paper";
+import { Button, ProgressBar } from "react-native-paper";
 import { updateUserImage } from "../utilities/firestoreQueries";
 import { auth } from "../../firebase";
 import { storage } from "../../firebase";
@@ -35,8 +35,7 @@ export default function EditProfilePicModal({ image, setImage }) {
     const task = uploadBytesResumable(storageRef, blob);
 
     const taskProgress = (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
+      setProgress(snapshot.bytesTransferred / snapshot.totalBytes);
     };
 
     const taskError = (error) => {
@@ -46,7 +45,10 @@ export default function EditProfilePicModal({ image, setImage }) {
     const taskCompleted = () => {
       getDownloadURL(task.snapshot.ref)
         .then((downloadUrl) => updateUserImage(downloadUrl))
-        .then(() => setImage(null))
+        .then(() => {
+          setImage(null);
+          setProgress(0);
+        })
         .catch((error) => console.log(error));
     };
 
@@ -55,6 +57,10 @@ export default function EditProfilePicModal({ image, setImage }) {
     // console.log(blob);
   };
   //function ends
+
+  //progress state//
+  const [progress, setProgress] = useState(0);
+  // state ends//
 
   return (
     <Modal
@@ -75,6 +81,13 @@ export default function EditProfilePicModal({ image, setImage }) {
                 style={{ aspectRatio: 1, height: 200, borderRadius: 10 }}
               />
             </View>
+
+            <ProgressBar
+              progress={progress}
+              visible={progress ? true : false}
+              color={COLORS.primary}
+              style={styles.progress}
+            />
 
             <View style={styles.footer}>
               <Button
@@ -123,6 +136,10 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginVertical: 5,
     alignItems: "center",
+  },
+  progress: {
+    marginHorizontal: 20,
+    marginVertical: 10,
   },
   footer: {
     flexDirection: "row",
