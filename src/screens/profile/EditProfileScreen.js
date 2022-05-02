@@ -17,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 
 //Firebase imports
 import { fetchUserData } from "../../utilities/firestoreQueries";
+import EditProfilePicModal from "../../components/EditProfilePicModal";
 
 export default function EditProfileScreen({ navigation }) {
   // Header Styling//
@@ -76,6 +77,10 @@ export default function EditProfileScreen({ navigation }) {
         isVisible={isEditingPhone}
         setIsVisible={setIsEditingPhone}
       />
+      {/* Edit phone modal  end */}
+
+      {/* Edit phone modal */}
+      <EditProfilePicModal image={image} setImage={setImage} />
       {/* Edit phone modal  end */}
 
       <ScrollView
