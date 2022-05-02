@@ -8,7 +8,6 @@ import DetailsScreen from "../screens/DetailsScreen";
 import EditProfileScreen from "../screens/profile/EditProfileScreen";
 import OrdersScreen from "../screens/profile/OrdersScreen";
 import WishlistScreen from "../screens/profile/WishlistScreen";
-import AddressListScreen from "../screens/profile/AddressListScreen";
 import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
 
@@ -38,7 +37,6 @@ export default function SignedInStack() {
         <MainStack.Screen name="Edit Profile" component={EditProfileScreen} />
         <MainStack.Screen name="Orders" component={OrdersScreen} />
         <MainStack.Screen name="Wishlist" component={WishlistScreen} />
-        <MainStack.Screen name="Address List" component={AddressListScreen} />
         <MainStack.Screen
           name="Reset Password"
           component={ResetPasswordScreen}
