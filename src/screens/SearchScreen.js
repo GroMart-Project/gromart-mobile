@@ -63,10 +63,12 @@ export default function SearchScreen({ navigation }) {
   //listener ends//
 
   //Function for search//
-  const onSearch = () => {
-    if (searchKeyword) {
-      addHistoryItem(searchKeyword);
-      navigation.navigate("SearchResult", { title: searchKeyword });
+  const onSearch = (key) => {
+    if (key) {
+      addHistoryItem(searchKeyword)
+        .then(() => console.log("transaction successful"))
+        .catch((error) => console.log(error));
+      navigation.navigate("SearchResult", { title: key });
     }
   };
   //function ends//
@@ -84,15 +86,17 @@ export default function SearchScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={{ backgroundColor: "white" }}>
+        {/* Search box */}
         <Searchbar
           placeholder="Search"
           style={{ margin: 10 }}
           theme={{ roundness: 10 }}
           onChangeText={(text) => setSearchKeyword(text)}
           value={searchKeyword}
-          onSubmitEditing={onSearch}
+          onSubmitEditing={() => onSearch(searchKeyword)}
         />
       </View>
+      {/* Search box ends */}
 
       {/* Suggestion box */}
       <View style={styles.suggestions}>
@@ -112,7 +116,11 @@ export default function SearchScreen({ navigation }) {
           <Text style={styles.historyTitle}>History</Text>
           <View style={styles.historyItemList}>
             {historyData?.map((historyItem, index) => (
-              <HistoryChip key={index} historyItem={historyItem} />
+              <HistoryChip
+                key={index}
+                historyItem={historyItem}
+                onSearch={onSearch}
+              />
             ))}
           </View>
         </View>
@@ -140,15 +148,17 @@ const SuggestionItem = ({ product, setSearchKeyword }) => {
   );
 };
 
-const HistoryChip = ({ historyItem }) => {
+const HistoryChip = ({ historyItem, onSearch }) => {
   return (
     <Chip
+      icon={"clock-outline"}
       mode="outlined"
       style={styles.historyChip}
       textStyle={{
         color: COLORS.primary,
+        paddingRight: 10,
       }}
-      onPress={() => console.log("Pressed")}
+      onPress={() => onSearch(historyItem)}
       onClose={() => {
         //remove History Item
         deleteHistoryItem(historyItem);
