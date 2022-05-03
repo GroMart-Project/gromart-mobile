@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import HeaderStyles from "../components/utilities/HeaderStyles";
 import { Card } from "react-native-paper";
@@ -15,7 +15,11 @@ import ButtonSmall from "../components/utilities/ButtonSmall";
 import { MaterialIcons } from "@expo/vector-icons";
 
 //firebase imports
-import { addRecentlyViewedProduct } from "../utilities/firestoreQueries";
+import {
+  addRecentlyViewedProduct,
+  fetchWishlistData,
+  toggleFavorite,
+} from "../utilities/firestoreQueries";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
@@ -38,6 +42,15 @@ export default function DetailsScreen({ navigation, route }) {
   }, [navigation]);
 
   //marker ends//
+
+  //fetch wishlist data realtime//
+  const [wishlistData, setWishlistData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchWishlistData(setWishlistData);
+    return unsubscribe;
+  }, []);
+  //fetch end//
 
   return (
     <View style={styles.container}>
@@ -69,9 +82,16 @@ export default function DetailsScreen({ navigation, route }) {
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity activeOpacity={0.5}>
               <MaterialIcons
-                name="favorite-outline"
+                name={
+                  wishlistData?.includes(id) ? "favorite" : "favorite-outline"
+                }
                 size={30}
                 color={COLORS.primary}
+                onPress={() =>
+                  toggleFavorite(id)
+                    .then(() => console.log("toggled id is: ", id))
+                    .catch((error) => console.log(error))
+                }
               />
             </TouchableOpacity>
           </View>
