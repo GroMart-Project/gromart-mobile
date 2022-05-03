@@ -169,3 +169,38 @@ export const updateAddress = async (newAddressLine, newCity, newRegion) => {
     },
   });
 };
+
+//Transaction  Function for updating search history
+export const toggleFavorite = async (productId) => {
+  const userDocRef = doc(db, "users", auth.currentUser.uid);
+  await runTransaction(db, async (transaction) => {
+    const userDoc = await transaction.get(userDocRef);
+    if (!userDoc.exists()) {
+      throw "Document does not exist!";
+    } else if (
+      !userDoc.data()?.wishlist ||
+      userDoc.data()?.wishlist?.length == 0
+    ) {
+      transaction.update(userDocRef, { wishlist: [productId] });
+    } else {
+      const newWishlist = userDoc.data()?.wishlist;
+      if (newWishlist?.includes(productId)) {
+        const filteredWishlist = newWishlist.filter(
+          (item) => item !== productId
+        );
+        transaction.update(userDocRef, { wishlist: filteredWishlist });
+      } else {
+        newWishlist.push(productId);
+        transaction.update(userDocRef, { wishlist: newWishlist });
+      }
+    }
+  });
+};
+
+//Function for fetching search  history
+export const fetchWishlistData = (setWishlistData) => {
+  const userDoc = doc(db, "users", auth.currentUser.uid);
+  return onSnapshot(userDoc, (doc) =>
+    setWishlistData(doc.data()?.wishlist?.map((wishlistItem) => wishlistItem))
+  );
+};

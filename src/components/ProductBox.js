@@ -5,11 +5,15 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-native-paper";
 import { COLORS } from "../data/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import {
+  fetchWishlistData,
+  toggleFavorite,
+} from "../utilities/firestoreQueries";
 
 export default function ProductBox({ product }) {
   //Get use navigation hook//
@@ -17,8 +21,18 @@ export default function ProductBox({ product }) {
   //Hook ends//
 
   //Destructuring  the data//
-  const { title, imageUri, price, discount } = product;
+  const { title, imageUri, price, discount, id } = product;
   //Destructuring ends//
+
+  //fetch wishlist data realtime//
+  const [wishlistData, setWishlistData] = useState();
+
+  useEffect(() => {
+    const unsubscribe = fetchWishlistData(setWishlistData);
+    return unsubscribe;
+  }, []);
+  //fetch end//
+
   return (
     <Card
       style={styles.container}
@@ -72,9 +86,16 @@ export default function ProductBox({ product }) {
         <View style={styles.bottomRight}>
           <TouchableOpacity activeOpacity={0.5}>
             <MaterialIcons
-              name="favorite-outline"
+              name={
+                wishlistData?.includes(id) ? "favorite" : "favorite-outline"
+              }
               size={24}
               color={COLORS.primary}
+              onPress={() =>
+                toggleFavorite(id)
+                  .then(() => console.log("toggled id is: ", id))
+                  .catch((error) => console.log(error))
+              }
             />
           </TouchableOpacity>
         </View>
