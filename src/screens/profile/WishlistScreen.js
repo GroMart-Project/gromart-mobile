@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import HeaderStyles from "../../components/utilities/HeaderStyles";
 import VerticalProductList from "../../components/VerticalProductList";
@@ -45,6 +45,25 @@ export default function WishlistScreen({ navigation }) {
     return setWishlistProducts(filteredProducts);
   }, [productsData, wishlistData]);
   //filter ends//
+
+  //loading state and listener//
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = () => {
+      productsData && setLoaded(true);
+    };
+    return unsubscribe;
+  }, [productsData]);
+  //state ends//
+
+  if (!loaded) {
+    return (
+      <View style={[styles.container, { justifyContent: "center" }]}>
+        <ActivityIndicator size={50} animating={true} color={COLORS.primary} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
