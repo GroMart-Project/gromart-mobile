@@ -140,6 +140,7 @@ function RegisterScreen({ navigation }) {
                 style={styles.input}
                 onChangeText={(text) => setEmail(text)}
                 value={email}
+                keyboardType="email-address"
               />
 
               <TextInput
