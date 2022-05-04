@@ -58,6 +58,10 @@ function LoginScreen({ navigation }) {
   };
   //function ends//
 
+  // password visibility state//
+  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+  //state ends
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -97,7 +101,14 @@ function LoginScreen({ navigation }) {
               <TextInput
                 label="Password"
                 mode="outlined"
-                secureTextEntry
+                secureTextEntry={isPasswordVisible}
+                right={
+                  <TextInput.Icon
+                    name={isPasswordVisible ? "eye" : "eye-off"}
+                    onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                    forceTextInputFocus={false}
+                  />
+                }
                 outlineColor={COLORS.box}
                 activeOutlineColor={COLORS.primary}
                 theme={{ roundness: 10 }}
