@@ -166,6 +166,25 @@ function RegisterScreen({ navigation }) {
                 onChangeText={(text) => setConfirmPassword(text)}
                 value={confirmPassword}
                 onSubmitEditing={() => onRegisterPress()}
+                right={
+                  confirmPassword && (
+                    <TextInput.Icon
+                      name={
+                        password == confirmPassword
+                          ? "checkbox-marked-circle-outline"
+                          : "alert-circle-outline"
+                      }
+                      color={
+                        password == confirmPassword ? "limegreen" : "firebrick"
+                      }
+                      size={26}
+                      disabled={true}
+                      style={{
+                        opacity: 1,
+                      }}
+                    />
+                  )
+                }
               />
             </View>
           </ScrollView>

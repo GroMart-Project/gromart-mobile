@@ -108,6 +108,7 @@ function LoginScreen({ navigation }) {
                     name={isPasswordVisible ? "eye" : "eye-off"}
                     onPress={() => setIsPasswordVisible(!isPasswordVisible)}
                     forceTextInputFocus={false}
+                    size={26}
                   />
                 }
                 outlineColor={COLORS.box}
