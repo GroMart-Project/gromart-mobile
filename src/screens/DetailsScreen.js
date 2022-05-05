@@ -2,6 +2,7 @@ import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Card, IconButton, Button } from "react-native-paper";
+import { useDispatch } from "react-redux";
 
 //firebase imports
 import {
@@ -9,6 +10,7 @@ import {
   fetchWishlistData,
   toggleFavorite,
 } from "../utilities/firestoreQueries";
+import { addToCart } from "../redux/cartSlice";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
@@ -36,7 +38,18 @@ export default function DetailsScreen({ navigation, route }) {
   //fetch end//
 
   //add to cart function//
+  const dispatch = useDispatch();
 
+  const product = {
+    id,
+    title,
+    imageUri,
+    price: parseFloat((price - price * discount).toFixed(2)),
+  };
+
+  const onAddCart = (product) => {
+    dispatch(addToCart(product));
+  };
   //function end//
 
   return (
@@ -136,7 +149,7 @@ export default function DetailsScreen({ navigation, route }) {
             theme={{ roundness: 25 }}
             labelStyle={styles.button}
             color={COLORS.primary}
-            onPress={() => console.log("Add to cart")}
+            onPress={() => onAddCart(product)}
           >
             Add to Cart
           </Button>
