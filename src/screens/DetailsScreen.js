@@ -27,12 +27,6 @@ export default function DetailsScreen({ navigation, route }) {
     route?.params?.product;
   //Destructuring ends//
 
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //mark item as recently viewed//
   useEffect(() => {
     const unsubscribe = addRecentlyViewedProduct(id)

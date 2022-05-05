@@ -10,12 +10,6 @@ import { fetchProductsData } from "../utilities/firestoreQueries";
 export default function SearchResultScreen({ navigation, route }) {
   const { searchKey } = route.params;
 
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles(searchKey));
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch data for products//
   const [productsData, setProductsData] = useState([]);
 

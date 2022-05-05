@@ -11,12 +11,6 @@ import {
 } from "../../utilities/firestoreQueries";
 
 export default function WishlistScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch data for products//
   const [productsData, setProductsData] = useState([]);
 

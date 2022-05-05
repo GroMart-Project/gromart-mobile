@@ -8,12 +8,6 @@ import VerticalProductList from "../components/VerticalProductList";
 export default function SectionScreen({ navigation, route }) {
   const { title, filteredProducts } = route.params;
 
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles(title));
-  }, [navigation]);
-  //Header Styling Ends//
-
   // console.log(title);
   return (
     <View style={styles.container}>

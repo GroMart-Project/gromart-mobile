@@ -19,12 +19,6 @@ import ProductBox from "../components/ProductBox";
 import VerticalProductList from "../components/VerticalProductList";
 
 export default function CategoriesScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch data for categories//
   const [categoriesData, setCategoriesData] = useState();
 

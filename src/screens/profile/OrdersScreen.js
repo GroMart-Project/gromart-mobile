@@ -4,12 +4,6 @@ import HeaderStyles from "../../components/utilities/HeaderStyles";
 import { COLORS } from "../../data/Constants";
 
 export default function OrdersScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   return (
     <View style={styles.container}>
       <Text>OrdersScreen</Text>

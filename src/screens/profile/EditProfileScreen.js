@@ -21,12 +21,6 @@ import EditProfilePicModal from "../../components/EditProfilePicModal";
 import EditAddressModal from "../../components/EditAddressModal";
 
 export default function EditProfileScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch user data realtime//
   const [userData, setUserData] = useState();
 

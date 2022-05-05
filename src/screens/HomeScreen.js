@@ -9,12 +9,6 @@ import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 import { fetchSectionsData } from "../utilities/firestoreQueries";
 
 export default function HomeScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch data for sections//
   const [sectionsData, setSectionsData] = useState([]);
 

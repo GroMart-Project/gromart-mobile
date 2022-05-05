@@ -25,12 +25,6 @@ import ProductBox from "../components/ProductBox";
 import HorizontalProductList from "../components/HorizontalProductList";
 
 export default function SearchScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   //fetch data for products//
   const [productsData, setProductsData] = useState([]);
 

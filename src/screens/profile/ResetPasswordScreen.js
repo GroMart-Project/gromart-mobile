@@ -6,12 +6,6 @@ import { TextInput } from "react-native-paper";
 import ButtonBig from "../../components/utilities/ButtonBig";
 
 export default function ResetPasswordScreen({ navigation }) {
-  // Header Styling//
-  useLayoutEffect(() => {
-    navigation.setOptions(HeaderStyles());
-  }, [navigation]);
-  //Header Styling Ends//
-
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
