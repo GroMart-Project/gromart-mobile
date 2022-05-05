@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
+import AppHeader from "../components/AppHeader";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,9 @@ export default function MainTabNavigator() {
           tabBarItemStyle: {
             marginVertical: 8,
           },
+
+          //header//
+          header: () => <AppHeader tab={true} />,
         };
       }}
     >

@@ -10,6 +10,7 @@ import OrdersScreen from "../screens/profile/OrdersScreen";
 import WishlistScreen from "../screens/profile/WishlistScreen";
 import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
+import AppHeader from "../components/AppHeader";
 
 const MainStack = createNativeStackNavigator();
 
@@ -27,21 +28,30 @@ export default function SignedInStack() {
         </MainStack.Group>
         {/* Initial Screens */}
 
-        {/* Screens from bottom tab screens */}
-        <MainStack.Screen name="Section" component={SectionScreen} />
-        <MainStack.Screen name="Details" component={DetailsScreen} />
-        <MainStack.Screen name="SearchResult" component={SearchResultScreen} />
-        {/* Screen from bottom tab screens */}
+        <MainStack.Group
+          screenOptions={{
+            header: () => <AppHeader />,
+          }}
+        >
+          {/* Screens from bottom tab screens */}
+          <MainStack.Screen name="Section" component={SectionScreen} />
+          <MainStack.Screen name="Details" component={DetailsScreen} />
+          <MainStack.Screen
+            name="SearchResult"
+            component={SearchResultScreen}
+          />
+          {/* Screen from bottom tab screens */}
 
-        {/* Screens from profile screen */}
-        <MainStack.Screen name="Edit Profile" component={EditProfileScreen} />
-        <MainStack.Screen name="Orders" component={OrdersScreen} />
-        <MainStack.Screen name="Wishlist" component={WishlistScreen} />
-        <MainStack.Screen
-          name="Reset Password"
-          component={ResetPasswordScreen}
-        />
-        {/* Screen from profile screen */}
+          {/* Screens from profile screen */}
+          <MainStack.Screen name="Edit Profile" component={EditProfileScreen} />
+          <MainStack.Screen name="Orders" component={OrdersScreen} />
+          <MainStack.Screen name="Wishlist" component={WishlistScreen} />
+          <MainStack.Screen
+            name="Reset Password"
+            component={ResetPasswordScreen}
+          />
+          {/* Screen from profile screen */}
+        </MainStack.Group>
       </MainStack.Navigator>
     </NavigationContainer>
   );
