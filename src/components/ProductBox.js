@@ -1,14 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-native-paper";
 import { COLORS } from "../data/Constants";
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import {
   fetchWishlistData,
@@ -84,20 +78,17 @@ export default function ProductBox({ product }) {
         </View>
 
         <View style={styles.bottomRight}>
-          <TouchableOpacity activeOpacity={0.5}>
-            <MaterialIcons
-              name={
-                wishlistData?.includes(id) ? "favorite" : "favorite-outline"
-              }
-              size={24}
-              color={COLORS.primary}
-              onPress={() =>
-                toggleFavorite(id)
-                  .then(() => console.log("toggled id is: ", id))
-                  .catch((error) => console.log(error))
-              }
-            />
-          </TouchableOpacity>
+          <IconButton
+            icon={wishlistData?.includes(id) ? "heart" : "heart-outline"}
+            size={24}
+            color={COLORS.primary}
+            onPress={() =>
+              toggleFavorite(id)
+                .then(() => console.log("toggled id is: ", id))
+                .catch((error) => console.log(error))
+            }
+            style={{ margin: -3 }}
+          />
         </View>
       </View>
       {/* Bottom part ends */}

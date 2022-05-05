@@ -1,16 +1,8 @@
-import {
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import { Card } from "react-native-paper";
+import { Card, IconButton } from "react-native-paper";
 import ButtonSmall from "../components/utilities/ButtonSmall";
-import { MaterialIcons } from "@expo/vector-icons";
 
 //firebase imports
 import {
@@ -72,20 +64,17 @@ export default function DetailsScreen({ navigation, route }) {
         <Card style={styles.card} elevation={4}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity activeOpacity={0.5}>
-              <MaterialIcons
-                name={
-                  wishlistData?.includes(id) ? "favorite" : "favorite-outline"
-                }
-                size={30}
-                color={COLORS.primary}
-                onPress={() =>
-                  toggleFavorite(id)
-                    .then(() => console.log("toggled id is: ", id))
-                    .catch((error) => console.log(error))
-                }
-              />
-            </TouchableOpacity>
+            <IconButton
+              icon={wishlistData?.includes(id) ? "heart" : "heart-outline"}
+              size={30}
+              color={COLORS.primary}
+              onPress={() =>
+                toggleFavorite(id)
+                  .then(() => console.log("toggled id is: ", id))
+                  .catch((error) => console.log(error))
+              }
+              style={{ margin: -3 }}
+            />
           </View>
         </Card>
         {/* Title Card end */}
