@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { COLORS } from "../../data/Constants";
 import { TextInput } from "react-native-paper";
 import ButtonBig from "../../components/utilities/ButtonBig";
+import { auth } from "../../../firebase";
+import { EmailAuthProvider } from "firebase/auth/react-native";
+import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
 
 export default function ChangePasswordScreen({ navigation }) {
   //text boxes states//
@@ -14,6 +17,40 @@ export default function ChangePasswordScreen({ navigation }) {
   // password visibility state//
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
   //state ends//
+
+  //Confirm if new password matches confirm password//
+  const onConfirm = () => {
+    if (newPassword && newPassword === confirmPassword) {
+      changePassword(password, newPassword);
+    }
+    if (newPassword && newPassword != confirmPassword) {
+      alert("Passwords do not match");
+    }
+    if (!password) {
+      alert("Enter your current password");
+    }
+    if (password && !newPassword) {
+      alert("Enter a new password");
+    }
+  };
+
+  //Function to change password//
+  const changePassword = (currentPassword, newPassword) => {
+    const user = auth.currentUser;
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+
+    reauthenticateWithCredential(user, credential)
+      .then(() => {
+        updatePassword(user, newPassword)
+          .then(() => alert("Password Successfully Updated"))
+          .then(() => navigation.goBack());
+      })
+      .catch((error) => alert(error.message));
+  };
+  // function end//
 
   return (
     <View style={styles.container}>
@@ -93,10 +130,7 @@ export default function ChangePasswordScreen({ navigation }) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <ButtonBig
-          title={"Confirm"}
-          onPress={() => console.log("reset pressed")}
-        />
+        <ButtonBig title={"Confirm"} onPress={onConfirm} />
       </View>
     </View>
   );
