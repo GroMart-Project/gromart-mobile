@@ -10,7 +10,16 @@ export default function AppHeader({ tab }) {
   const navigation = useNavigation();
   //end//
 
-  const title = route.name;
+  const title = () => {
+    if (route.params?.title) {
+      return route.params?.title;
+    }
+    if (route.params?.searchKey) {
+      return route.params?.searchKey;
+    } else {
+      return route.name;
+    }
+  };
   const color = COLORS.text;
   const size = 26;
 
@@ -24,7 +33,7 @@ export default function AppHeader({ tab }) {
         <Appbar.BackAction onPress={_goBack} color={color} size={size} />
       )}
 
-      <Appbar.Content title={title} titleStyle={styles.title} />
+      <Appbar.Content title={title()} titleStyle={styles.title} />
 
       <Appbar.Action
         icon="cart-outline"
