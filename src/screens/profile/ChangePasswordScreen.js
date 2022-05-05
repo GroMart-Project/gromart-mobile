@@ -4,7 +4,7 @@ import { COLORS } from "../../data/Constants";
 import { TextInput } from "react-native-paper";
 import ButtonBig from "../../components/utilities/ButtonBig";
 
-export default function ResetPasswordScreen({ navigation }) {
+export default function ChangePasswordScreen({ navigation }) {
   //text boxes states//
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -19,9 +19,10 @@ export default function ResetPasswordScreen({ navigation }) {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <View style={{ paddingHorizontal: 20 }}>
-          <Text style={styles.title}>Reset Your Password</Text>
+          <Text style={styles.title}>Change Your Password</Text>
           <Text style={styles.subtitle}>
-            Please enter your old password and the new password to reset
+            Please enter your old password and the new password you want to
+            change to
           </Text>
         </View>
 

@@ -19,8 +19,8 @@ export default [
   },
   {
     id: "4",
-    title: "Reset Password",
+    title: "Change Password",
     icon: "lock",
-    route: "Reset Password",
+    route: "Change Password",
   },
 ];

@@ -8,8 +8,8 @@ import DetailsScreen from "../screens/DetailsScreen";
 import EditProfileScreen from "../screens/profile/EditProfileScreen";
 import OrdersScreen from "../screens/profile/OrdersScreen";
 import WishlistScreen from "../screens/profile/WishlistScreen";
-import ResetPasswordScreen from "../screens/profile/ResetPasswordScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
+import ChangePasswordScreen from "../screens/profile/ChangePasswordScreen";
 import AppHeader from "../components/AppHeader";
 
 const MainStack = createNativeStackNavigator();
@@ -47,8 +47,8 @@ export default function SignedInStack() {
           <MainStack.Screen name="Orders" component={OrdersScreen} />
           <MainStack.Screen name="Wishlist" component={WishlistScreen} />
           <MainStack.Screen
-            name="Reset Password"
-            component={ResetPasswordScreen}
+            name="Change Password"
+            component={ChangePasswordScreen}
           />
           {/* Screen from profile screen */}
         </MainStack.Group>
