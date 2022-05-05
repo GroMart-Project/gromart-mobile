@@ -1,8 +1,7 @@
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import { Card, IconButton } from "react-native-paper";
-import ButtonSmall from "../components/utilities/ButtonSmall";
+import { Card, IconButton, Button } from "react-native-paper";
 
 //firebase imports
 import {
@@ -132,10 +131,15 @@ export default function DetailsScreen({ navigation, route }) {
 
         {/* Button Section */}
         <View style={styles.bottomSection}>
-          <ButtonSmall
-            title={"Add to Cart"}
-            onPress={() => console.log("Add to cart pressed")}
-          />
+          <Button
+            mode="contained"
+            theme={{ roundness: 25 }}
+            labelStyle={styles.button}
+            color={COLORS.primary}
+            onPress={() => console.log("Add to cart")}
+          >
+            Add to Cart
+          </Button>
         </View>
         {/* Button Section ends */}
       </View>
@@ -229,5 +233,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 2,
     paddingHorizontal: 7.5,
+  },
+  button: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+    padding: 2.5,
   },
 });
