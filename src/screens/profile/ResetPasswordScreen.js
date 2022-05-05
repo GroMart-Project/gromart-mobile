@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
-import HeaderStyles from "../../components/utilities/HeaderStyles";
+import React from "react";
 import { COLORS } from "../../data/Constants";
 import { TextInput } from "react-native-paper";
 import ButtonBig from "../../components/utilities/ButtonBig";

@@ -1,7 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
-import HeaderStyles from "../components/utilities/HeaderStyles";
-import ProductBox from "../components/ProductBox";
+import { StyleSheet, View } from "react-native";
+import React from "react";
 import { COLORS } from "../data/Constants";
 import VerticalProductList from "../components/VerticalProductList";
 

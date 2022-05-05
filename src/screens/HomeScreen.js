@@ -1,8 +1,7 @@
 import { StyleSheet, View, FlatList } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import HomeSection from "../components/HomeSection";
-import HeaderStyles from "../components/utilities/HeaderStyles";
 import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
 //Firebase imports//

@@ -5,8 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import HeaderStyles from "../components/utilities/HeaderStyles";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 
@@ -15,7 +14,6 @@ import {
   fetchCategoriesData,
   fetchProductsData,
 } from "../utilities/firestoreQueries";
-import ProductBox from "../components/ProductBox";
 import VerticalProductList from "../components/VerticalProductList";
 
 export default function CategoriesScreen({ navigation }) {

@@ -1,6 +1,5 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import HeaderStyles from "../../components/utilities/HeaderStyles";
+import React, { useEffect, useState } from "react";
 import VerticalProductList from "../../components/VerticalProductList";
 import { COLORS } from "../../data/Constants";
 

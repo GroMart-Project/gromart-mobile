@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
-import HeaderStyles from "../../components/utilities/HeaderStyles";
+import React from "react";
 import { COLORS } from "../../data/Constants";
 
 export default function OrdersScreen({ navigation }) {

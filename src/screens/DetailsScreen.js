@@ -1,15 +1,13 @@
 import {
   Dimensions,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import HeaderStyles from "../components/utilities/HeaderStyles";
 import { Card } from "react-native-paper";
 import ButtonSmall from "../components/utilities/ButtonSmall";
 import { MaterialIcons } from "@expo/vector-icons";

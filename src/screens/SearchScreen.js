@@ -1,13 +1,11 @@
 import {
   Dimensions,
-  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import HeaderStyles from "../components/utilities/HeaderStyles";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Chip, Searchbar } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
@@ -20,8 +18,6 @@ import {
   fetchProductsData,
   fetchRecentlyViewedProductsData,
 } from "../utilities/firestoreQueries";
-import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
-import ProductBox from "../components/ProductBox";
 import HorizontalProductList from "../components/HorizontalProductList";
 
 export default function SearchScreen({ navigation }) {
