@@ -36,6 +36,10 @@ export default function DetailsScreen({ navigation, route }) {
   }, []);
   //fetch end//
 
+  //add to cart function//
+
+  //function end//
+
   return (
     <View style={styles.container}>
       {/* Upper ScrollView */}
