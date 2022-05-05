@@ -20,6 +20,7 @@ import ButtonBig from "../components/utilities/ButtonBig";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import ActivityIndicatorModal from "../components/utilities/ActivityIndicatorModal";
+import ForgotPasswordModal from "../components/ForgotPasswordModal";
 
 function LoginScreen({ navigation }) {
   //States for inputs
@@ -60,7 +61,11 @@ function LoginScreen({ navigation }) {
 
   // password visibility state//
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-  //state ends
+  //state ends//
+
+  //forgot password modal visibility state//
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  //state end//
 
   return (
     <TouchableWithoutFeedback
@@ -125,7 +130,7 @@ function LoginScreen({ navigation }) {
           <View style={styles.footer}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => console.log("Forgot password pressed")}
+              onPress={() => setIsResettingPassword(true)}
             >
               <Text
                 style={{
@@ -151,6 +156,13 @@ function LoginScreen({ navigation }) {
             </View>
           </View>
         </View>
+
+        {/* forgot password modal */}
+        <ForgotPasswordModal
+          isVisible={isResettingPassword}
+          setIsVisible={setIsResettingPassword}
+        />
+        {/* forgot password modal end*/}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
