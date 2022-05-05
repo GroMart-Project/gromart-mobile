@@ -11,6 +11,7 @@ import WishlistScreen from "../screens/profile/WishlistScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
 import ChangePasswordScreen from "../screens/profile/ChangePasswordScreen";
 import AppHeader from "../components/AppHeader";
+import CartScreen from "../screens/CartScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -51,6 +52,10 @@ export default function SignedInStack() {
             component={ChangePasswordScreen}
           />
           {/* Screen from profile screen */}
+
+          {/* Screens from bottom tab screens */}
+          <MainStack.Screen name="Cart" component={CartScreen} />
+          {/* Screen from bottom tab screens */}
         </MainStack.Group>
       </MainStack.Navigator>
     </NavigationContainer>

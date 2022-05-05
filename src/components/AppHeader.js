@@ -25,7 +25,26 @@ export default function AppHeader({ tab }) {
 
   const _goBack = () => navigation.goBack();
   const _canGoBack = navigation.canGoBack() && !tab;
-  const _handleCart = () => console.log("Searching");
+  const _handleCart = () => navigation.navigate("Cart");
+  const _handleClear = () => console.log("clear");
+
+  const cartIcon = (
+    <Appbar.Action
+      icon="cart-outline"
+      onPress={_handleCart}
+      color={color}
+      size={size}
+    />
+  );
+
+  const clearIcon = (
+    <Appbar.Action
+      icon="delete-sweep-outline"
+      onPress={_handleClear}
+      color={color}
+      size={size}
+    />
+  );
 
   return (
     <Appbar.Header style={{ backgroundColor: "white" }}>
@@ -35,12 +54,7 @@ export default function AppHeader({ tab }) {
 
       <Appbar.Content title={title()} titleStyle={styles.title} />
 
-      <Appbar.Action
-        icon="cart-outline"
-        onPress={_handleCart}
-        color={color}
-        size={size}
-      />
+      {route.name == "Cart" ? clearIcon : cartIcon}
     </Appbar.Header>
   );
 }
