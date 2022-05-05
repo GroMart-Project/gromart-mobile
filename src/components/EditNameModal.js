@@ -19,7 +19,19 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
 
   //function to close modal
   const onClose = () => {
-    setIsVisible(false), setNewName("");
+    setIsVisible(false);
+    setNewName("");
+  };
+  //function ends//
+
+  //function to confirm modal
+  const onConfirm = () => {
+    if (!newName) {
+      alert("Please enter a new name");
+    } else {
+      updateName(newName);
+      onClose();
+    }
   };
   //function ends//
 
@@ -59,10 +71,7 @@ export default function EditNameModal({ isVisible, setIsVisible }) {
                 theme={{ roundness: 20 }}
                 style={{ marginLeft: 20 }}
                 color={COLORS.primary}
-                onPress={() => {
-                  updateName(newName);
-                  onClose();
-                }}
+                onPress={onConfirm}
               >
                 Confirm
               </Button>
