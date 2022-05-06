@@ -1,13 +1,23 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CartItemBox from "../components/CartItemBox";
 import { COLORS } from "../data/Constants";
 import { Button, Divider } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { getTotals } from "../redux/cartSlice";
 
 export default function CartScreen() {
   //obtain cart products
   const cart = useSelector((state) => state.cart);
+  //end
+
+  //calculate totals
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart]);
   //end
 
   return (
@@ -32,10 +42,17 @@ export default function CartScreen() {
           <Text style={styles.label}>Total Price</Text>
           <Text style={styles.price}>
             {"$"}
-            {"55"}
+            {cart.cartTotalAmount?.toFixed(2)}
           </Text>
         </View>
         {/* Price Section Ends */}
+
+        {/* Quantity Section*/}
+        <View style={styles.bottomSection}>
+          <Text style={styles.label}>Total Quantity</Text>
+          <Text style={styles.price}>{cart.cartTotalQuantity}</Text>
+        </View>
+        {/* Quantity Section */}
 
         {/* Button Section */}
         <View style={styles.bottomSection}>
@@ -72,6 +89,7 @@ const styles = StyleSheet.create({
   },
   bottomSection: {
     margin: 10,
+    alignItems: "center",
   },
   label: {
     color: COLORS.text,

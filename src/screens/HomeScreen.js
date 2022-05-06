@@ -5,7 +5,7 @@ import HomeSection from "../components/HomeSection";
 import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { loadProducts } from "../redux/cartSlice";
+import { getTotals, loadProducts } from "../redux/cartSlice";
 
 //Firebase imports//
 import { fetchSectionsData } from "../utilities/firestoreQueries";
@@ -18,6 +18,7 @@ export default function HomeScreen({ navigation }) {
     AsyncStorage.getItem("cartItems").then((data) => {
       const parsed = JSON.parse(data);
       dispatch(loadProducts(parsed));
+      dispatch(getTotals());
     });
   }, []);
   //fetch ends//
