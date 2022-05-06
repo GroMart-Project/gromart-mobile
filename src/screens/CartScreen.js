@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   label: {
     color: COLORS.text,
     fontSize: 12,
-    marginLeft: 5,
   },
   price: {
     color: COLORS.text,
