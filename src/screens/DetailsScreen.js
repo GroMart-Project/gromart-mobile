@@ -221,6 +221,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: 70,
     paddingHorizontal: 10,
+    borderTopColor: "rgba(0, 0, 0, 0.05)",
+    borderTopWidth: 1,
   },
   bottomSection: {
     margin: 10,
