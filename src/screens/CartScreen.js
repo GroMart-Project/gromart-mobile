@@ -7,7 +7,7 @@ import { Button, Divider } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { getTotals } from "../redux/cartSlice";
 
-export default function CartScreen() {
+export default function CartScreen({ navigation }) {
   //obtain cart products
   const cart = useSelector((state) => state.cart);
   //end
@@ -73,7 +73,7 @@ export default function CartScreen() {
             theme={{ roundness: 25 }}
             labelStyle={styles.button}
             color={COLORS.primary}
-            onPress={() => console.log("checkout")}
+            onPress={() => navigation.navigate("Checkout")}
           >
             Checkout
           </Button>
