@@ -20,6 +20,18 @@ export default function CartScreen() {
   }, [cart, dispatch]);
   //end
 
+  // if cart is empty//
+  if (!cart || cart.cartItems?.length == 0) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.noItemsContainer}>
+          <Text style={styles.noItemsText}>No Items In Cart</Text>
+        </View>
+      </View>
+    );
+  }
+  //end//
+
   return (
     <View style={styles.container}>
       {/* Cart list */}
@@ -76,6 +88,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  noItemsContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  noItemsText: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: "bold",
   },
   footer: {
     backgroundColor: "white",
