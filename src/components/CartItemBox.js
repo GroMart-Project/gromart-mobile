@@ -2,9 +2,19 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../data/Constants";
 import { IconButton } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../redux/cartSlice";
 
 export default function CartItemBox({ data }) {
   const { title, imageUri, price, cartQuantity } = data;
+
+  //add to cart function//
+  const dispatch = useDispatch();
+
+  const onRemoveItem = (product) => {
+    dispatch(removeFromCart(product));
+  };
+  //function end//
 
   const size = Dimensions.get("window").width * 0.3;
 
@@ -48,7 +58,7 @@ export default function CartItemBox({ data }) {
         icon={"delete-outline"}
         size={35}
         color={COLORS.primary}
-        onPress={() => console.log("delete")}
+        onPress={() => onRemoveItem(data)}
       />
     </View>
   );

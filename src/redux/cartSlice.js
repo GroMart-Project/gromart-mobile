@@ -14,6 +14,7 @@ const cartSlice = createSlice({
     loadProducts(state, action) {
       state.cartItems = action.payload;
     },
+
     addToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id == action.payload.id
@@ -27,12 +28,15 @@ const cartSlice = createSlice({
 
       AsyncStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     removeFromCart(state, action) {
       const nextCartItems = state.cartItems.filter(
         (cartItem) => cartItem.id !== action.payload.id
       );
 
       state.cartItems = nextCartItems;
+
+      AsyncStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
