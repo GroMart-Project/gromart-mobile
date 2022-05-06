@@ -17,7 +17,7 @@ export default function CartScreen() {
 
   useEffect(() => {
     dispatch(getTotals());
-  }, [cart]);
+  }, [cart, dispatch]);
   //end
 
   return (
