@@ -40,7 +40,7 @@ export default function CartItemBox({ data }) {
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.price}>
             {"$"}
-            {price.toFixed(2)}
+            {(price * cartQuantity).toFixed(2)}
           </Text>
         </View>
         <View style={styles.counter}>

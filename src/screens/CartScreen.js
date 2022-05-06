@@ -73,7 +73,11 @@ export default function CartScreen({ navigation }) {
             theme={{ roundness: 25 }}
             labelStyle={styles.button}
             color={COLORS.primary}
-            onPress={() => navigation.navigate("Checkout")}
+            onPress={() =>
+              navigation.navigate("Checkout", {
+                cart: cart,
+              })
+            }
           >
             Checkout
           </Button>

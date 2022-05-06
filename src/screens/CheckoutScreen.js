@@ -1,10 +1,10 @@
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import { Button, Card } from "react-native-paper";
+import { Button, Card, Divider, RadioButton } from "react-native-paper";
 import { fetchUserData } from "../utilities/firestoreQueries";
 
-export default function CheckoutScreen({ navigation }) {
+export default function CheckoutScreen({ navigation, route }) {
   //fetch user data realtime//
   const [userData, setUserData] = useState();
 
@@ -20,12 +20,21 @@ export default function CheckoutScreen({ navigation }) {
   const deliveryAddress = userData?.deliveryAddress;
   //get ends//
 
+  //get total from route params//
+  const { cartTotalAmount } = route?.params?.cart;
+  //end//
+
+  //payment radio state//
+  const [checked, setChecked] = React.useState("PoD");
+  //end//
+
   return (
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
       >
+        {/* Delivery Details Section */}
         <View style={{}}>
           <View style={styles.top}>
             <Text style={styles.sectionTitle}>Delivery Details</Text>
@@ -81,6 +90,113 @@ export default function CheckoutScreen({ navigation }) {
             {/* Address card */}
           </View>
         </View>
+        {/* Delivery Details Section */}
+
+        {/* Payment Section */}
+        <View style={{ marginTop: 30 }}>
+          <View style={styles.top}>
+            <Text style={[styles.sectionTitle, { paddingVertical: 5 }]}>
+              Payment
+            </Text>
+          </View>
+
+          <View style={{ marginVertical: 5, alignItems: "center" }}>
+            {/* Pay on Delivery card */}
+            <Card
+              style={styles.card}
+              elevation={2}
+              onPress={() => setChecked("PoD")}
+            >
+              <View
+                style={[
+                  styles.cardContent,
+                  { flexDirection: "row", alignItems: "center" },
+                ]}
+              >
+                <RadioButton
+                  value="PoD"
+                  status={checked === "PoD" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("PoD")}
+                />
+                <Text style={styles.cardText}>Pay on Delivery </Text>
+              </View>
+            </Card>
+            {/* Pay on Delivery card */}
+
+            {/* MoMo card */}
+            <Card
+              style={styles.card}
+              elevation={2}
+              onPress={() => setChecked("MoMo")}
+            >
+              <View
+                style={[
+                  styles.cardContent,
+                  { flexDirection: "row", alignItems: "center" },
+                ]}
+              >
+                <RadioButton
+                  value="MoMo"
+                  status={checked === "MoMo" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("MoMo")}
+                />
+                <Text style={styles.cardText}>Mobile Money </Text>
+              </View>
+            </Card>
+            {/* Pay on Delivery card */}
+          </View>
+        </View>
+        {/* Payment Section */}
+
+        {/* Total Section */}
+        <View style={styles.total}>
+          <View style={styles.costContainer}>
+            <Text style={[styles.cost, { marginRight: "auto" }]}>Subtotal</Text>
+            <Text style={styles.cost}>
+              {"$"}
+              {cartTotalAmount.toFixed(2)}
+            </Text>
+          </View>
+
+          <View style={styles.costContainer}>
+            <Text style={[styles.cost, { marginRight: "auto" }]}>
+              Delivery Fee
+            </Text>
+            <Text
+              style={[styles.cost, { color: COLORS.box, fontWeight: "bold" }]}
+            >
+              {"$"}
+              {"3.00"}
+            </Text>
+          </View>
+
+          <Divider style={{ marginVertical: 10 }} />
+
+          <View style={styles.costContainer}>
+            <Text style={[styles.cost, { marginRight: "auto" }]}>Total</Text>
+            <Text
+              style={[
+                styles.cost,
+                { color: COLORS.primary, fontWeight: "bold" },
+              ]}
+            >
+              {"$"}
+              {(cartTotalAmount - 3).toFixed(2)}
+            </Text>
+          </View>
+
+          <Button
+            mode="contained"
+            theme={{ roundness: 25 }}
+            style={{ marginVertical: 20 }}
+            labelStyle={styles.button}
+            color={COLORS.primary}
+            onPress={() => console.log("Place Order")}
+          >
+            Place Order
+          </Button>
+        </View>
+        {/* Total Section end */}
       </ScrollView>
     </View>
   );
@@ -137,5 +253,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginVertical: 10,
     textAlign: "center",
+  },
+
+  //total//
+  total: {
+    backgroundColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginTop: 30,
+  },
+  costContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginVertical: 2,
+  },
+  cost: {
+    color: COLORS.text,
+    fontSize: 18,
+  },
+  button: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+    padding: 2.5,
   },
 });
