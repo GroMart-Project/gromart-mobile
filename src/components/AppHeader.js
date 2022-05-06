@@ -3,12 +3,23 @@ import React from "react";
 import { Appbar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { COLORS } from "../data/Constants";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartSlice";
 
 export default function AppHeader({ tab }) {
   //navigation and route//
   const route = useRoute();
   const navigation = useNavigation();
   //end//
+
+  //cart functions//
+  const dispatch = useDispatch();
+
+  const onClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  //function end//
 
   const title = () => {
     if (route.params?.title) {
@@ -26,7 +37,6 @@ export default function AppHeader({ tab }) {
   const _goBack = () => navigation.goBack();
   const _canGoBack = navigation.canGoBack() && !tab;
   const _handleCart = () => navigation.navigate("Cart");
-  const _handleClear = () => console.log("clear");
 
   const cartIcon = (
     <Appbar.Action
@@ -40,7 +50,7 @@ export default function AppHeader({ tab }) {
   const clearIcon = (
     <Appbar.Action
       icon="delete-sweep-outline"
-      onPress={_handleClear}
+      onPress={onClearCart}
       color={color}
       size={size}
     />

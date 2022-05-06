@@ -55,10 +55,21 @@ const cartSlice = createSlice({
 
       AsyncStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
+    clearCart(state) {
+      state.cartItems = [];
+
+      AsyncStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
-export const { loadProducts, addToCart, removeFromCart, decreaseCart } =
-  cartSlice.actions;
+export const {
+  loadProducts,
+  addToCart,
+  removeFromCart,
+  decreaseCart,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
