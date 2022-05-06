@@ -70,6 +70,18 @@ export default function AppHeader({ tab }) {
     />
   );
 
+  //icon selector
+  const icon = () => {
+    if (route.name == "Cart") {
+      return clearIcon;
+    }
+    if (route.name == "Checkout") {
+      return null;
+    } else {
+      return cartIcon;
+    }
+  };
+
   return (
     <Appbar.Header style={{ backgroundColor: "white" }}>
       {_canGoBack && (
@@ -78,7 +90,7 @@ export default function AppHeader({ tab }) {
 
       <Appbar.Content title={title()} titleStyle={styles.title} />
 
-      {route.name == "Cart" ? clearIcon : cartIcon}
+      {icon()}
     </Appbar.Header>
   );
 }
