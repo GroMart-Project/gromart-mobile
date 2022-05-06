@@ -3,16 +3,24 @@ import React from "react";
 import { COLORS } from "../data/Constants";
 import { IconButton } from "react-native-paper";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../redux/cartSlice";
+import { addToCart, decreaseCart, removeFromCart } from "../redux/cartSlice";
 
 export default function CartItemBox({ data }) {
   const { title, imageUri, price, cartQuantity } = data;
 
-  //add to cart function//
+  //cart functions//
   const dispatch = useDispatch();
 
   const onRemoveItem = (product) => {
     dispatch(removeFromCart(product));
+  };
+
+  const onDecrease = (product) => {
+    dispatch(decreaseCart(product));
+  };
+
+  const onIncrease = (product) => {
+    dispatch(addToCart(product));
   };
   //function end//
 
@@ -40,7 +48,7 @@ export default function CartItemBox({ data }) {
             icon={"minus"}
             size={24}
             color={COLORS.primary}
-            onPress={() => console.log("minus")}
+            onPress={() => onDecrease(data)}
             style={styles.icon}
           />
           <Text style={styles.quantity}>{cartQuantity}</Text>
@@ -48,7 +56,7 @@ export default function CartItemBox({ data }) {
             icon={"plus"}
             size={24}
             color={COLORS.primary}
-            onPress={() => console.log("plus")}
+            onPress={() => onIncrease(data)}
             style={styles.icon}
           />
         </View>
