@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../../data/Constants";
-import { Card } from "react-native-paper";
+import { Card, IconButton } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import EditNameModal from "../../components/EditNameModal";
 import EditPhoneModal from "../../components/EditPhoneModal";
@@ -134,13 +134,16 @@ export default function EditProfileScreen({ navigation }) {
               <Text style={styles.label}>Name</Text>
               <Text style={styles.name}>{name} </Text>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => setIsEditingName(true)}
-              style={{ marginLeft: "auto" }}
-            >
-              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
-            </TouchableOpacity>
+
+            <View style={{ marginLeft: "auto" }}>
+              <IconButton
+                icon={"pencil"}
+                size={30}
+                color={COLORS.primary}
+                onPress={() => setIsEditingName(true)}
+                style={{ margin: -5 }}
+              />
+            </View>
           </View>
         </Card>
         {/* Name Card end */}
@@ -154,13 +157,15 @@ export default function EditProfileScreen({ navigation }) {
                 {phoneNumber ? phoneNumber : "No Number Added"}
               </Text>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => setIsEditingPhone(true)}
-              style={{ marginLeft: "auto" }}
-            >
-              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
-            </TouchableOpacity>
+            <View style={{ marginLeft: "auto" }}>
+              <IconButton
+                icon={"pencil"}
+                size={30}
+                color={COLORS.primary}
+                onPress={() => setIsEditingPhone(true)}
+                style={{ margin: -5 }}
+              />
+            </View>
           </View>
         </Card>
         {/* Phone Card end */}
@@ -184,13 +189,15 @@ export default function EditProfileScreen({ navigation }) {
                 <Text style={styles.name}>No Address Added</Text>
               )}
             </View>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => setIsEditingAddress(true)}
-              style={{ marginLeft: "auto" }}
-            >
-              <MaterialIcons name="edit" size={30} color={COLORS.primary} />
-            </TouchableOpacity>
+            <View style={{ marginLeft: "auto" }}>
+              <IconButton
+                icon={"pencil"}
+                size={30}
+                color={COLORS.primary}
+                onPress={() => setIsEditingAddress(true)}
+                style={{ margin: -5 }}
+              />
+            </View>
           </View>
         </Card>
         {/* Address Card end */}

@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Button, ProgressBar } from "react-native-paper";
 import { updateUserImage } from "../utilities/firestoreQueries";
