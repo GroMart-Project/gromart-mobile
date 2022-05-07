@@ -91,7 +91,16 @@ export default function EditProfileScreen({ navigation }) {
         contentContainerStyle={styles.scroll}
       >
         {/* Profile Pic */}
-        <Card style={styles.imageCard} elevation={4}>
+        <Card
+          style={styles.imageCard}
+          elevation={4}
+          onPress={() =>
+            navigation.navigate("Image Viewer", {
+              title: name,
+              imageUri: imageUri,
+            })
+          }
+        >
           <View style={styles.imageContainer}>
             <Card.Cover
               source={{ uri: imageUri }}

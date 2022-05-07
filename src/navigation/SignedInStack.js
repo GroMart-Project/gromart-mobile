@@ -14,6 +14,7 @@ import AppHeader from "../components/AppHeader";
 import CartScreen from "../screens/CartScreen";
 import CheckoutScreen from "../screens/CheckoutScreen";
 import OrderDetailsScreen from "../screens/OrderDetailsScreen";
+import ImageViewerScreen from "../screens/ImageViewerScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -21,15 +22,16 @@ export default function SignedInStack() {
   return (
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="Main">
-        {/* Initial Screens */}
+        {/*  Screens with header false */}
         <MainStack.Group
           screenOptions={{
             headerShown: false,
           }}
         >
           <MainStack.Screen name="Main" component={MainTabNavigator} />
+          <MainStack.Screen name="Image Viewer" component={ImageViewerScreen} />
         </MainStack.Group>
-        {/* Initial Screens */}
+        {/* Screens with header false */}
 
         <MainStack.Group
           screenOptions={{
