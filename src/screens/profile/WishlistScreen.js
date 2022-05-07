@@ -11,7 +11,7 @@ import {
 
 export default function WishlistScreen({ navigation }) {
   //fetch data for products//
-  const [productsData, setProductsData] = useState([]);
+  const [productsData, setProductsData] = useState();
 
   useEffect(() => {
     fetchProductsData(setProductsData).catch((error) => console.log(error));
@@ -43,10 +43,7 @@ export default function WishlistScreen({ navigation }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = () => {
-      productsData && setLoaded(true);
-    };
-    return unsubscribe;
+    productsData && setLoaded(true);
   }, [productsData]);
   //state ends//
 
