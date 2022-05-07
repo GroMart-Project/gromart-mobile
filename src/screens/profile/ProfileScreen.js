@@ -14,6 +14,8 @@ import { Card } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import OptionsData from "../../data/OptionsData";
 import ButtonBig from "../../components/utilities/ButtonBig";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../redux/cartSlice";
 
 //Firebase imports
 import { auth } from "../../../firebase";
@@ -21,6 +23,14 @@ import { signOut } from "firebase/auth";
 import { fetchUserData } from "../../utilities/firestoreQueries";
 
 export default function ProfileScreen({ navigation }) {
+  //clear cart function//
+  const dispatch = useDispatch();
+
+  const onClearCart = () => {
+    dispatch(clearCart());
+  };
+  //function end//
+
   //Sign out function//
   const Logout = () => {
     Alert.alert("Logout", "Are you sure you want to log out?", [
@@ -33,6 +43,7 @@ export default function ProfileScreen({ navigation }) {
         style: "destructive",
         onPress: () => {
           signOut(auth)
+            .then(() => onClearCart())
             .then(() => console.log("signed out"))
             .catch((error) => alert(error.message));
         },
