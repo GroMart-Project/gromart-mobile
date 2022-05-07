@@ -2,7 +2,13 @@ import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Button, Card, Divider, RadioButton } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../redux/cartSlice";
+
+//firebase imports
 import { fetchUserData } from "../utilities/firestoreQueries";
+import { auth, db } from "../../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function CheckoutScreen({ navigation, route }) {
   //fetch user data realtime//
@@ -21,11 +27,49 @@ export default function CheckoutScreen({ navigation, route }) {
   //get ends//
 
   //get total from route params//
-  const { cartTotalAmount } = route?.params?.cart;
+  const { cartItems, cartTotalAmount, cartTotalQuantity } = route?.params?.cart;
   //end//
 
   //payment radio state//
-  const [checked, setChecked] = React.useState("PoD");
+  const [checked, setChecked] = React.useState("PCoD");
+  //end//
+
+  //clear cart functions//
+  const dispatch = useDispatch();
+
+  const onClearCart = () => {
+    dispatch(clearCart());
+  };
+  //function end//
+
+  //data for order//
+  const orderData = {
+    id: `#${Math.random().toString(36).slice(2)}`,
+    orderItems: cartItems,
+    orderTotalAmount: cartTotalAmount,
+    orderTotalQuantity: cartTotalQuantity,
+    orderStatus: "pending",
+    placedOn: serverTimestamp(),
+    paymentMethod: checked == "PCoD" ? "Pay Cash on Delivery" : "Mobile Money",
+    deliveryAddress: deliveryAddress,
+    contact: phoneNumber,
+    userId: auth.currentUser.uid,
+    deliveryFee: 3,
+  };
+  //end//
+
+  //order function//
+  const uploadOrder = async () => {
+    const orderRef = doc(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "orders",
+      `${orderData.id}`
+    );
+
+    await setDoc(orderRef, orderData);
+  };
   //end//
 
   //place order function//
@@ -37,7 +81,11 @@ export default function CheckoutScreen({ navigation, route }) {
     } else if (!phoneNumber && deliveryAddress) {
       alert("Please add a valid contact");
     } else {
-      console.log("Place Order");
+      uploadOrder()
+        .then(() => alert("Order placed successfully "))
+        .then(() => onClearCart())
+        .then(() => navigation.navigate("Home"))
+        .catch((error) => alert(error));
     }
   };
   //end//
@@ -119,7 +167,7 @@ export default function CheckoutScreen({ navigation, route }) {
             <Card
               style={styles.card}
               elevation={2}
-              onPress={() => setChecked("PoD")}
+              onPress={() => setChecked("PCoD")}
             >
               <View
                 style={[
@@ -128,11 +176,11 @@ export default function CheckoutScreen({ navigation, route }) {
                 ]}
               >
                 <RadioButton
-                  value="PoD"
-                  status={checked === "PoD" ? "checked" : "unchecked"}
-                  onPress={() => setChecked("PoD")}
+                  value="PCoD"
+                  status={checked === "PCoD" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("PCoD")}
                 />
-                <Text style={styles.cardText}>Pay on Delivery </Text>
+                <Text style={styles.cardText}>Pay Cash on Delivery </Text>
               </View>
             </Card>
             {/* Pay on Delivery card */}
