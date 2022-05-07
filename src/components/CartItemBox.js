@@ -96,14 +96,12 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 18,
     marginRight: "auto",
-    paddingRight: 35,
   },
   price: {
     color: COLORS.text,
     fontSize: 28,
     fontWeight: "bold",
     marginRight: "auto",
-    paddingRight: 35,
   },
   counter: {
     flexDirection: "row",

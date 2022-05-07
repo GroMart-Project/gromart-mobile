@@ -83,12 +83,10 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.text,
     fontSize: 18,
-    paddingRight: 35,
   },
   subtitle: {
     color: COLORS.text,
     fontSize: 14,
-    paddingRight: 35,
   },
 
   //status

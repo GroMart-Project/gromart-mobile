@@ -77,22 +77,28 @@ export default function DetailsScreen({ navigation, route }) {
         {/* Image Card ends */}
 
         {/* Title Card */}
-        <Card style={styles.card} elevation={4}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>{title}</Text>
-            <IconButton
-              icon={wishlistData?.includes(id) ? "heart" : "heart-outline"}
-              size={30}
-              color={COLORS.primary}
-              onPress={() =>
-                toggleFavorite(id)
-                  .then(() => console.log("toggled id is: ", id))
-                  .catch((error) => console.log(error))
-              }
-              style={{ margin: -3 }}
-            />
+        <Card style={styles.card} elevation={2}>
+          <View style={[styles.cardContent, { flexDirection: "row" }]}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.title}>{title}</Text>
+            </View>
+
+            <View>
+              <IconButton
+                icon={wishlistData?.includes(id) ? "heart" : "heart-outline"}
+                size={30}
+                color={COLORS.primary}
+                onPress={() =>
+                  toggleFavorite(id)
+                    .then(() => console.log("toggled id is: ", id))
+                    .catch((error) => console.log(error))
+                }
+                style={{ margin: -2 }}
+              />
+            </View>
           </View>
         </Card>
+
         {/* Title Card end */}
 
         {/* Description Card */}
@@ -187,8 +193,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: width * 0.9,
   },
-  titleContainer: {
-    flexDirection: "row",
+
+  //new card
+  cardContent: {
     paddingVertical: 5,
     paddingHorizontal: 10,
     alignItems: "center",
@@ -196,10 +203,8 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.text,
     fontSize: 24,
-    fontWeight: "bold",
-    marginRight: "auto",
-    paddingRight: 35,
   },
+
   descriptionContainer: {
     padding: 10,
   },
