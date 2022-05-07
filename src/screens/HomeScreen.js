@@ -3,11 +3,26 @@ import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import HomeSection from "../components/HomeSection";
 import ListEmptyIndicator from "../components/utilities/ListEmptyIndicator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { getTotals, loadProducts } from "../redux/cartSlice";
 
 //Firebase imports//
 import { fetchSectionsData } from "../utilities/firestoreQueries";
 
 export default function HomeScreen({ navigation }) {
+  //load cart from async storage
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    AsyncStorage.getItem("cartItems").then((data) => {
+      const parsed = JSON.parse(data);
+      dispatch(loadProducts(parsed));
+      dispatch(getTotals());
+    });
+  }, []);
+  //fetch ends//
+
   //fetch data for sections//
   const [sectionsData, setSectionsData] = useState([]);
 

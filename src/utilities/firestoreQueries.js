@@ -116,7 +116,7 @@ export const addRecentlyViewedProduct = async (key) => {
   });
 };
 
-//Function for fetching search  history
+//Function for fetching user data realtime
 export const fetchUserData = (setUserData) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   return onSnapshot(userDoc, (doc) => setUserData(doc?.data()));
@@ -202,5 +202,18 @@ export const fetchWishlistData = (setWishlistData) => {
   const userDoc = doc(db, "users", auth.currentUser.uid);
   return onSnapshot(userDoc, (doc) =>
     setWishlistData(doc.data()?.wishlist?.map((wishlistItem) => wishlistItem))
+  );
+};
+
+//Function for fetching orders
+export const fetchOrdersData = (setOrdersData) => {
+  const ordersCollection = collection(
+    db,
+    "users",
+    auth.currentUser.uid,
+    "orders"
+  );
+  return onSnapshot(ordersCollection, (ordersSnapshot) =>
+    setOrdersData(ordersSnapshot.docs.map((doc) => doc.data()))
   );
 };
