@@ -28,6 +28,20 @@ export default function CheckoutScreen({ navigation, route }) {
   const [checked, setChecked] = React.useState("PoD");
   //end//
 
+  //place order function//
+  const onPlaceOrder = () => {
+    if (!phoneNumber && !deliveryAddress) {
+      alert("Please add a valid contact and delivery address");
+    } else if (phoneNumber && !deliveryAddress) {
+      alert("Please add a valid delivery address");
+    } else if (!phoneNumber && deliveryAddress) {
+      alert("Please add a valid contact");
+    } else {
+      console.log("Place Order");
+    }
+  };
+  //end//
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -191,7 +205,7 @@ export default function CheckoutScreen({ navigation, route }) {
             style={{ marginVertical: 20 }}
             labelStyle={styles.button}
             color={COLORS.primary}
-            onPress={() => console.log("Place Order")}
+            onPress={onPlaceOrder}
           >
             Place Order
           </Button>
