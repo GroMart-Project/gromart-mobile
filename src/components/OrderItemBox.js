@@ -29,7 +29,7 @@ export default function OrderItemBox({ data, navigation }) {
         <View style={styles.middle}>
           <View style={{ flex: 1, justifyContent: "space-between" }}>
             <View>
-              <Text style={styles.title}>
+              <Text style={styles.title} numberOfLines={1}>
                 {orderItems?.length == 1
                   ? title
                   : `${title} & ${orderItems?.length} more`}

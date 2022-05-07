@@ -37,7 +37,9 @@ export default function CartItemBox({ data }) {
 
       <View style={styles.middle}>
         <View style={{ marginLeft: 10 }}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
           <Text style={styles.price}>
             {"$"}
             {(price * cartQuantity).toFixed(2)}
