@@ -28,6 +28,8 @@ export default function CheckoutScreen({ navigation, route }) {
 
   //get total from route params//
   const { cartItems, cartTotalAmount, cartTotalQuantity } = route?.params?.cart;
+
+  const deliveryFee = 5;
   //end//
 
   //payment radio state//
@@ -54,7 +56,7 @@ export default function CheckoutScreen({ navigation, route }) {
     deliveryAddress: deliveryAddress,
     contact: phoneNumber,
     userId: auth.currentUser.uid,
-    deliveryFee: 3,
+    deliveryFee: deliveryFee,
   };
   //end//
 
@@ -177,6 +179,7 @@ export default function CheckoutScreen({ navigation, route }) {
               >
                 <RadioButton
                   value="PCoD"
+                  color={COLORS.primary}
                   status={checked === "PCoD" ? "checked" : "unchecked"}
                   onPress={() => setChecked("PCoD")}
                 />
@@ -199,6 +202,7 @@ export default function CheckoutScreen({ navigation, route }) {
               >
                 <RadioButton
                   value="MoMo"
+                  color={COLORS.primary}
                   status={checked === "MoMo" ? "checked" : "unchecked"}
                   onPress={() => setChecked("MoMo")}
                 />
@@ -228,7 +232,7 @@ export default function CheckoutScreen({ navigation, route }) {
               style={[styles.cost, { color: COLORS.box, fontWeight: "bold" }]}
             >
               {"$"}
-              {"3.00"}
+              {deliveryFee.toFixed(2)}
             </Text>
           </View>
 
@@ -243,7 +247,7 @@ export default function CheckoutScreen({ navigation, route }) {
               ]}
             >
               {"$"}
-              {(cartTotalAmount - 3).toFixed(2)}
+              {(cartTotalAmount + deliveryFee).toFixed(2)}
             </Text>
           </View>
 
