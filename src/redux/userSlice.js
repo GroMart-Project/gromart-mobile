@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as SplashScreen from "expo-splash-screen";
 
 const initialState = {
-  ready: false,
   loaded: false,
   loggedIn: null,
 };
