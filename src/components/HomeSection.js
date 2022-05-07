@@ -1,14 +1,6 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
-import ProductBox from "./ProductBox";
-import ListEmptyIndicator from "./utilities/ListEmptyIndicator";
 
 //Firebase imports//
 import { fetchProductsData } from "../utilities/firestoreQueries";

@@ -85,7 +85,16 @@ export default function DetailsScreen({ navigation, route }) {
         showsVerticalScrollIndicator={false}
       >
         {/* Image Card */}
-        <Card style={styles.card} onPress={() => null} elevation={4}>
+        <Card
+          style={styles.card}
+          elevation={4}
+          onPress={() =>
+            navigation.navigate("Image Viewer", {
+              title: title,
+              imageUri: imageUri,
+            })
+          }
+        >
           {/* Image */}
           <View style={styles.imageContainer}>
             <Card.Cover

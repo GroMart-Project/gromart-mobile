@@ -59,13 +59,6 @@ export default function SearchScreen({ navigation }) {
     );
     const filteredProducts = [...new Set(mappedSearchTerms.flat(10))];
 
-    // const filteredProducts = productsData.filter(
-    //   (product) =>
-    // searchKeyword &&
-    // (product.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-    //   product.category.toLowerCase().includes(searchKeyword.toLowerCase()))
-    // );
-
     return setSearchedProducts(filteredProducts);
   }, [searchKeyword]);
   //listener ends//

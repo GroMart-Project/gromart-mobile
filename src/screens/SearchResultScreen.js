@@ -34,13 +34,6 @@ export default function SearchResultScreen({ navigation, route }) {
     );
     const filteredProducts = [...new Set(mappedSearchTerms.flat(10))];
 
-    // const filteredProducts = productsData.filter(
-    //   (product) =>
-    //     searchKey &&
-    //     (product.title.toLowerCase().includes(searchKey.toLowerCase()) ||
-    //       product.category.toLowerCase().includes(searchKey.toLowerCase()))
-    // );
-
     return setSearchedProducts(filteredProducts);
   }, [productsData]);
   //filter ends//
