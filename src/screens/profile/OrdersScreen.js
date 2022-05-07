@@ -2,6 +2,8 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../../data/Constants";
 import { fetchOrdersData } from "../../utilities/firestoreQueries";
+import OrderItemBox from "../../components/OrderItemBox";
+import { Divider } from "react-native-paper";
 
 export default function OrdersScreen({ navigation }) {
   //fetch orders data realtime//
@@ -22,7 +24,7 @@ export default function OrdersScreen({ navigation }) {
         <FlatList
           data={ordersData}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Text>Order</Text>}
+          renderItem={({ item }) => <OrderItemBox data={item} />}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => (
             <Divider style={{ width: "90%", alignSelf: "center" }} />
