@@ -1,8 +1,9 @@
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../data/Constants";
+import { TouchableRipple } from "react-native-paper";
 
-export default function OrderItemBox({ data }) {
+export default function OrderItemBox({ data, navigation }) {
   //destructure data//
   const { orderItems, id, placedOn, orderStatus } = data;
   //end//
@@ -12,40 +13,48 @@ export default function OrderItemBox({ data }) {
   //end//
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: imageUri }}
-          style={{ width: size, height: size, borderRadius: imageRadius }}
-        />
-      </View>
+    <TouchableRipple
+      rippleColor="rgba(0, 153, 101, .2)"
+      style={styles.container}
+      onPress={() => navigation.navigate("Order Details", { data: data })}
+    >
+      <>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: size, height: size, borderRadius: imageRadius }}
+          />
+        </View>
 
-      <View style={styles.middle}>
-        <View style={{ flex: 1, justifyContent: "space-between" }}>
-          <View>
-            <Text style={styles.title}>
-              {orderItems?.length == 1
-                ? title
-                : `${title} & ${orderItems?.length} more`}
-            </Text>
-            <Text style={styles.subtitle}>
-              {"Order "}
-              {id}
-            </Text>
-          </View>
-
-          <View>
-            <View style={styles.statusBox}>
-              <Text style={styles.statusText}>{orderStatus.toUpperCase()}</Text>
+        <View style={styles.middle}>
+          <View style={{ flex: 1, justifyContent: "space-between" }}>
+            <View>
+              <Text style={styles.title}>
+                {orderItems?.length == 1
+                  ? title
+                  : `${title} & ${orderItems?.length} more`}
+              </Text>
+              <Text style={styles.subtitle}>
+                {"Order "}
+                {id}
+              </Text>
             </View>
-            <Text style={styles.subtitle}>
-              {"On "}
-              {placedOn.toDate().toLocaleDateString()}
-            </Text>
+
+            <View>
+              <View style={styles.statusBox}>
+                <Text style={styles.statusText}>
+                  {orderStatus.toUpperCase()}
+                </Text>
+              </View>
+              <Text style={styles.subtitle}>
+                {"On "}
+                {placedOn.toDate().toLocaleDateString()}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      </>
+    </TouchableRipple>
   );
 }
 

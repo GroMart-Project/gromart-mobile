@@ -15,8 +15,6 @@ export default function OrdersScreen({ navigation }) {
   }, []);
   //fetch end//
 
-  console.log(ordersData);
-
   return (
     <View style={styles.container}>
       {/* Orders list */}
@@ -24,7 +22,9 @@ export default function OrdersScreen({ navigation }) {
         <FlatList
           data={ordersData}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <OrderItemBox data={item} />}
+          renderItem={({ item }) => (
+            <OrderItemBox data={item} navigation={navigation} />
+          )}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => (
             <Divider style={{ width: "90%", alignSelf: "center" }} />
