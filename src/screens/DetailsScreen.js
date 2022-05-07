@@ -2,7 +2,7 @@ import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../data/Constants";
 import { Card, IconButton, Button } from "react-native-paper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //firebase imports
 import {
@@ -10,7 +10,7 @@ import {
   fetchWishlistData,
   toggleFavorite,
 } from "../utilities/firestoreQueries";
-import { addToCart } from "../redux/cartSlice";
+import { addToCart, decreaseCart } from "../redux/cartSlice";
 
 export default function DetailsScreen({ navigation, route }) {
   //Destructuring  the data from route//
@@ -37,7 +37,22 @@ export default function DetailsScreen({ navigation, route }) {
   }, []);
   //fetch end//
 
-  //add to cart function//
+  //obtain cart items
+  const { cartItems } = useSelector((state) => state.cart);
+  //end//
+
+  //check if item in cart
+  const [itemInCart, setItemInCart] = useState();
+
+  //filter//
+  useEffect(() => {
+    const cartItem = cartItems?.filter((cartItem) => cartItem.id == id);
+
+    setItemInCart(...cartItem);
+  }, [cartItems]);
+  //check end//
+
+  //cart functions//
   const dispatch = useDispatch();
 
   const product = {
@@ -50,7 +65,15 @@ export default function DetailsScreen({ navigation, route }) {
   const onAddCart = (product) => {
     dispatch(addToCart(product));
   };
-  //function end//
+
+  const onDecrease = (product) => {
+    dispatch(decreaseCart(product));
+  };
+
+  const onIncrease = (product) => {
+    dispatch(addToCart(product));
+  };
+  //cart functions end//
 
   return (
     <View style={styles.container}>
@@ -149,17 +172,39 @@ export default function DetailsScreen({ navigation, route }) {
         {/* Discount Section */}
 
         {/* Button Section */}
-        <View style={styles.bottomSection}>
-          <Button
-            mode="contained"
-            theme={{ roundness: 25 }}
-            labelStyle={styles.button}
-            color={COLORS.primary}
-            onPress={() => onAddCart(product)}
-          >
-            Add to Cart
-          </Button>
-        </View>
+        {itemInCart ? (
+          <View style={styles.counter}>
+            <IconButton
+              icon={"minus"}
+              size={30}
+              color={COLORS.primary}
+              onPress={() => onDecrease(product)}
+              style={styles.icon}
+            />
+            <Text style={styles.quantity}>{itemInCart?.cartQuantity}</Text>
+            <IconButton
+              icon={"plus"}
+              size={30}
+              color={COLORS.primary}
+              onPress={() => onIncrease(product)}
+              style={styles.icon}
+            />
+          </View>
+        ) : (
+          <View style={styles.bottomSection}>
+            <Button
+              mode="contained"
+              theme={{ roundness: 25 }}
+              labelStyle={styles.button}
+              color={COLORS.primary}
+              // disabled={itemInCart?.length !== 0}
+              onPress={() => onAddCart(product)}
+            >
+              Add to Cart
+            </Button>
+          </View>
+        )}
+
         {/* Button Section ends */}
       </View>
     </View>
@@ -259,5 +304,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     padding: 2.5,
+  },
+
+  //counter
+  counter: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    borderColor: COLORS.box,
+    borderWidth: 1,
+  },
+  quantity: {
+    color: COLORS.text,
+    fontSize: 28,
+    fontWeight: "bold",
+    marginHorizontal: 15,
   },
 });
