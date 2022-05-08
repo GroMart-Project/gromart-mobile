@@ -32,7 +32,7 @@ export default function OrderItemBox({ data, navigation }) {
               <Text style={styles.title} numberOfLines={1}>
                 {orderItems?.length == 1
                   ? title
-                  : `${title} & ${orderItems?.length} more`}
+                  : `${title} & ${orderItems?.length - 1} more`}
               </Text>
               <Text style={styles.subtitle}>
                 {"Order "}
