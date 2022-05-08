@@ -16,7 +16,7 @@ const userSlice = createSlice({
       };
 
       if (state.loaded) {
-        onReady();
+        setTimeout(onReady, 3000);
       }
     },
     setLoggedIn(state, action) {

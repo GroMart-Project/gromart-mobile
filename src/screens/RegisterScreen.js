@@ -41,14 +41,16 @@ function RegisterScreen({ navigation }) {
       .then((authUser) => {
         updateProfile(auth.currentUser, {
           displayName: name,
-          photoURL: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+          photoURL:
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         });
         const userRef = doc(db, "users", auth.currentUser.uid);
         setDoc(userRef, {
           userId: authUser.user.uid,
           name,
           email,
-          imageUri: "https://cdn-icons-png.flaticon.com/512/456/456212.png",
+          imageUri:
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         });
         console.log(authUser.email);
       })
