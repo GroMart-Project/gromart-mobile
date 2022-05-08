@@ -10,7 +10,7 @@ import LoginScreen from "../screens/LoginScreen";
 const MainStack = createNativeStackNavigator();
 
 export default function SignedOutStack() {
-  const [isAppFistLaunch, setIsAppFistLaunch] = useState(true);
+  const [isAppFistLaunch, setIsAppFistLaunch] = useState(null);
 
   useEffect(async () => {
     const appData = await AsyncStorage.getItem("isAppFirstLaunch");
