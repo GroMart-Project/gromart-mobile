@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "gromart-mobile",
+    "name": "GroMart",
     "slug": "gromart-mobile",
+    "privacy": "public",
+    "description": "Grocery Shopping Service",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,6 +22,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.gromart.shop",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
