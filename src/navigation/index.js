@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import SignedOutStack from "./SignedOutStack";
 import SignedInStack from "./SignedInStack";
@@ -45,7 +45,7 @@ export default function Navigation() {
   return (
     <>
       {user.loggedIn ? <SignedInStack /> : <SignedOutStack />}
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </>
   );
 }
